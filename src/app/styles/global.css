@@ -83,3 +83,16 @@ img, video, iframe {
     right: 10px;
     border: 1px solid #ededed;
 }
+
+/* 컴포넌트 css */
+#header {}
+
+
+#footer {
+    position: fixed;
+    bottom: 10px;
+}
+
+#footer p {
+    text-align: center;
+}

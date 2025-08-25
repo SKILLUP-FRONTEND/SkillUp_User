@@ -5,6 +5,7 @@
 */
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -14,16 +15,14 @@ export default function Home() {
       <main id="container">
         <section className="content">
           <div className="home one">
-            <p>hello skill up</p>
+            <p>작업 중 입니다.</p>
           </div>
           <div className="home two"></div>
           <div className="home three"></div>
         </section>
       </main>
 
-      <div id="footer">
-        <div className="inner"></div>
-      </div>
+      <Footer/>
     </div>
   );
 }
