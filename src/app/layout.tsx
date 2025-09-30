@@ -9,8 +9,8 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "SkillUp User",
-  description: "스킬업 유저 웹페이지",
+  title: "skill Up User Front",
+  description: "스킬업 웹 구축 프로젝트",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
