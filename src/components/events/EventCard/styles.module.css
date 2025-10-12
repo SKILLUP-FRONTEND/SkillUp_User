@@ -111,3 +111,11 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+.bookmarkIcon {
+  color: var(--Common-white);
+}
+
+.bookmarkIconActive {
+  color: var(--Common-black);
+}

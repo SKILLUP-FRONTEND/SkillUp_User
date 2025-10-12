@@ -6,7 +6,8 @@ import LoginImage from "@/assets/images/loginImg.png";
 import Badge from "@/components/common/Badge";
 import CalendarIcon from "@/assets/svg/calendarIcon.svg";
 import LocationIcon from "@/assets/svg/locationIcon.svg";
-import BookmarkOutlineIcon from "@/assets/svg/bookmarkOutlineIcon.svg";
+import { BookmarkIcon } from "./icons";
+import { useState } from "react";
 
 interface EventCardProps {
   title: string;
@@ -23,6 +24,12 @@ export default function EventCard({
   price,
   category,
 }: EventCardProps) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const handleBookmarkClick = () => {
+    setIsBookmarked(!isBookmarked);
+  };
+
   return (
     <div className={styles.eventCard}>
       <div className={styles.eventCardImage}>
@@ -32,9 +39,17 @@ export default function EventCard({
         <div className={styles.eventCardImageOverlay}>
           <Badge label="무료" variant="secondary" />
           {/* TODO : 추후 버튼 공통 컴포넌트로 변경 예정 */}
-          <button className={styles.eventCardImageOverlayButton}>
+          <button
+            className={styles.eventCardImageOverlayButton}
+            onClick={handleBookmarkClick}
+          >
             {/* TODO : 북마크 활성화 아이콘 추가 예정 */}
-            <Image src={BookmarkOutlineIcon} alt="Bookmark Icon" />
+            <BookmarkIcon
+              className={`${styles.bookmarkIcon} ${
+                isBookmarked ? styles.bookmarkIconActive : ""
+              }`}
+              isBookmarked={isBookmarked}
+            />
           </button>
         </div>
       </div>
