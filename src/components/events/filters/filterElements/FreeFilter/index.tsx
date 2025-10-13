@@ -2,14 +2,18 @@
 
 "use client";
 
-import { useState } from "react";
 import styles from "./styles.module.css";
 
-export default function FreeFilter() {
-  const [checked, setChecked] = useState(false);
+export default function FreeFilter({
+  checked,
+  setChecked,
+}: {
+  checked: boolean;
+  setChecked: (checked: boolean) => void;
+}) {
   return (
     <label className={styles.toggleWrapper}>
-      <span className={styles.labelText}>무료</span>
+      <span className={styles.labelText}>무료만 보기</span>
       <div
         className={`${styles.toggle} ${checked ? styles.active : ""}`}
         onClick={() => setChecked(!checked)}

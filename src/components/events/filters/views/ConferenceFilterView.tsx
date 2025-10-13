@@ -2,20 +2,27 @@
 
 "use client";
 
-import { useState } from "react";
 import OnOfflineFilter from "../filterElements/OnOfflineFilter";
 import FreeFilter from "../filterElements/FreeFilter";
 import styles from "./styles.module.css";
+import {
+  tempFreeFilterAtom,
+  tempOnOfflineFilterAtom,
+} from "../atoms/filterAtoms";
+import { useAtom } from "jotai";
 
 export default function ConferenceFilterView() {
-  const [onOfflineFilter, setOnOfflineFilter] = useState<string>("");
+  const [tempOnOfflineFilter, setTempOnOfflineFilter] = useAtom(
+    tempOnOfflineFilterAtom
+  );
+  const [tempFreeFilter, setTempFreeFilter] = useAtom(tempFreeFilterAtom);
   return (
     <div className={styles.conferenceFilterView}>
       <OnOfflineFilter
-        onSelect={setOnOfflineFilter}
-        selected={onOfflineFilter}
+        onSelect={setTempOnOfflineFilter}
+        selected={tempOnOfflineFilter}
       />
-      <FreeFilter />
+      <FreeFilter checked={tempFreeFilter} setChecked={setTempFreeFilter} />
     </div>
   );
 }
