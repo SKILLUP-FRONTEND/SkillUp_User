@@ -5,37 +5,27 @@
 import Image from "next/image";
 import CloseIcon from "@/assets/svg/closeIcon.svg";
 import styles from "./styles.module.css";
-import { useAtom } from "jotai";
-import {
-  onOfflineFilterAtom,
-  freeFilterAtom,
-  tempOnOfflineFilterAtom,
-  tempFreeFilterAtom,
-} from "../atoms/filterAtoms";
 
-export default function FilterBadges() {
-  const [, setTempOnOfflineFilter] = useAtom(tempOnOfflineFilterAtom);
-  const [, setTempFreeFilter] = useAtom(tempFreeFilterAtom);
-  const [onOfflineFilter, setOnOfflineFilter] = useAtom(onOfflineFilterAtom);
-  const [freeFilter, setFreeFilter] = useAtom(freeFilterAtom);
+interface FilterBadgesProps {
+  onOfflineFilter: string;
+  freeFilter: boolean;
+  onClearOnOfflineFilter: () => void;
+  onClearFreeFilter: () => void;
+}
 
+export default function FilterBadges({
+  onOfflineFilter,
+  freeFilter,
+  onClearOnOfflineFilter,
+  onClearFreeFilter,
+}: FilterBadgesProps) {
   const badges: { key: string; label: string; onClear: () => void }[] = [];
-
-  const handleOnOfflineFilter = () => {
-    setTempOnOfflineFilter("");
-    setOnOfflineFilter("");
-  };
-
-  const handleFreeFilter = () => {
-    setTempFreeFilter(false);
-    setFreeFilter(false);
-  };
 
   if (onOfflineFilter === "online" || onOfflineFilter === "offline") {
     badges.push({
       key: "onOffline",
       label: onOfflineFilter === "online" ? "온라인" : "오프라인",
-      onClear: () => handleOnOfflineFilter(),
+      onClear: onClearOnOfflineFilter,
     });
   }
 
@@ -43,7 +33,7 @@ export default function FilterBadges() {
     badges.push({
       key: "freeOnly",
       label: "무료만 보기",
-      onClear: () => handleFreeFilter(),
+      onClear: onClearFreeFilter,
     });
   }
 

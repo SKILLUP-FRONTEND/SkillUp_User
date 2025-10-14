@@ -10,17 +10,9 @@ import FilterButton from "@/components/events/filters/FilterButton";
 import ConferenceFilterView from "@/components/events/filters/views/ConferenceFilterView";
 import RoleSelector from "@/components/events/filters/RoleSelector";
 import { eventListMock } from "@/mocks/eventListMock";
-import { useAtom } from "jotai";
 import Button from "@/components/common/Button";
 
-import {
-  roleFilterAtom,
-  onOfflineFilterAtom,
-  freeFilterAtom,
-  sortOptionAtom,
-  tempOnOfflineFilterAtom,
-  tempFreeFilterAtom,
-} from "@/components/events/filters/atoms/filterAtoms";
+import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
 import { DropdownOption } from "@/components/common/Dropdown";
 
 import EventEmpty from "@/components/events/EventEmpty";
@@ -48,27 +40,22 @@ export default function ConferencePageLayout({
 }: {
   eventList: typeof eventListMock;
 }) {
-  const [selectedRoles, setSelectedRoles] = useAtom(roleFilterAtom);
-  const [, setOnOfflineFilter] = useAtom(onOfflineFilterAtom);
-  const [, setFreeFilter] = useAtom(freeFilterAtom);
-  const [sortOption, setSortOption] = useAtom(sortOptionAtom);
-  const [tempOnOfflineFilter, setTempOnOfflineFilter] = useAtom(
-    tempOnOfflineFilterAtom
-  );
-  const [tempFreeFilter, setTempFreeFilter] = useAtom(tempFreeFilterAtom);
+  const {
+    selectedRoles,
+    setSelectedRoles,
+    onOfflineFilter,
+    setOnOfflineFilter,
+    freeFilter,
+    setFreeFilter,
+    sortOption,
+    setSortOption,
+    setTempOnOfflineFilter,
+    setTempFreeFilter,
+    handleApply,
+    handleReset,
+  } = usePageFilters({ pageId: "conference" });
+
   const [currentPage, setCurrentPage] = useState(1);
-
-  const handleApply = () => {
-    setOnOfflineFilter(tempOnOfflineFilter);
-    setFreeFilter(tempFreeFilter);
-  };
-
-  const handleReset = () => {
-    setOnOfflineFilter("");
-    setFreeFilter(false);
-    setTempOnOfflineFilter("");
-    setTempFreeFilter(false);
-  };
 
   return (
     <div className={styles.conferencePageLayout}>
@@ -77,9 +64,20 @@ export default function ConferencePageLayout({
         <div className={styles.eventHeaderFilterSortContainer}>
           <RoleSelector selected={selectedRoles} onSelect={setSelectedRoles} />
           <div className={styles.filterButtonContainer}>
-            <FilterBadges />
+            <FilterBadges
+              onOfflineFilter={onOfflineFilter}
+              freeFilter={freeFilter}
+              onClearOnOfflineFilter={() => {
+                setOnOfflineFilter("");
+                setTempOnOfflineFilter("");
+              }}
+              onClearFreeFilter={() => {
+                setFreeFilter(false);
+                setTempFreeFilter(false);
+              }}
+            />
             <FilterButton onApply={handleApply} onReset={handleReset}>
-              <ConferenceFilterView />
+              <ConferenceFilterView pageId="conference" />
             </FilterButton>
             <SortDropdown
               selected={
