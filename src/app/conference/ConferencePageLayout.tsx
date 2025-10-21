@@ -142,7 +142,7 @@ export default function ConferencePageLayout({
             </div>
             <Pagination
               currentPage={currentPage}
-              totalPages={10}
+              totalPages={20}
               onPageChange={setCurrentPage}
               options={goToPageOptions}
               selected={goToPageOptions[0]}
