@@ -1,7 +1,7 @@
 /* 
   작성자 : 김재혁
   최초 작성일 : 2025-08-21
-  최종 수정일 : 2025-10-19
+  최종 수정일 : 2025-10-25
 */
 
 import React from "react";
@@ -20,7 +20,7 @@ export default function Footer() {
         <div className={styles.leftBlock}>
           <div className={styles.topRow}>
             <div className={styles.logoWrap}>
-              <Image src={SkillUpLogo} alt="Skill Up 로고" width={110} height={22} />
+              <Image src={SkillUpLogo} alt="Skill Up 로고" width={140} height={19.76} />
             </div>
             <div className={styles.policyGroup}>
               <Link href="/faq">자주 묻는 질문</Link>
@@ -30,31 +30,22 @@ export default function Footer() {
           </div>
 
           <div className={styles.bottomRow}>
-            <p className={styles.email}>skillup.official@gmail.com</p>
-            <p className={styles.copy}>© 2025 SKILL UP. All rights reserved.</p>
+            <p className={styles.email}>skillup01.official@gmail.com</p>
+            <p className={styles.copy}>ⓒ 2025 Skill UP. All rights reserved.</p>
           </div>
         </div>
 
         {/* 오른쪽 영역 */}
         <div className={styles.rightBlock}>
           <div className={styles.iconGroup}>
-            <button className={styles.iconBtn} aria-label="검색">
-              <Search size={18} />
-            </button>
-            <Link
-              href="https://www.instagram.com/skill_up._/"
-              target="_blank"
-              className={styles.iconBtn}
-              aria-label="인스타그램"
-            >
-              <Instagram size={18} />
+            <Link href="/search" className={styles.iconBtn} aria-label="검색">
+              <Search size={24} />
             </Link>
-            <Link
-              href="mailto:skillup.official@gmail.com"
-              className={styles.iconBtn}
-              aria-label="이메일"
-            >
-              <Mail size={18} />
+            <Link href="https://www.instagram.com/skill_up._/" target="_blank" className={styles.iconBtn} aria-label="인스타그램">
+              <Instagram size={24} />
+            </Link>
+            <Link href="mailto:skillup01.official@gmail.com" className={styles.iconBtn} aria-label="이메일">
+              <Mail size={24} />
             </Link>
           </div>
           <Link href="/submit" className={styles.submitBtn}>

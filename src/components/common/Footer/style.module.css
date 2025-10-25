@@ -1,25 +1,23 @@
 /* 
   작성자 : 김재혁
   최초 작성일 : 2025-08-21
-  최종 수정일 : 2025-10-19
+  최종 수정일 : 2025-10-25
 */
 
 /* footer */
 .footer {
   width: 100%;
-  background: #1a1b23;
+  min-width: 1294px;
+  background: #1b1d26;
   color: #fff;
-  padding: 40px 0 32px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
+  position : relative;
+  transform : translateY(-100%);
 }
 
 .inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 54px 100px 54px 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -36,28 +34,27 @@
 .topRow {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 20px;
 }
 
 .logoWrap {
   flex-shrink: 0;
+  gap: 12px;
 }
 
 .policyGroup {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 10px;
 }
 
 .policyGroup a {
-  color: #fff;
-  opacity: 0.85;
-  font-size: 14px;
-  transition: opacity 0.2s;
-}
-
-.policyGroup a:hover {
-  opacity: 1;
+  color: #e6e6e6;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -4%;
+  padding: 0 20px 8px 20px;
 }
 
 /* 이메일 + 카피 */
@@ -71,8 +68,9 @@
 .email,
 .copy {
   font-size: 12px;
-  opacity: 0.7;
-  line-height: 1.4;
+  line-height: 140%;
+  letter-spacing: -4%;
+  font-weight: 500;
 }
 
 /* 오른쪽 블록 */
@@ -90,33 +88,31 @@
 }
 
 .iconBtn {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  background: transparent;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #dbdbdb;
+  border-radius: 1000px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.2s, border-color 0.2s;
+  transition: 0.3s;
 }
 
 .iconBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #fff;
+  background: #fff;
+  color: #000;
 }
 
 /* 행사 제보 버튼 */
 .submitBtn {
   background: #000;
   color: #fff;
-  padding: 10px 18px;
+  padding: 10px 20px 11px 26px;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
-  transition: background 0.2s;
-}
-
-.submitBtn:hover {
-  background: #333;
+  gap: 2px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -4%;
 }
