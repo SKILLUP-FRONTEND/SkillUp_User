@@ -71,10 +71,23 @@
   position: absolute;
   top: 16px;
   left: 292px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.bookmarkBtn svg {
+  width: 15.17px;
+  height: 18.42px;
+  color: #fff;
 }
 
 .textBox {
-  /* margin-top: 14px; */
+  margin-top: 5px;
 }
 
 .metaTitle {

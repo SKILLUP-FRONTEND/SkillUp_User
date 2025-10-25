@@ -1,8 +1,8 @@
 // 관심있어하실 행사
-import { FaRegBookmark } from "react-icons/fa";
 import globalStyles from "../style.module.css";
 import localStyles from "./style.module.css";
-import BookmarkButton from "@/components/common/Button/BookmarkBtn";
+import { FaRegBookmark } from "react-icons/fa";
+import Button from "@/components/common/Button";
 
 export default function RecommendInterest() {
   const keywords = [
@@ -42,9 +42,12 @@ export default function RecommendInterest() {
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className={localStyles.card}>
               <div className={localStyles.imgBox}>
-                <button className={localStyles.bookmarkBtn}>
-                  <BookmarkButton opacity={0.6} />
-                </button>
+                <Button
+                  variant="secondary"
+                  opacity={0.6}
+                  icon={<FaRegBookmark />}
+                  className={localStyles.bookmarkBtn}
+                />
               </div>
               <div className={localStyles.textBox}>
                 <h3 className={localStyles.metaTitle}>메인타이틀</h3>
