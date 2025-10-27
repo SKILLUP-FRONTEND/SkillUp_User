@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import Text from "@/components/common/Text";
 import IconButton from "@/components/common/IconButton";
 import Button from "@/components/common/Button";
-import { Event } from "./event.types";
+import { Event } from "@/types/event/event";
 
 interface EventCardProps {
   size: "small" | "medium" | "large" | "block";

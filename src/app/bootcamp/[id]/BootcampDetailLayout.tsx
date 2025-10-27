@@ -10,18 +10,32 @@ import Image from "next/image";
 import Text from "@/components/common/Text";
 import EventCard from "@/components/common/EventCard";
 import { eventListMock } from "@/mocks/eventListMock";
-
-export default function BootcampDetailLayout() {
+import { EventDetail } from "@/types/event/event";
+export default function BootcampDetailLayout({
+  eventDetail,
+}: {
+  eventDetail: EventDetail;
+}) {
   return (
     <div className={styles.bootcampDetailLayout}>
-      <StickyApplySection />
+      <StickyApplySection
+        category={eventDetail.category}
+        title={eventDetail.title}
+        date={eventDetail.date}
+        place={eventDetail.place}
+        price={eventDetail.price}
+        phoneNumber={eventDetail.phoneNumber}
+        image={eventDetail.image}
+      />
       <div className={styles.bootcampDetailContent}>
         <div className={styles.bootcampDetailContentItem}>
-          <EventInfoCard title="행사 설명">asdf</EventInfoCard>
+          <EventInfoCard title="행사 설명">
+            {eventDetail.description}
+          </EventInfoCard>
           <EventInfoCard title="모집 기간" isDate>
             <div className={styles.eventInfoCardContentDate}>
               <Text typography="body1_r_16" color="neutral-20">
-                2025. 01. 01 ~ 2025. 01. 01
+                {eventDetail.date}
               </Text>
               <Badge label="N일 남았어요" />
             </div>
@@ -29,7 +43,7 @@ export default function BootcampDetailLayout() {
           <EventInfoCard title="참가비">
             <div className={styles.eventInfoCardContentPrice}>
               <Text typography="body1_r_16" color="neutral-20">
-                0원
+                {eventDetail.price}
               </Text>
               <Badge label="무료" />
             </div>
@@ -39,13 +53,13 @@ export default function BootcampDetailLayout() {
               <div className={styles.eventInfoCardContentPlace}>
                 <Image src={GlobeIcon} alt="globe icon" />
                 <Text typography="body1_r_16" color="neutral-20">
-                  오프라인
+                  {eventDetail.online ? "온라인" : "오프라인"}
                 </Text>
               </div>
               <div className={styles.eventInfoCardContentPlace}>
                 <Image src={CursorIcon} alt="cursor icon" />
                 <Text typography="body1_r_16" color="neutral-20">
-                  서울특별시 강남구 테헤란로 22길
+                  {eventDetail.place}
                 </Text>
                 {/* TODO : 추후 네이버 지도 api 추가 */}
               </div>

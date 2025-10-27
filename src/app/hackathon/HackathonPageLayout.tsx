@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 import SortDropdown from "@/components/events/sorting/SortDropdown";
 import FilterButton from "@/components/events/filters/FilterButton";
 import RoleSelector from "@/components/events/filters/RoleSelector";
-import { Event } from "@/components/common/EventCard/event.types";
+import { Event } from "@/types/event/event";
 import Button from "@/components/common/Button";
 
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";

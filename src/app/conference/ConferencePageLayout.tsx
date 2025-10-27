@@ -20,7 +20,7 @@ import FilterBadges from "@/components/events/filters/FilterBadges";
 import Pagination from "@/components/common/Pagination";
 import { useState } from "react";
 import Text from "@/components/common/Text";
-import { Event } from "@/components/common/EventCard/event.types";
+import { Event } from "@/types/event/event";
 
 const sortOptions: DropdownOption[] = [
   { label: "인기순", value: "popular" },

@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import IconButton from "./index";
-import { BookmarkIcon } from "@/components/events/EventCard/icons";
+import { BookmarkIcon } from "@/assets/icons/BookmarkIcon";
 
 const meta: Meta<typeof IconButton> = {
   title: "Components/IconButton",

@@ -10,26 +10,39 @@ import Image from "next/image";
 import Text from "@/components/common/Text";
 import Badge from "@/components/common/Badge";
 
-export default function StickyApplySection() {
+interface StickyApplySectionProps {
+  category: string;
+  title: string;
+  date: string;
+  place: string;
+  price: string;
+  phoneNumber: string;
+  image: string;
+}
+
+export default function StickyApplySection({
+  category,
+  title,
+  date,
+  place,
+  price,
+  phoneNumber,
+  image,
+}: StickyApplySectionProps) {
   return (
     <div className={styles.stickyApplySection}>
       <div className={styles.stickyApplySectionContent}>
         <div className={styles.stickyApplySectionContentHeader}>
           <div className={styles.stickyApplySectionContentHeaderTitle}>
             <Text typography="label3_m_14" color="primary-strong">
-              컨퍼런스 · 세미나
+              {category}
             </Text>
             <Text typography="head3_m_24" color="black">
-              2025 제1회 AI 테크 컨퍼런스 AI 테크 컨퍼런스
+              {title}
             </Text>
           </div>
           <div className={styles.stickyApplySectionContentHeaderImage}>
-            <Image
-              src={LoginImage}
-              alt="Login Image"
-              width={284}
-              height={160}
-            />
+            <Image src={image} alt="Login Image" width={284} height={160} />
           </div>
         </div>
         <div className={styles.stickyApplySectionContentBody}>
@@ -40,7 +53,7 @@ export default function StickyApplySection() {
                 행사 기간
               </Text>
               <Text typography="body1_r_16" color="neutral-20">
-                2025.01.01 ~ 2025.01.01
+                {date}
               </Text>
             </div>
           </div>
@@ -51,7 +64,7 @@ export default function StickyApplySection() {
                 장소
               </Text>
               <Text typography="body1_r_16" color="neutral-20">
-                서울특별시 강남구 테헤란로 22길
+                {place}
               </Text>
             </div>
           </div>
@@ -62,7 +75,7 @@ export default function StickyApplySection() {
                 참가비
               </Text>
               <Text typography="body1_r_16" color="neutral-20">
-                50,000원 ~
+                {price}
               </Text>
             </div>
           </div>
@@ -90,7 +103,7 @@ export default function StickyApplySection() {
           </Text>
         </div>
         <Text typography="body2_r_14" color="neutral-20">
-          010-1234-1234
+          {phoneNumber}
         </Text>
       </div>
     </div>

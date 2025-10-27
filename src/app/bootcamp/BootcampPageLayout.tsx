@@ -16,7 +16,7 @@ import Pagination from "@/components/common/Pagination";
 import EventEmpty from "@/components/events/EventEmpty";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import Button from "@/components/common/Button";
-import { Event } from "@/components/common/EventCard/event.types";
+import { Event } from "@/types/event/event";
 import { useState } from "react";
 
 const sortOptions: DropdownOption[] = [
