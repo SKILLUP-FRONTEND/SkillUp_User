@@ -4,13 +4,15 @@ import React, { useState } from "react";
 import Image from "next/image";
 import SkillUpWhiteLogo from "@/assets/svg/skillUp_white.svg";
 import SkillUpBlackLogo from "@/assets/svg/skillUp_black.svg";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiUser } from "react-icons/fi";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import Modal from "../Modal";
 import LoginContent from "@/components/login/LoginContent";
 import EventCategoryTabs from "@/components/nav/EventCategoryTabs";
 import Button from "../Button";
+import IconButton from "../IconButton";
+import UserIcon from "@/assets/icons/UserIcon";
 
 interface HeaderProps {
   variant: "main" | "sub";
@@ -71,7 +73,13 @@ export default function Header({ variant }: HeaderProps) {
               <FiSearch size={18} color={"c4c4c4"} />
             </button>
           </div>
-          <Button variant="secondary" size="medium" onClick={openModal}>
+          <IconButton
+            variant="opacity"
+            size="large"
+            onClick={openModal}
+            icon={<UserIcon />}
+          />
+          <Button variant="secondary" size="large" onClick={openModal}>
             로그인 · 회원가입
           </Button>
         </div>
