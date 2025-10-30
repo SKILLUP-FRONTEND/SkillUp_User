@@ -1,14 +1,14 @@
 // src/components/login/ProfileModal/index.tsx
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 import Image from "next/image";
 import Text from "@/components/common/Text";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
-import BookmarkIcon from "@/assets/svg/bookmarkIcon.svg";
-import PenIcon from "@/assets/svg/penIcon.svg";
-import ChatIcon from "@/assets/svg/chatIcon.svg";
-
+import { BookmarkIcon } from "@/assets/icons/BookmarkIcon";
+import { PenIcon } from "@/assets/icons/PenIcon";
+import { ChatIcon } from "@/assets/icons/ChatIcon";
+import { useRouter } from "next/navigation";
 interface ProfileModalProps {
   isOpen: boolean;
   toggle: () => void;
@@ -27,7 +27,10 @@ export default function ProfileModal({
   triggerRef,
 }: ProfileModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-
+  const router = useRouter();
+  const [isBookmarkHovered, setIsBookmarkHovered] = useState(false);
+  const [isPenHovered, setIsPenHovered] = useState(false);
+  const [isChatHovered, setIsChatHovered] = useState(false);
   // Escape 키로 닫기
   useEffect(() => {
     if (!isOpen) return;
@@ -87,10 +90,31 @@ export default function ProfileModal({
         </div>
       </div>
       <div className={styles.profileModalContent}>
-        <div className={styles.profileModalContentItem}>
-          <div className={styles.profileModalContentItemTitle}>
-            <Image src={BookmarkIcon} alt="Bookmark Icon" />
-            <Text typography="label3_m_14" color="black">
+        <div
+          className={styles.profileModalContentItem}
+          onClick={() => {
+            router.push("/my/bookmarks");
+          }}
+        >
+          <div
+            className={styles.profileModalContentItemTitle}
+            onMouseEnter={() => setIsBookmarkHovered(true)}
+            onMouseLeave={() => setIsBookmarkHovered(false)}
+          >
+            <BookmarkIcon
+              width={20}
+              height={20}
+              fillColor="none"
+              strokeColor={
+                isBookmarkHovered
+                  ? "var(--Primary-strong)"
+                  : "var(--Neutral-30)"
+              }
+            />
+            <Text
+              typography="label3_m_14"
+              color={isBookmarkHovered ? "primary-strong" : "black"}
+            >
               북마크
             </Text>
           </div>
@@ -99,9 +123,21 @@ export default function ProfileModal({
           </div>
         </div>
         <div className={styles.profileModalContentItem}>
-          <div className={styles.profileModalContentItemTitle}>
-            <Image src={PenIcon} alt="Bookmark Icon" />
-            <Text typography="label3_m_14" color="black">
+          <div
+            className={styles.profileModalContentItemTitle}
+            onMouseEnter={() => setIsPenHovered(true)}
+            onMouseLeave={() => setIsPenHovered(false)}
+          >
+            <PenIcon
+              fillColor="none"
+              strokeColor={
+                isPenHovered ? "var(--Primary-strong)" : "var(--Neutral-30)"
+              }
+            />
+            <Text
+              typography="label3_m_14"
+              color={isPenHovered ? "primary-strong" : "black"}
+            >
               프로필 수정
             </Text>
           </div>
@@ -110,9 +146,20 @@ export default function ProfileModal({
           </div>
         </div>
         <div className={styles.profileModalContentItem}>
-          <div className={styles.profileModalContentItemTitle}>
-            <Image src={ChatIcon} alt="Chat Icon" />
-            <Text typography="label3_m_14" color="black">
+          <div
+            className={styles.profileModalContentItemTitle}
+            onMouseEnter={() => setIsChatHovered(true)}
+            onMouseLeave={() => setIsChatHovered(false)}
+          >
+            <ChatIcon
+              color={
+                isChatHovered ? "var(--Primary-strong)" : "var(--Neutral-30)"
+              }
+            />
+            <Text
+              typography="label3_m_14"
+              color={isChatHovered ? "primary-strong" : "black"}
+            >
               고객센터
             </Text>
           </div>

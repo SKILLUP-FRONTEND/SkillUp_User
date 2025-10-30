@@ -55,3 +55,14 @@
   align-items: center;
   gap: 0.25rem;
 }
+
+.bookmarkIconWrapper {
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, fill 0.2s, stroke 0.2s;
+}
+
+.bookmarkIconWrapper--hover {
+  /* 필요에 따라 색상, 예시에서는 강조 */
+  /* 메인 색상이나 원하는 색상으로 변경하세요 */
+}
