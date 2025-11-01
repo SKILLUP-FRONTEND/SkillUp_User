@@ -1,0 +1,17 @@
+/* src/app/my/profile/edit/styles.module.css */
+
+.profileEditPageLayout {
+  width: 100%;
+  max-width: 38.8rem;
+  margin: 0 auto;
+  padding-bottom: 11.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.profileEditPageLayoutHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
