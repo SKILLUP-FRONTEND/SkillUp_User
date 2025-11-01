@@ -6,7 +6,7 @@ import { getMockEventList } from "@/mocks/eventListMock";
 export default async function BookmarksPage() {
   const eventList = await getMockEventList();
   return (
-    <div style={{ marginTop: "6rem" }}>
+    <div style={{ paddingTop: "6rem" }}>
       <BookmarkPageLayout eventList={eventList} />
     </div>
   );
