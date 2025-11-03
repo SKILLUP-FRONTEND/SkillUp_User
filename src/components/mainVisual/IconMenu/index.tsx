@@ -3,11 +3,11 @@ import Image from "next/image";
 import styles from "./style.module.css";
 
 // 아이콘 import
-import SeminarIcon from "@/assets/icons/icon_seminar.png";
-import BootcampIcon from "@/assets/icons/icon_Education.png";
-import HackathonIcon from "@/assets/icons/icon_hackathon.png";
-import NetworkIcon from "@/assets/icons/icon_networking.png";
-import ArticleIcon from "@/assets/icons/icon_article.png";
+import SeminarIcon from "@/assets/icons/icon_seminar.svg";
+import BootcampIcon from "@/assets/icons/icon_Education.svg";
+import HackathonIcon from "@/assets/icons/icon_hackathon.svg";
+import NetworkIcon from "@/assets/icons/icon_networking.svg";
+import ArticleIcon from "@/assets/icons/icon_article.svg";
 
 const menuItems = [
   { icon: SeminarIcon, label: "컨퍼런스·세미나" },
