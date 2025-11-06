@@ -1,8 +1,8 @@
-// src/app/my/profile/edit/layout.tsx
+// src/app/support/layout.tsx
 
 import Header from "@/components/common/Header";
 
-export default function EditProfileLayout({
+export default function SupportLayout({
   children,
 }: {
   children: React.ReactNode;

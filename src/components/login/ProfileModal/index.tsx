@@ -39,7 +39,7 @@ export default function ProfileModal({
       label: "북마크",
       icon: BookmarkIcon,
       iconProps: { width: 20, height: 20, fillColor: "none" },
-      onClick: () => router.push("/my/bookmarks"),
+      onClick: () => router.push("/bookmarks"),
     },
     {
       id: "profile",
@@ -53,7 +53,7 @@ export default function ProfileModal({
       label: "고객센터",
       icon: ChatIcon,
       iconProps: {},
-      onClick: () => {},
+      onClick: () => router.push("/support"),
     },
   ];
   // Escape 키로 닫기
