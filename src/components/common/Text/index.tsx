@@ -45,6 +45,7 @@ interface TextProps {
     | "primary-strong"
     | "primary-normal"
     | "primary-extra-light"
+    | "primary-heavy"
     | "fill-strong"
     | "error-normal"
     | "gray-scale-900";

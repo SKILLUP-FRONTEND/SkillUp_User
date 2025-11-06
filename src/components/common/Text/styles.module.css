@@ -182,6 +182,10 @@
   color: var(--Primary-ExtraLight);
 }
 
+.primary-heavy {
+  color: var(--Primary-heavy);
+}
+
 .fill-strong {
   color: var(--Fill-strong);
 }

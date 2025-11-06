@@ -1,6 +1,6 @@
 /* src/components/login/ProfileModal/styles.module.css */
 
-.profileModal {
+.modal {
   display: flex;
   width: 15rem;
   padding: 1.5rem 1.25rem;
@@ -11,7 +11,7 @@
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
 }
 
-.profileModalHeader {
+.header {
   display: flex;
   padding-bottom: 1rem;
   align-items: center;
@@ -19,30 +19,31 @@
   border-bottom: 1px solid var(--Line-neutral);
 }
 
-.profileModalHeaderLeft {
+.headerImage {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
   overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 }
 
-.profileModalHeaderRight {
+.headerImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.headerInfo {
   display: flex;
   flex-direction: column;
 }
 
-.profileModalContent {
+.content {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.profileModalContentItem {
+.menuItem {
   display: flex;
   padding: 0.4375rem 0;
   justify-content: space-between;
@@ -50,19 +51,8 @@
   cursor: pointer;
 }
 
-.profileModalContentItemTitle {
+.menuItemTitle {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-}
-
-.bookmarkIconWrapper {
-  display: flex;
-  align-items: center;
-  transition: color 0.2s, fill 0.2s, stroke 0.2s;
-}
-
-.bookmarkIconWrapper--hover {
-  /* 필요에 따라 색상, 예시에서는 강조 */
-  /* 메인 색상이나 원하는 색상으로 변경하세요 */
 }

@@ -9,6 +9,8 @@ import { BookmarkIcon } from "@/assets/icons/BookmarkIcon";
 import { PenIcon } from "@/assets/icons/PenIcon";
 import { ChatIcon } from "@/assets/icons/ChatIcon";
 import { useRouter } from "next/navigation";
+import ProfileEditContent from "../ProfileEditContent";
+import Modal from "@/components/common/Modal";
 interface ProfileModalProps {
   isOpen: boolean;
   toggle: () => void;
@@ -28,9 +30,32 @@ export default function ProfileModal({
 }: ProfileModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const [isBookmarkHovered, setIsBookmarkHovered] = useState(false);
-  const [isPenHovered, setIsPenHovered] = useState(false);
-  const [isChatHovered, setIsChatHovered] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isProfileEditOpen, setIsProfileEditOpen] = useState(false);
+
+  const menuItems = [
+    {
+      id: "bookmark",
+      label: "북마크",
+      icon: BookmarkIcon,
+      iconProps: { width: 20, height: 20, fillColor: "none" },
+      onClick: () => router.push("/my/bookmarks"),
+    },
+    {
+      id: "profile",
+      label: "프로필 수정",
+      icon: PenIcon,
+      iconProps: { fillColor: "none" },
+      onClick: () => setIsProfileEditOpen(true),
+    },
+    {
+      id: "support",
+      label: "고객센터",
+      icon: ChatIcon,
+      iconProps: {},
+      onClick: () => {},
+    },
+  ];
   // Escape 키로 닫기
   useEffect(() => {
     if (!isOpen) return;
@@ -69,105 +94,72 @@ export default function ProfileModal({
   }, [isOpen]);
 
   if (!isOpen) return null;
+
   return (
-    <div className={styles.profileModal} ref={modalRef}>
-      <div className={styles.profileModalHeader}>
-        <div className={styles.profileModalHeaderLeft}>
-          <Image
-            src={user.profileImage}
-            alt="Logo Default Image"
-            width={36}
-            height={36}
-          />
+    <>
+      <div className={styles.modal} ref={modalRef}>
+        <div className={styles.header}>
+          <div className={styles.headerImage}>
+            <Image
+              src={user.profileImage}
+              alt="Logo Default Image"
+              width={36}
+              height={36}
+            />
+          </div>
+          <div className={styles.headerInfo}>
+            <Text typography="sub3_m_16" color="black">
+              {user.name}
+            </Text>
+            <Text typography="label4_m_12" color="neutral-50">
+              {user.email}
+            </Text>
+          </div>
         </div>
-        <div className={styles.profileModalHeaderRight}>
-          <Text typography="sub3_m_16" color="black">
-            {user.name}
-          </Text>
-          <Text typography="label4_m_12" color="neutral-50">
-            {user.email}
-          </Text>
+
+        <div className={styles.content}>
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isHovered = hoveredItem === item.id;
+            const iconColor = isHovered
+              ? "var(--Primary-strong)"
+              : "var(--Neutral-30)";
+
+            return (
+              <div
+                key={item.id}
+                className={styles.menuItem}
+                onMouseEnter={() => setHoveredItem(item.id)}
+                onMouseLeave={() => setHoveredItem(null)}
+                onClick={item.onClick}
+              >
+                <div className={styles.menuItemTitle}>
+                  <Icon
+                    {...item.iconProps}
+                    {...(item.id === "support"
+                      ? { color: iconColor }
+                      : { strokeColor: iconColor })}
+                  />
+                  <Text
+                    typography="label3_m_14"
+                    color={isHovered ? "primary-strong" : "black"}
+                  >
+                    {item.label}
+                  </Text>
+                </div>
+                <ChevronRightIcon />
+              </div>
+            );
+          })}
         </div>
       </div>
-      <div className={styles.profileModalContent}>
-        <div
-          className={styles.profileModalContentItem}
-          onClick={() => {
-            router.push("/my/bookmarks");
-          }}
-        >
-          <div
-            className={styles.profileModalContentItemTitle}
-            onMouseEnter={() => setIsBookmarkHovered(true)}
-            onMouseLeave={() => setIsBookmarkHovered(false)}
-          >
-            <BookmarkIcon
-              width={20}
-              height={20}
-              fillColor="none"
-              strokeColor={
-                isBookmarkHovered
-                  ? "var(--Primary-strong)"
-                  : "var(--Neutral-30)"
-              }
-            />
-            <Text
-              typography="label3_m_14"
-              color={isBookmarkHovered ? "primary-strong" : "black"}
-            >
-              북마크
-            </Text>
-          </div>
-          <div className={styles.profileModalContentItemContent}>
-            <ChevronRightIcon />
-          </div>
-        </div>
-        <div className={styles.profileModalContentItem}>
-          <div
-            className={styles.profileModalContentItemTitle}
-            onMouseEnter={() => setIsPenHovered(true)}
-            onMouseLeave={() => setIsPenHovered(false)}
-          >
-            <PenIcon
-              fillColor="none"
-              strokeColor={
-                isPenHovered ? "var(--Primary-strong)" : "var(--Neutral-30)"
-              }
-            />
-            <Text
-              typography="label3_m_14"
-              color={isPenHovered ? "primary-strong" : "black"}
-            >
-              프로필 수정
-            </Text>
-          </div>
-          <div className={styles.profileModalContentItemContent}>
-            <ChevronRightIcon />
-          </div>
-        </div>
-        <div className={styles.profileModalContentItem}>
-          <div
-            className={styles.profileModalContentItemTitle}
-            onMouseEnter={() => setIsChatHovered(true)}
-            onMouseLeave={() => setIsChatHovered(false)}
-          >
-            <ChatIcon
-              color={
-                isChatHovered ? "var(--Primary-strong)" : "var(--Neutral-30)"
-              }
-            />
-            <Text
-              typography="label3_m_14"
-              color={isChatHovered ? "primary-strong" : "black"}
-            >
-              고객센터
-            </Text>
-          </div>
-          <div className={styles.profileModalContentItemContent}>
-            <ChevronRightIcon />
-          </div>
-        </div>
-      </div>
-    </div>
+
+      <Modal
+        isOpen={isProfileEditOpen}
+        toggle={() => setIsProfileEditOpen(false)}
+      >
+        <ProfileEditContent onClose={() => setIsProfileEditOpen(false)} />
+      </Modal>
+    </>
   );
 }
