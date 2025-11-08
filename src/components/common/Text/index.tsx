@@ -13,6 +13,7 @@ interface TextProps {
     | "head2_sb_30"
     | "head3_m_24"
     | "head4_sb_20"
+    | "head5_sb_42"
     | "sub1_m_20"
     | "sub2_m_18"
     | "sub3_m_16"
