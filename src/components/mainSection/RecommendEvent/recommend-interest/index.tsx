@@ -18,14 +18,20 @@ export default function RecommendInterest() {
 
   return (
     <section className={localStyles.interestSection}>
-      <Flex justify="space-between" align="flex-start" gap="60px" className={localStyles.inner}>
-        <Flex direction="column" style={{ flex: 1, maxWidth: '440px' }}>
+      <Flex
+        justify="space-between"
+        align="flex-start"
+        gap="60px"
+        className={localStyles.inner}
+      >
+        <Flex direction="column" style={{ flex: 1, maxWidth: "440px" }}>
           <p className={globalStyles.subEng}>
-            HERE'S AN EVENT YOU MIGHT BE INTERESTED IN
+            HERE&apos;S AN EVENT YOU MIGHT BE INTERESTED IN
           </p>
           <h2 className={globalStyles.interestTitle}>
             <span className={globalStyles.interestSpan}>관심있어하실</span>
-            행사를<br/> 골라왔어요
+            행사를
+            <br /> 골라왔어요
           </h2>
 
           <Flex wrap="wrap" gap="12px" className={localStyles.keywordBox}>

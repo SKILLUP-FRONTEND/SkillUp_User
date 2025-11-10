@@ -21,8 +21,7 @@ interface EventCardProps {
 }
 
 export default function EventCard({ size, event, block }: EventCardProps) {
-  const { id, title, date, place, price, category, url, image, badgeLabel } =
-    event;
+  const { title, date, place, price, category, url, image, badgeLabel } = event;
   const [isBookmarked, setIsBookmarked] = useState(false);
   const router = useRouter();
   const handleBookmarkClick = (e: React.MouseEvent<HTMLButtonElement>) => {

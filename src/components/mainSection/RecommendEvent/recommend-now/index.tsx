@@ -1,5 +1,5 @@
 // 지금 주목받고 있어요
-import { useState } from "react";
+// import { useState } from "react";
 import Flex from "@/components/common/Flex";
 import EventCard from "@/components/common/EventCard";
 import globalStyles from "../style.module.css";
@@ -10,16 +10,25 @@ import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import { eventListMock } from "@/mocks/eventListMock";
 
 export default function RecommendNow() {
-  const PAGE_SIZE = 4;
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(eventListMock.length / PAGE_SIZE));
+  // const PAGE_SIZE = 4;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const totalPages = Math.max(1, Math.ceil(eventListMock.length / PAGE_SIZE));
 
-  const prev = () => setCurrentPage((p) => Math.max(1, p - 1));
-  const next = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
+  const prev = () => {
+    console.log("이전");
+  };
+  const next = () => {
+    console.log("다음");
+  };
 
   return (
     <section className={`${globalStyles.recommend} ${localStyles.nowSection}`}>
-      <Flex justify="space-between" align="flex-end" gap="40px" className={globalStyles.sectionHead}>
+      <Flex
+        justify="space-between"
+        align="flex-end"
+        gap="40px"
+        className={globalStyles.sectionHead}
+      >
         <Flex direction="column">
           <p className={globalStyles.subTitle}>추천행사</p>
           <h2 className={globalStyles.title}>
@@ -30,7 +39,7 @@ export default function RecommendNow() {
         <TabMenu
           tabs={["전체", "기획", "디자인", "개발", "AI"]}
           defaultIndex={0}
-          onChange={() => setCurrentPage(1)}
+          onChange={() => {}}
           theme="light"
         />
       </Flex>
@@ -41,7 +50,11 @@ export default function RecommendNow() {
         ))}
       </Flex>
 
-      <Flex align="center" justify="space-between" className={localStyles.bottomRow}>
+      <Flex
+        align="center"
+        justify="space-between"
+        className={localStyles.bottomRow}
+      >
         <Flex align="center" gap="20px">
           <button
             type="button"
