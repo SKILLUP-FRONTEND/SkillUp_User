@@ -13,7 +13,7 @@ import Text from "@/components/common/Text";
 import IconButton from "@/components/common/IconButton";
 import Button from "@/components/common/Button";
 import Flex from "@/components/common/Flex";
-import { Event } from "@/types/event/event";
+import { Event } from "@/types/event";
 
 interface EventCardProps {
   size: "small" | "medium" | "large" | "block";

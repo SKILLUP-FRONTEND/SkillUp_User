@@ -4,7 +4,7 @@
 
 import EventPageLayout from "@/components/events/EventPageLayout";
 import MentoringFilterView from "@/components/events/filters/views/MentoringFilterView";
-import { Event } from "@/types/event/event";
+import { Event } from "@/types/event";
 
 export default function MentoringPageLayout({
   eventList,

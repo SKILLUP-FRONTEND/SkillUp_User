@@ -1,7 +1,7 @@
 // src/hooks/useLogin.ts
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getTestLogin } from "@/api/user/user";
+import { getTestLogin } from "@/api/user";
 import { useAuth } from "./useAuth";
 
 // 로그인 Mutation Hook 코드

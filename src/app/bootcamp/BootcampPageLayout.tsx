@@ -4,7 +4,7 @@
 
 import EventPageLayout from "@/components/events/EventPageLayout";
 import BootcampFilterView from "@/components/events/filters/views/BootcampFilterView";
-import { Event } from "@/types/event/event";
+import { Event } from "@/types/event";
 
 export default function BootcampPageLayout({
   eventList,

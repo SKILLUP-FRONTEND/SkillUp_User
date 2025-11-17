@@ -4,7 +4,7 @@
 
 import EventPageLayout from "@/components/events/EventPageLayout";
 import HackathonFilterView from "@/components/events/filters/views/HackathonFilterView";
-import { Event } from "@/types/event/event";
+import { Event } from "@/types/event";
 
 export default function HackathonPageLayout({
   eventList,

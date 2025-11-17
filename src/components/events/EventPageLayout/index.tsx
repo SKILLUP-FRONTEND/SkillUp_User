@@ -11,10 +11,11 @@ import Button from "@/components/common/Button";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
-import { Event } from "@/types/event/event";
+import { Event } from "@/types/event";
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
 import { ITEMS_PER_PAGE, generatePageOptions } from "@/constants/pagination";
 import styles from "./styles.module.css";
+import { EventSortOption } from "@/constants/event";
 
 interface EventPageLayoutProps {
   pageId: "bootcamp" | "conference" | "hackathon" | "mentoring";
@@ -66,7 +67,12 @@ export default function EventPageLayout({
   };
 
   return (
-    <Flex direction="column" align="flex-start" gap={1.25} className={styles.container}>
+    <Flex
+      direction="column"
+      align="flex-start"
+      gap={1.25}
+      className={styles.container}
+    >
       <EventPageHeader
         title={title}
         count={eventList.length}
@@ -83,7 +89,7 @@ export default function EventPageLayout({
           setTempFreeFilter(false);
         }}
         sortOption={sortOption}
-        onSortChange={setSortOption}
+        onSortChange={(value) => setSortOption(value as EventSortOption)}
         onApply={handleApply}
         onReset={handleReset}
         FilterView={FilterView}

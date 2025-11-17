@@ -1,7 +1,7 @@
 // src/mocks/eventListMock.ts
 
 import LoginImage from "@/assets/images/loginImg.png";
-import { Event } from "@/types/event/event";
+import { Event } from "@/types/event";
 
 export const eventListMock: Event[] = [
   {

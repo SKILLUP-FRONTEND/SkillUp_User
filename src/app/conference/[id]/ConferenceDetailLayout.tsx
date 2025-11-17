@@ -11,7 +11,7 @@ import Text from "@/components/common/Text";
 import EventCard from "@/components/common/EventCard";
 import Flex from "@/components/common/Flex";
 import { eventListMock } from "@/mocks/eventListMock";
-import { EventDetail } from "@/types/event/event";
+import { EventDetail } from "@/types/event";
 export default function ConferenceDetailLayout({
   eventDetail,
 }: {
@@ -28,7 +28,11 @@ export default function ConferenceDetailLayout({
         phoneNumber={eventDetail.phoneNumber}
         image={eventDetail.image}
       />
-      <Flex direction="column" gap="6.25rem" style={{ marginBottom: "11.25rem" }}>
+      <Flex
+        direction="column"
+        gap="6.25rem"
+        style={{ marginBottom: "11.25rem" }}
+      >
         <Flex direction="column" gap="0.75rem">
           <EventInfoCard title="행사 설명">
             {eventDetail.description}
