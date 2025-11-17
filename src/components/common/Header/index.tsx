@@ -26,7 +26,7 @@ interface HeaderProps {
 export default function Header({ variant }: HeaderProps) {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const toggleModal = () => setIsModalOpen((prev) => !prev);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { mutate: loginMutate, isPending: isLoginPending } = useLogin();
 
   // 클라이언트 마운트 체크 (Hydration 깜빡임 방지)
@@ -48,6 +48,10 @@ export default function Header({ variant }: HeaderProps) {
   const toggleAlert = () => setIsAlertOpen((prev) => !prev);
 
   const profileBtnRef = useRef<HTMLDivElement>(null);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <header
@@ -156,6 +160,7 @@ export default function Header({ variant }: HeaderProps) {
         toggle={toggleAlert}
         title="로그아웃 하시겠습니까?"
         message="로그아웃하면 일부 기능을 이용할 수 없습니다."
+        onConfirm={handleLogout}
       />
     </header>
   );

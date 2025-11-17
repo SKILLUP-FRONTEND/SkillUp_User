@@ -11,9 +11,16 @@ interface AlertProps {
   toggle: () => void;
   title: string;
   message: string;
+  onConfirm: () => void;
 }
 
-export default function Alert({ isOpen, toggle, title, message }: AlertProps) {
+export default function Alert({
+  isOpen,
+  toggle,
+  title,
+  message,
+  onConfirm,
+}: AlertProps) {
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,7 +63,14 @@ export default function Alert({ isOpen, toggle, title, message }: AlertProps) {
           <Button variant="outlined" size="large" onClick={toggle}>
             취소
           </Button>
-          <Button variant="primary" size="large" onClick={toggle}>
+          <Button
+            variant="primary"
+            size="large"
+            onClick={() => {
+              onConfirm();
+              toggle();
+            }}
+          >
             확인
           </Button>
         </div>
