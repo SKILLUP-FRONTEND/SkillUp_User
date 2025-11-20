@@ -8,7 +8,7 @@ export default async function page() {
   const initialEventList = await getEventList({
     category: "CONFERENCE_SEMINAR",
     sort: "latest",
-    page: 1,
+    page: 0,
   });
 
   return (

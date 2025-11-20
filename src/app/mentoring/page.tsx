@@ -8,7 +8,7 @@ export default async function MentoringPage() {
   const initialEventList = await getEventList({
     category: "NETWORKING_MENTORING",
     sort: "latest",
-    page: 1,
+    page: 0,
   });
 
   return (

@@ -8,7 +8,7 @@ export default async function HackathonPage() {
   const initialEventList = await getEventList({
     category: "COMPETITION_HACKATHON",
     sort: "latest",
-    page: 1,
+    page: 0,
   });
 
   return (
