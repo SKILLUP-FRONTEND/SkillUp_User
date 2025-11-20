@@ -11,6 +11,15 @@ export const EVENT_CATEGORY = {
 export type EventCategory =
   (typeof EVENT_CATEGORY)[keyof typeof EVENT_CATEGORY];
 
+export const EVENT_CATEGORY_LABEL = {
+  CONFERENCE_SEMINAR: "컨퍼런스 · 세미나",
+  BOOTCAMP_CLUB: "부트캠프",
+  COMPETITION_HACKATHON: "동아리 · 해커톤 · 공모전",
+  NETWORKING_MENTORING: "네트워킹 · 멘토링",
+} as const;
+
+export type EventCategoryLabel =
+  (typeof EVENT_CATEGORY_LABEL)[keyof typeof EVENT_CATEGORY_LABEL];
 // 행사 정렬 옵션
 export const EVENT_SORT_OPTIONS = {
   POPULARITY: "popularity",
