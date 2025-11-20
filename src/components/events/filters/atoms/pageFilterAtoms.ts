@@ -75,7 +75,7 @@ export const createEventSearchParamsAtom = (pageId: PageId) => {
     const params: EventSearchParams = {
       category: PAGE_CATEGORY_MAP[pageId],
       sort: sortOption,
-      page: 1, // 현재는 1로 고정, 나중에 페이지네이션 atom 추가 가능
+      page: 0, // API는 0부터 시작, 나중에 페이지네이션 atom 추가 가능
     };
 
     // 선택 필드들 - 값이 있을 때만 추가
