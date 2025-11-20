@@ -6,11 +6,19 @@ import { EventSearchParams, Event } from "@/types/event";
 
 export const useEventList = (
   params: EventSearchParams,
-  initialData?: Event[]
+  initialData?: Event[],
+  initialParams?: EventSearchParams
 ) => {
+  // 초기 params와 현재 params가 정확히 일치할 때만 initialData 사용
+  const shouldUseInitialData =
+    initialData &&
+    initialParams &&
+    JSON.stringify(params) === JSON.stringify(initialParams);
+
   return useQuery({
     queryKey: ["events", params],
     queryFn: () => getEventList(params),
-    initialData, // SSR에서 받은 초기 데이터
+    initialData: shouldUseInitialData ? initialData : undefined,
+    staleTime: 0, // 항상 최신 데이터를 fetch하도록 설정
   });
 };

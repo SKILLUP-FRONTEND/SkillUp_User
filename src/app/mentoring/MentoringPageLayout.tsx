@@ -20,7 +20,22 @@ export default function MentoringPageLayout({
     []
   );
   const searchParams = useAtomValue(searchParamsAtom);
-  const { data: eventList } = useEventList(searchParams, initialEventList);
+
+  // SSR 시 사용한 초기 params
+  const initialParams = useMemo(
+    () => ({
+      category: "NETWORKING_MENTORING" as const,
+      sort: "latest" as const,
+      page: 0,
+    }),
+    []
+  );
+
+  const { data: eventList } = useEventList(
+    searchParams,
+    initialEventList,
+    initialParams
+  );
 
   return (
     <EventPageLayout
