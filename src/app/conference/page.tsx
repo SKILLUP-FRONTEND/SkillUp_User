@@ -57,10 +57,11 @@ export default async function page({ searchParams }: PageProps) {
   }
 
   // SSR: 초기 데이터 서버에서 로드 (URL 파라미터 반영)
-  const initialEventList = await getEventList(apiParams);
+  const initialEventList =
+    (await getEventList(apiParams))?.homeEventResponseList || [];
 
   return (
-    <div style={{ paddingTop: "6rem" }}>
+    <div style={{ paddingTop: "6rem", paddingBottom: "11.25rem" }}>
       <ConferencePageLayout
         initialEventList={initialEventList}
         initialParams={apiParams}
