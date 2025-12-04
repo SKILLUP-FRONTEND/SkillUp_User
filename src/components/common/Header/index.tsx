@@ -19,6 +19,9 @@ import LogoDefaultImg from "@/assets/images/logoDefaultImg.png";
 import Alert from "../Alert";
 import { useAuth } from "@/hooks/useAuth";
 import { getSocialLogin } from "@/api/auth";
+import { useAtomValue } from "jotai";
+import { userNameAtom, userEmailAtom } from "@/store/authAtoms";
+import { useUserEmailAndName } from "@/hooks/useUser";
 
 interface HeaderProps {
   variant: "main" | "sub";
@@ -28,6 +31,12 @@ export default function Header({ variant }: HeaderProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen((prev) => !prev);
   const { isAuthenticated, logout } = useAuth();
+
+  // 로그인 상태일 때 유저 이메일/이름 자동 조회 (백그라운드 업데이트)
+  useUserEmailAndName();
+
+  const userName = useAtomValue(userNameAtom);
+  const userEmail = useAtomValue(userEmailAtom);
 
   // 클라이언트 마운트 체크 (Hydration 깜빡임 방지)
   const [isMounted, setIsMounted] = useState(false);
@@ -63,21 +72,16 @@ export default function Header({ variant }: HeaderProps) {
     if (!pendingSocialType) return;
 
     try {
-      // 소셜 로그인 URL 가져오기
       const response = await getSocialLogin(pendingSocialType.toLowerCase());
 
       // 응답에서 URL 추출 (data 필드에 URL이 포함되어 있음)
       if (response.code === "SUCCESS" && response.data) {
-        // "SOCIAL_LOGIN_TYPE : https://..." 형식에서 URL만 추출
         const url = response.data.includes(":")
           ? response.data.split(": ")[1]
           : response.data;
 
-        // 소셜 로그인 페이지로 리다이렉트
         window.location.href = url;
       }
-
-      // 모달은 닫지 않음 (리다이렉트되면서 페이지가 이동됨)
     } catch (error) {
       console.error("소셜 로그인 실패:", error);
       // 에러 발생 시에만 모달 닫기
@@ -159,8 +163,8 @@ export default function Header({ variant }: HeaderProps) {
                   isOpen={isProfileModalOpen}
                   toggle={toggleProfileModal}
                   user={{
-                    name: "홍길동",
-                    email: "skillup@gmail.com",
+                    name: userName || "",
+                    email: userEmail || "",
                     profileImage: LogoDefaultImg.src.toString(),
                   }}
                   triggerRef={profileBtnRef as RefObject<HTMLDivElement>}
