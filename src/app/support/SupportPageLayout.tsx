@@ -6,24 +6,31 @@ import styles from "./styles.module.css";
 import Text from "@/components/common/Text";
 import Accordion from "@/components/common/Accordion";
 import Flex from "@/components/common/Flex";
-import { faqData } from "./faqData";
 import Pagination from "@/components/common/Pagination";
 import { DropdownOption } from "@/components/common/Dropdown";
+import { CustomerCenterInquiry } from "@/types/user";
 
-// 임의로 3개씩 보여주기
-const ITEMS_PER_PAGE = 3;
+// 한 페이지에 몇 개씩 보여줄지
+const ITEMS_PER_PAGE = 4;
 
-export default function SupportPageLayout() {
+interface SupportPageLayoutProps {
+  faqData?: CustomerCenterInquiry[];
+}
+
+export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
+  // SSR로 받은 데이터 사용
+  const faqs = faqData && faqData.length > 0 ? faqData : [];
+
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPageOption, setSelectedPageOption] = useState<DropdownOption>({
     label: "1",
     value: "1",
   });
 
-  const totalPages = Math.ceil(faqData.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(faqs.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentFAQs = faqData.slice(startIndex, endIndex);
+  const currentFAQs = faqs.slice(startIndex, endIndex);
 
   // 페이지 옵션 생성
   const pageOptions = useMemo(() => {
@@ -53,22 +60,28 @@ export default function SupportPageLayout() {
       </Text>
 
       <div className={styles.faqSection}>
-        <Accordion items={currentFAQs} defaultOpenId={currentFAQs[0]?.id} />
+        <Accordion
+          items={currentFAQs.map((faq) => ({
+            id: faq.question,
+            question: faq.question,
+            answerTitle: faq.answerTitle,
+            answerContent: faq.answerContent,
+          }))}
+          defaultOpenId={currentFAQs[0]?.question}
+        />
       </div>
 
-      {totalPages > 1 && (
-        <Flex justify="center" style={{ marginTop: "2rem" }}>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            options={pageOptions}
-            selected={selectedPageOption}
-            onSelect={handleDropdownSelect}
-            goToPage={false}
-          />
-        </Flex>
-      )}
+      <Flex justify="center" style={{ marginTop: "2rem" }}>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          options={pageOptions}
+          selected={selectedPageOption}
+          onSelect={handleDropdownSelect}
+          goToPage={false}
+        />
+      </Flex>
     </Flex>
   );
 }

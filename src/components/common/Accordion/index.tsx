@@ -10,7 +10,7 @@ interface AccordionItemProps {
   id: string;
   question: string;
   answerTitle: string;
-  answerDetail: string;
+  answerContent: string;
   isOpen?: boolean;
   onToggle?: (id: string) => void;
 }
@@ -19,7 +19,7 @@ export function AccordionItem({
   id,
   question,
   answerTitle,
-  answerDetail,
+  answerContent,
   isOpen = false,
   onToggle,
 }: AccordionItemProps) {
@@ -59,16 +59,24 @@ export function AccordionItem({
         </svg>
       </Flex>
       {isOpen && (
-        <Flex gap="1rem" style={{ marginTop: "1.5rem", paddingLeft: "0.25rem" }}>
+        <Flex
+          gap="1rem"
+          style={{ marginTop: "1.5rem", paddingLeft: "0.25rem" }}
+        >
           <Text typography="head3_m_24" color="primary-strong" as="span">
             A
           </Text>
-          <Flex direction="column" align="flex-start" gap="0.75rem" style={{ flex: "1 0 0" }}>
+          <Flex
+            direction="column"
+            align="flex-start"
+            gap="0.75rem"
+            style={{ flex: "1 0 0" }}
+          >
             <Text typography="sub2_m_18" color="black">
               {answerTitle}
             </Text>
             <Text typography="body2_r_14" color="neutral-30">
-              {answerDetail}
+              {answerContent}
             </Text>
           </Flex>
         </Flex>
@@ -82,7 +90,7 @@ interface AccordionProps {
     id: string;
     question: string;
     answerTitle: string;
-    answerDetail: string;
+    answerContent: string;
   }>;
   defaultOpenId?: string;
   allowMultiple?: boolean;
@@ -115,7 +123,7 @@ export default function Accordion({
           id={item.id}
           question={item.question}
           answerTitle={item.answerTitle}
-          answerDetail={item.answerDetail}
+          answerContent={item.answerContent}
           isOpen={openIds.includes(item.id)}
           onToggle={handleToggle}
         />
