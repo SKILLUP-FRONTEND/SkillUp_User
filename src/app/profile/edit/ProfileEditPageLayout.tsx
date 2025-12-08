@@ -1,11 +1,12 @@
-// src/components/login/ProfileEditModal/index.tsx
-// src/app/my/profile/edit/ProfileEditPageLayout.tsx
+// src/app/profile/edit/ProfileEditPageLayout.tsx
 
 "use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./styles.module.css";
 import Text from "@/components/common/Text";
 import ProfileImageUploader from "@/components/myPage/profile/ProfileImageUploader";
-import { useState } from "react";
 import ProfileImageDefault from "@/assets/images/logoDefaultImg.png";
 import InputField from "@/components/common/InputField";
 import Input from "@/components/common/Input";
@@ -14,17 +15,13 @@ import RadioGroup, { Option } from "@/components/common/RadioGroup";
 import { MultiSelectButtonGroup } from "@/components/common/MultiSelectButtonGroup";
 import Button from "@/components/common/Button";
 import MegaPhoneIcon from "@/assets/icons/MegaPhoneIcon";
-import InterestTabBar from "../InterestTabBar";
-import { interestOptionsByTab } from "./interestOptionsData";
+import InterestTabBar from "@/components/login/InterestTabBar";
 import Checkbox from "@/components/common/Checkbox";
+import { useUserInterests } from "@/hooks/useUser";
+import Skeleton from "@/components/common/Skeleton";
 
-interface ProfileEditContentProps {
-  onClose: () => void;
-}
-
-export default function ProfileEditContent({
-  onClose,
-}: ProfileEditContentProps) {
+export default function ProfileEditPageLayout() {
+  const router = useRouter();
   const [imageUrl, setImageUrl] = useState<string>(
     ProfileImageDefault.src.toString() || ""
   );
@@ -35,6 +32,13 @@ export default function ProfileEditContent({
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string>("planning");
   const [isMarketingAgreed, setIsMarketingAgreed] = useState<boolean>(false);
+  const [currentRoleName, setCurrentRoleName] = useState<
+    "기획자" | "디자이너" | "개발자" | "마케팅"
+  >("기획자");
+
+  // API로 관심사 조회
+  const { data: apiInterestData, isLoading: isLoadingInterests } =
+    useUserInterests(currentRoleName);
 
   const genderOptions: Option[] = [
     { label: "남성", value: "male" },
@@ -54,11 +58,28 @@ export default function ProfileEditContent({
     { label: "기획자", value: "pm" },
     { label: "디자이너", value: "design" },
     { label: "개발자", value: "dev" },
-    { label: "기타", value: "etc" },
+    { label: "마케팅", value: "marketing" },
   ];
 
-  // 선택된 탭에 따른 관심사 옵션
-  const interestOptions = interestOptionsByTab[activeTab] || [];
+  // 탭 매핑
+  const tabToRoleMap: Record<
+    string,
+    "기획자" | "디자이너" | "개발자" | "마케팅"
+  > = {
+    planning: "기획자",
+    design: "디자이너",
+    development: "개발자",
+    marketing: "마케팅",
+  };
+
+  // API 데이터만 사용 (목업 데이터 제거)
+  const interestOptions =
+    apiInterestData && apiInterestData.length > 0
+      ? apiInterestData.map((item: { name: string }) => ({
+          label: item.name,
+          value: item.name,
+        }))
+      : [];
 
   const handleChangeImage = (file: File) => {
     const reader = new FileReader();
@@ -90,8 +111,31 @@ export default function ProfileEditContent({
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
-    // 탭 변경 시 선택된 관심사 초기화 (선택사항)
+    // 탭에 해당하는 역할명으로 변경하여 API 재호출
+    const roleName = tabToRoleMap[tab];
+    if (roleName) {
+      setCurrentRoleName(roleName);
+    }
+    // 탭 변경 시 선택된 관심사 초기화
     setSelectedInterests([]);
+  };
+
+  const handleCancel = () => {
+    router.back();
+  };
+
+  const handleSave = () => {
+    // TODO: API 연동
+    console.log({
+      imageUrl,
+      name,
+      selectedGender,
+      selectedAge,
+      selectedJob,
+      selectedInterests,
+      isMarketingAgreed,
+    });
+    router.back();
   };
 
   return (
@@ -121,8 +165,9 @@ export default function ProfileEditContent({
                 options={ageOptions}
                 selected={{ label: selectedAge, value: selectedAge }}
                 onSelect={handleChangeAge}
-                block={true}
+                block
                 buttonLabel={selectedAge ? selectedAge : "연령대를 선택하세요"}
+                spaceBetween
               />
             </InputField>
           </div>
@@ -139,8 +184,9 @@ export default function ProfileEditContent({
                 options={jobOptions}
                 selected={{ label: selectedJob, value: selectedJob }}
                 onSelect={handleChangeJob}
-                block={true}
+                block
                 buttonLabel={selectedJob ? selectedJob : "직무를 선택하세요"}
+                spaceBetween
               />
             </InputField>
           </div>
@@ -159,11 +205,20 @@ export default function ProfileEditContent({
                 onTabChange={handleTabChange}
               />
             </div>
-            <MultiSelectButtonGroup
-              options={interestOptions}
-              selectedValues={selectedInterests}
-              onSelect={handleChangeInterest}
-            />
+            {isLoadingInterests ? (
+              <div className={styles.skeletonWrapper}>
+                <Skeleton width="7rem" height="2.5rem" />
+                <Skeleton width="7rem" height="2.5rem" />
+                <Skeleton width="7rem" height="2.5rem" />
+                <Skeleton width="7rem" height="2.5rem" />
+              </div>
+            ) : (
+              <MultiSelectButtonGroup
+                options={interestOptions}
+                selectedValues={selectedInterests}
+                onSelect={handleChangeInterest}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -199,7 +254,7 @@ export default function ProfileEditContent({
           variant="outlined"
           size="extraLarge"
           className={styles.footerButton}
-          onClick={onClose}
+          onClick={handleCancel}
         >
           취소
         </Button>
@@ -207,7 +262,7 @@ export default function ProfileEditContent({
           variant="primary"
           size="extraLarge"
           className={styles.footerButton}
-          onClick={onClose}
+          onClick={handleSave}
         >
           저장
         </Button>
