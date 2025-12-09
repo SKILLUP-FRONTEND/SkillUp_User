@@ -26,13 +26,16 @@ export function AccordionItem({
   extraButton,
 }: AccordionItemProps) {
   return (
-    <div className={`${styles.item} ${isOpen ? styles.open : ""}`}>
+    <div
+      className={`${styles.item} ${isOpen ? styles.open : ""}`}
+      onClick={() => onToggle?.(id)}
+      style={{ cursor: "pointer" }}
+    >
       <Flex
-        as="button"
+        as="div"
         justify="space-between"
         align="center"
         className={styles.question}
-        onClick={() => onToggle?.(id)}
         aria-label={question}
       >
         <Flex align="center" gap="1rem" style={{ flex: 1 }}>
@@ -80,7 +83,14 @@ export function AccordionItem({
             <Text typography="body2_r_14" color="neutral-30">
               {answerContent}
             </Text>
-            {extraButton && <div style={{ marginTop: "0.75rem" }}>{extraButton}</div>}
+            {extraButton && (
+              <div
+                style={{ marginTop: "0.75rem" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {extraButton}
+              </div>
+            )}
           </Flex>
         </Flex>
       )}

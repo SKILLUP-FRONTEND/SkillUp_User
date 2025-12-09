@@ -3,6 +3,7 @@
 .item {
   border-bottom: 1px solid var(--Line-normal);
   padding: 1.25rem 1.5rem;
+  cursor: pointer;
 }
 
 .item.open {
@@ -13,7 +14,6 @@
   width: 100%;
   background: none;
   border: none;
-  cursor: pointer;
   padding: 0;
   text-align: left;
 }
