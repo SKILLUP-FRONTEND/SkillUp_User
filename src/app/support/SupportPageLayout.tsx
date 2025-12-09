@@ -57,6 +57,7 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
   const handleWithdrawalClick = () => {
     setIsWithdrawalModalOpen(true);
     // TODO: 탈퇴하기 모달 구현 예정
+    console.log(isWithdrawalModalOpen);
   };
 
   return (
@@ -74,7 +75,11 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
             answerContent: faq.answerContent,
             extraButton:
               index === 0 ? (
-                <Button variant="outlined" size="medium" onClick={handleWithdrawalClick}>
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  onClick={handleWithdrawalClick}
+                >
                   탈퇴하기
                 </Button>
               ) : undefined,
