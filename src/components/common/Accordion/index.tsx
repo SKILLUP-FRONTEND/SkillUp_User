@@ -29,7 +29,6 @@ export function AccordionItem({
     <div
       className={`${styles.item} ${isOpen ? styles.open : ""}`}
       onClick={() => onToggle?.(id)}
-      style={{ cursor: "pointer" }}
     >
       <Flex
         as="div"
@@ -38,8 +37,13 @@ export function AccordionItem({
         className={styles.question}
         aria-label={question}
       >
-        <Flex align="center" gap="1rem" style={{ flex: 1 }}>
-          <Text typography="head3_m_24" color="neutral-30" as="span">
+        <Flex align="center" gap="1rem">
+          <Text
+            typography="head3_m_24"
+            color="neutral-30"
+            as="span"
+            className={styles.answerTitle}
+          >
             Q
           </Text>
           <Text typography="sub2_m_18" color="black">
@@ -64,11 +68,13 @@ export function AccordionItem({
         </svg>
       </Flex>
       {isOpen && (
-        <Flex
-          gap="1rem"
-          style={{ marginTop: "1.5rem", paddingLeft: "0.25rem" }}
-        >
-          <Text typography="head3_m_24" color="primary-strong" as="span">
+        <Flex gap="1rem">
+          <Text
+            typography="head3_m_24"
+            color="primary-strong"
+            as="span"
+            className={styles.answerTitle}
+          >
             A
           </Text>
           <Flex
@@ -84,12 +90,7 @@ export function AccordionItem({
               {answerContent}
             </Text>
             {extraButton && (
-              <div
-                style={{ marginTop: "0.75rem" }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                {extraButton}
-              </div>
+              <div onClick={(e) => e.stopPropagation()}>{extraButton}</div>
             )}
           </Flex>
         </Flex>
