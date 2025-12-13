@@ -7,13 +7,10 @@
 }
 
 .termsContentHeader {
-  display: flex;
   padding: 1.75rem 1.75rem 0.625rem 1.75rem;
-  align-items: center;
 }
 
 .termsContentContent {
-  display: flex;
   height: 24.875rem;
   padding: 0 1.75rem;
 }
@@ -28,7 +25,6 @@
 }
 
 .termsContentBottom {
-  display: flex;
   padding: 1.75rem;
 }
 
@@ -45,12 +41,6 @@
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--Neutral-90);
-}
-
-.termsSectionContent {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
 }
 
 .termsContentParagraph {

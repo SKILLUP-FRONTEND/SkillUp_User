@@ -4,6 +4,7 @@
 import styles from "./style.module.css";
 import Button from "@/components/common/Button";
 import Text from "@/components/common/Text";
+import Flex from "@/components/common/Flex";
 import { PRIVACY_POLICY } from "@/constants/terms";
 
 interface TermsAgreementContentProps {
@@ -79,13 +80,13 @@ export default function TermsAgreementContent({
 
   return (
     <div className={styles.termsContent}>
-      <div className={styles.termsContentHeader}>
+      <Flex align="center" className={styles.termsContentHeader}>
         <Text typography="head4_sb_20" color="black">
           개인정보 처리방침
         </Text>
-      </div>
+      </Flex>
 
-      <div className={styles.termsContentContent}>
+      <Flex className={styles.termsContentContent}>
         <div className={styles.termsContentItem}>
           {PRIVACY_POLICY.map((section, idx) => (
             <div key={idx} className={styles.termsSection}>
@@ -96,23 +97,23 @@ export default function TermsAgreementContent({
                   </Text>
                 </div>
               )}
-              <div className={styles.termsSectionContent}>
+              <Flex direction="column" gap={0.75}>
                 {section.content.map((item, itemIdx) => (
                   <div key={itemIdx} className={styles.termsContentParagraph}>
                     {renderContent(item)}
                   </div>
                 ))}
-              </div>
+              </Flex>
             </div>
           ))}
         </div>
-      </div>
+      </Flex>
 
-      <div className={styles.termsContentBottom}>
+      <Flex className={styles.termsContentBottom}>
         <Button variant="secondary" size="extraLarge" onClick={onConfirm} block>
           확인했어요
         </Button>
-      </div>
+      </Flex>
     </div>
   );
 }
