@@ -1,14 +1,17 @@
 // src/components/login/ProfileModal/index.tsx
 
 import { useEffect, useRef, useState } from "react";
+import Alert from "@/components/common/Alert";
 import styles from "./styles.module.css";
 import Image from "next/image";
 import Text from "@/components/common/Text";
+import Flex from "@/components/common/Flex";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import { BookmarkIcon } from "@/assets/icons/BookmarkIcon";
 import { PenIcon } from "@/assets/icons/PenIcon";
 import { ChatIcon } from "@/assets/icons/ChatIcon";
 import { useRouter } from "next/navigation";
+import CautionIcon from "@/assets/icons/CautionIcon";
 interface ProfileModalProps {
   isOpen: boolean;
   toggle: () => void;
@@ -18,6 +21,7 @@ interface ProfileModalProps {
     profileImage: string;
   };
   triggerRef: React.RefObject<HTMLDivElement>;
+  handleLogout: () => void;
 }
 
 export default function ProfileModal({
@@ -25,10 +29,21 @@ export default function ProfileModal({
   toggle,
   user,
   triggerRef,
+  handleLogout,
 }: ProfileModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const toggleAlert = () => setIsAlertOpen((prev) => !prev);
+
+  // ProfileModal이 닫힐 때 Alert 상태 초기화
+  useEffect(() => {
+    if (!isOpen) {
+      setIsAlertOpen(false);
+    }
+  }, [isOpen]);
 
   const menuItems = [
     {
@@ -63,8 +78,10 @@ export default function ProfileModal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, toggle]);
 
-  // 외부 클릭 시 닫기
+  // 외부 클릭 시 닫기 (Alert가 열려있을 때는 비활성화)
   useEffect(() => {
+    if (!isOpen || isAlertOpen) return;
+
     const handleClickOutside = (e: MouseEvent) => {
       if (
         modalRef.current &&
@@ -76,7 +93,7 @@ export default function ProfileModal({
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, toggle, triggerRef]);
+  }, [isOpen, isAlertOpen, toggle, triggerRef]);
 
   // 스크롤 막기
   useEffect(() => {
@@ -95,7 +112,7 @@ export default function ProfileModal({
   return (
     <>
       <div className={styles.modal} ref={modalRef}>
-        <div className={styles.header}>
+        <Flex align="center" gap={0.5} className={styles.header}>
           <div className={styles.headerImage}>
             <Image
               src={user.profileImage}
@@ -104,17 +121,17 @@ export default function ProfileModal({
               height={36}
             />
           </div>
-          <div className={styles.headerInfo}>
+          <Flex direction="column">
             <Text typography="sub3_m_16" color="black">
               {user.name}
             </Text>
             <Text typography="label4_m_12" color="neutral-50">
               {user.email}
             </Text>
-          </div>
-        </div>
+          </Flex>
+        </Flex>
 
-        <div className={styles.content}>
+        <Flex direction="column" gap={0.25}>
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isHovered = hoveredItem === item.id;
@@ -123,14 +140,16 @@ export default function ProfileModal({
               : "var(--Neutral-30)";
 
             return (
-              <div
+              <Flex
                 key={item.id}
+                justify="space-between"
+                align="center"
                 className={styles.menuItem}
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
                 onClick={item.onClick}
               >
-                <div className={styles.menuItemTitle}>
+                <Flex align="center" gap={0.25}>
                   <Icon
                     {...item.iconProps}
                     {...(item.id === "support"
@@ -143,13 +162,26 @@ export default function ProfileModal({
                   >
                     {item.label}
                   </Text>
-                </div>
+                </Flex>
                 <ChevronRightIcon />
-              </div>
+              </Flex>
             );
           })}
-        </div>
+        </Flex>
+        <button className={styles.logoutBtn} onClick={toggleAlert}>
+          <Text typography="label3_m_14" color="neutral-60">
+            로그아웃
+          </Text>
+        </button>
       </div>
+      <Alert
+        icon={<CautionIcon color="var(--Primary-strong)" />}
+        isOpen={isAlertOpen}
+        toggle={toggleAlert}
+        title="로그아웃 하시겠습니까?"
+        message={<>로그아웃하면 일부 기능을 이용할 수 없습니다.</>}
+        onConfirm={handleLogout}
+      />
     </>
   );
 }
