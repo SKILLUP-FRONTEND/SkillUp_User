@@ -1,7 +1,7 @@
 /* 공통 스타일 */
 .tabWrap {
   width: 460px;
-  border-bottom: 1px solid #8a8a8a;
+  border-bottom: 1px solid var(--Line-normal);
 }
 
 /* 배경색에 따른 테마 */

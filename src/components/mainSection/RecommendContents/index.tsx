@@ -1,8 +1,9 @@
 // 추천 콘텐츠
 "use client";
 import Flex from "@/components/common/Flex";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import TabMenu from "@/components/common/Tab";
+import Text from "@/components/common/Text";
 
 type Card = {
   id: string;
@@ -22,13 +23,26 @@ const mock: Card[] = Array.from({ length: 5 }).map((_, i) => ({
 
 export default function RecommendedContent() {
   return (
-    <section className={styles.RecommendContent} aria-labelledby="rec-title">
-      <Flex justify="space-between" align="flex-end" gap="40px" className={styles.sectionHead}>
+    <Flex
+      as="section"
+      className={styles.RecommendContent}
+      aria-labelledby="rec-title"
+      gap="2.5rem"
+      direction="column"
+    >
+      <Flex justify="space-between" align="flex-end" gap="2.5rem">
         <Flex direction="column">
-          <p className={styles.subTitle}>추천 콘텐츠</p>
-          <h2 id="rec-title" className={styles.title}>
-            실무자를 위한 <span className={styles.titleSpan}>추천 컨텐츠</span>
-          </h2>
+          <Text typography="sub2_m_18" color="primary-strong">
+            추천 콘텐츠
+          </Text>
+          <Flex gap="0.5rem">
+            <Text typography="head1_m_42" color="black">
+              실무자를 위한
+            </Text>
+            <Text typography="head5_sb_42" color="black">
+              추천 컨텐츠
+            </Text>
+          </Flex>
         </Flex>
 
         <TabMenu
@@ -46,31 +60,53 @@ export default function RecommendedContent() {
             direction="column"
             className={`${styles.card} ${idx === 0 ? styles.heroCard : ""}`}
             as="article"
+            gap="0.75rem"
           >
+            {/* 추후 이미지로 변경 필요 */}
             <div
               className={`${styles.thumb} ${idx === 0 ? styles.heroThumb : ""}`}
             />
 
-            <div className={styles.meta}>
-              <Flex align="center" gap="12px">
-                <div className={styles.cardTitle}>{card.title}</div>
-                <Flex align="center" gap="8px" style={{ flexShrink: 0 }}>
-                  <span className={styles.badge}>{card.tag ?? "출처"}</span>
-                  <span className={styles.date}>{card.date}</span>
+            <Flex direction="column">
+              <Flex align="center" justify="space-between">
+                <Text typography="head4_sb_20" color="black">
+                  {card.title}
+                </Text>
+                <Flex align="center" gap="0.5rem">
+                  {/* 추후 뱃지 컴포넌트 생기면 변경 */}
+                  <div className={styles.badge}>
+                    <Text typography="label3_m_14" color="neutral-60">
+                      {card.tag}
+                    </Text>
+                  </div>
+                  <div className={styles.badge}>
+                    <Text typography="label3_m_14" color="neutral-60">
+                      {card.date}
+                    </Text>
+                  </div>
                 </Flex>
               </Flex>
 
-              <p className={styles.cardDesc} title={card.desc}>
+              <Text
+                typography="body1_r_16"
+                color="neutral-60"
+                className={styles.cardDesc}
+              >
                 {card.desc}
-              </p>
-            </div>
+              </Text>
+            </Flex>
           </Flex>
         ))}
       </div>
 
       <Flex justify="center">
-        <button className={styles.moreBtn}>아티클 더보기</button>
+        {/* 추후 컴포넌트로 교체 */}
+        <button className={styles.moreBtn}>
+          <Text typography="sub3_m_16" color="neutral-60">
+            아티클 더보기
+          </Text>
+        </button>
       </Flex>
-    </section>
+    </Flex>
   );
 }
