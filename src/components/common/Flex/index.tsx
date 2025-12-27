@@ -23,6 +23,7 @@ interface FlexProps {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   "aria-label"?: string;
+  block?: boolean;
 }
 
 export default function Flex({
@@ -39,6 +40,7 @@ export default function Flex({
   onMouseEnter,
   onMouseLeave,
   "aria-label": ariaLabel,
+  block = false,
 }: FlexProps) {
   const flexStyle: React.CSSProperties = {
     display: "flex",
@@ -48,6 +50,7 @@ export default function Flex({
     flexWrap: wrap,
     gap: typeof gap === "number" ? `${gap}rem` : gap,
     ...style,
+    ...(block && { width: "100%" }),
   };
 
   return (
