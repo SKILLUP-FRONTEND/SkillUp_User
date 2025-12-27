@@ -41,7 +41,7 @@ export default function Bootcamp() {
           </Flex>
 
           <TabMenu
-            tabs={["IT 개발", "기획", "디자인", "개발", "AI"]}
+            tabs={["전체", "기획", "디자인", "개발", "AI"]}
             defaultIndex={0}
             onChange={() => {}}
             theme="dark"
@@ -60,7 +60,9 @@ export default function Bootcamp() {
               데이터를 불러오는데 실패했습니다.
             </Text>
           </Flex>
-        ) : !data || !data.homeEventResponseList || data.homeEventResponseList.length === 0 ? (
+        ) : !data ||
+          !data.homeEventResponseList ||
+          data.homeEventResponseList.length === 0 ? (
           <Flex justify="center" align="center" style={{ minHeight: "300px" }}>
             <Text typography="body1_r_16" color="neutral-95">
               모집중인 부트캠프가 없습니다.

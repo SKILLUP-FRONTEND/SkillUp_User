@@ -34,10 +34,10 @@ export default async function Home() {
       queryFn: getRecommendedEvents,
     }),
 
-    // 인기/추천 행사 (지금 주목받고 있어요) - IT 개발 탭만 prefetch
+    // 인기/추천 행사 (지금 주목받고 있어요) - 전체 탭만 prefetch
     queryClient.prefetchQuery({
-      queryKey: ["home", "featured", { tab: "IT 개발", size: undefined }],
-      queryFn: () => getFeaturedEvents("IT 개발"),
+      queryKey: ["home", "featured", { tab: "전체", size: undefined }],
+      queryFn: () => getFeaturedEvents("전체"),
     }),
 
     // 곧 종료되는 행사 (신청 마감 행사)
@@ -49,7 +49,7 @@ export default async function Home() {
     // 부트캠프 카테고리
     queryClient.prefetchQuery({
       queryKey: [
-      "home",
+        "home",
         "category",
         { category: EVENT_CATEGORY.BOOTCAMP_CLUB, size: 8, page: 1 },
       ],

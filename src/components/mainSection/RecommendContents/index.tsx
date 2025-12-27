@@ -42,7 +42,7 @@ export default function RecommendedContent() {
         </Flex>
 
         <TabMenu
-          tabs={["IT 개발", "기획", "디자인", "개발", "AI"]}
+          tabs={["전체", "기획", "디자인", "개발", "AI"]}
           defaultIndex={2}
           onChange={() => {}}
           theme="light"

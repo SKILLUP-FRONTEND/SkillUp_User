@@ -16,7 +16,7 @@ import { Event } from "@/types/event";
 
 export default function RecommendNow() {
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [selectedTab, setSelectedTab] = useState<string>("IT 개발");
+  const [selectedTab, setSelectedTab] = useState<string>("전체");
 
   // API 데이터 가져오기
   const { data, isLoading, error } = useFeaturedEvents(selectedTab);
@@ -71,7 +71,7 @@ export default function RecommendNow() {
           </Flex>
 
           <TabMenu
-            tabs={["IT 개발", "기획", "디자인", "개발", "AI"]}
+            tabs={["전체", "기획", "디자인", "개발", "AI"]}
             defaultIndex={0}
             onChange={(selected: string) => {
               setSelectedTab(selected);
