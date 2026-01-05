@@ -19,7 +19,7 @@ export default async function page({ searchParams }: PageProps) {
     sortParam as EventSortOption
   )
     ? (sortParam as EventSortOption)
-    : "latest";
+    : "LATEST";
 
   // URL 파라미터를 API 파라미터로 변환
   const apiParams: EventSearchParams = {

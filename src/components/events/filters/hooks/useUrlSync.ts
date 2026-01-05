@@ -103,29 +103,39 @@ export const useUrlSync = (
   useEffect(() => {
     if (!isInitializedRef.current || isUpdatingFromUrlRef.current) return;
 
-    const newSearchParams = new URLSearchParams();
+    // 기존 URL 파라미터를 보존하기 위해 현재 searchParams에서 시작
+    const newSearchParams = new URLSearchParams(searchParams.toString());
 
+    // 필터 관련 파라미터만 업데이트/삭제
     // roles
     if (
       params.selectedRoles.length > 0 &&
       !params.selectedRoles.includes("전체")
     ) {
       newSearchParams.set("roles", params.selectedRoles.join(","));
+    } else {
+      newSearchParams.delete("roles");
     }
 
     // mode (online/offline)
     if (params.onOfflineFilter) {
       newSearchParams.set("mode", params.onOfflineFilter);
+    } else {
+      newSearchParams.delete("mode");
     }
 
     // isFree
     if (params.freeFilter) {
       newSearchParams.set("isFree", "true");
+    } else {
+      newSearchParams.delete("isFree");
     }
 
-    // sort (popularity가 기본값이므로 popularity일 때는 URL에 표시 안 함)
-    if (params.sortOption !== "popularity") {
+    // sort (POPULARITY가 기본값이므로 POPULARITY일 때는 URL에 표시 안 함)
+    if (params.sortOption !== "POPULARITY") {
       newSearchParams.set("sort", params.sortOption);
+    } else {
+      newSearchParams.delete("sort");
     }
 
     // startDate
@@ -134,6 +144,8 @@ export const useUrlSync = (
         "startDate",
         params.startDate.toISOString().split("T")[0]
       );
+    } else {
+      newSearchParams.delete("startDate");
     }
 
     // endDate
@@ -142,11 +154,15 @@ export const useUrlSync = (
         "endDate",
         params.endDate.toISOString().split("T")[0]
       );
+    } else {
+      newSearchParams.delete("endDate");
     }
 
     // page
     if (params.currentPage > 1) {
       newSearchParams.set("page", params.currentPage.toString());
+    } else {
+      newSearchParams.delete("page");
     }
 
     const queryString = newSearchParams.toString();
@@ -167,5 +183,6 @@ export const useUrlSync = (
     params.endDate,
     params.currentPage,
     router,
+    searchParams,
   ]);
 };

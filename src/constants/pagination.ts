@@ -3,9 +3,9 @@
 import { DropdownOption } from "@/components/common/Dropdown";
 
 export const SORT_OPTIONS: DropdownOption[] = [
-  { label: "인기순", value: "popularity" },
-  { label: "최신등록순", value: "latest" },
-  { label: "모집마감순", value: "deadline" },
+  { label: "인기순", value: "POPULARITY" },
+  { label: "최신등록순", value: "LATEST" },
+  { label: "모집마감순", value: "DEADLINE" },
 ];
 
 export const ITEMS_PER_PAGE = 12;

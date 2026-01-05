@@ -25,9 +25,9 @@ export type EventCategoryLabel =
   (typeof EVENT_CATEGORY_LABEL)[keyof typeof EVENT_CATEGORY_LABEL];
 // 행사 정렬 옵션
 export const EVENT_SORT_OPTIONS = {
-  POPULARITY: "popularity",
-  LATEST: "latest",
-  DEADLINE: "deadline",
+  POPULARITY: "POPULARITY",
+  LATEST: "LATEST",
+  DEADLINE: "DEADLINE",
 } as const;
 
 export type EventSortOption =
