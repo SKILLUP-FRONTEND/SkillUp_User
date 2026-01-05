@@ -62,7 +62,7 @@ export default function EventCard({
   };
 
   // 이미지 URL이 없으면 placeholder 사용
-  const imageSrc = thumbnailUrl || "/images/placeholder-event.png";
+  const imageSrc = thumbnailUrl;
   const eventUrl = `/conference/${id}`;
 
   const categoryBadgeLabel = EVENT_CATEGORY_LABEL[category] || "";

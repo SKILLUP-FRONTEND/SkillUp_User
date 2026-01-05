@@ -2,7 +2,7 @@
 
 import BootcampPageLayout from "./BootcampPageLayout";
 import { getEventList } from "@/api/events";
-import { EventSearchParams } from "@/types/event";
+import { EventSearchParams, Event } from "@/types/event";
 import { EventSortOption, EVENT_SORT_OPTIONS } from "@/constants/event";
 
 interface PageProps {
@@ -57,8 +57,14 @@ export default async function page({ searchParams }: PageProps) {
   }
 
   // SSR: 초기 데이터 서버에서 로드
-  const initialEventList =
-    (await getEventList(apiParams))?.homeEventResponseList || [];
+  let initialEventList: Event[] = [];
+  try {
+    const response = await getEventList(apiParams);
+    initialEventList = response?.homeEventResponseList || [];
+  } catch (error) {
+    console.error("행사 목록 조회 실패:", error);
+    initialEventList = [];
+  }
 
   return (
     <div style={{ paddingTop: "6rem" }}>
