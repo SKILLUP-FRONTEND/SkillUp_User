@@ -18,11 +18,7 @@ import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import SearchFilterView from "@/components/events/filters/views/SearchFilterView";
 import { Event, EventSearchRequest } from "@/types/event";
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
-import {
-  ITEMS_PER_PAGE,
-  generatePageOptions,
-  SORT_OPTIONS,
-} from "@/constants/pagination";
+import { ITEMS_PER_PAGE, SORT_OPTIONS } from "@/constants/pagination";
 import { EventSortOption } from "@/constants/event";
 import { useRecommendedEvents } from "@/hooks/useRecommendedEvents";
 import { pageFilterAtomsMap } from "@/components/events/filters/atoms/pageFilterAtoms";
@@ -87,10 +83,6 @@ export default function SearchPageLayout({
     useRecommendedEvents("CONFERENCE_SEMINAR", shouldFetchRecommended);
 
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-  const pageOptions = useMemo(
-    () => generatePageOptions(totalPages),
-    [totalPages]
-  );
 
   const paginatedEvents = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -243,12 +235,6 @@ export default function SearchPageLayout({
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
-              options={pageOptions}
-              selected={
-                pageOptions.find((opt) => opt.value === `${currentPage}`) ||
-                pageOptions[0]
-              }
-              onSelect={(option) => setCurrentPage(parseInt(option.value))}
             />
           </Flex>
         )}

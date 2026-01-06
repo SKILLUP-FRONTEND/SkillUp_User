@@ -1,5 +1,8 @@
 // src/components/common/Pagination/index.tsx
 
+"use client";
+
+import { useState, useEffect } from "react";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import EllipsisIcon from "@/assets/svg/ellipsisIcon.svg";
@@ -14,9 +17,9 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  options: DropdownOption[];
-  selected: DropdownOption;
-  onSelect: (option: DropdownOption) => void;
+  options?: DropdownOption[];
+  selected?: DropdownOption;
+  onSelect?: (option: DropdownOption) => void;
   goToPage?: boolean;
 }
 
@@ -24,11 +27,54 @@ const Pagination = ({
   currentPage,
   totalPages,
   onPageChange,
-  options,
-  selected,
-  onSelect,
+  options: externalOptions,
+  selected: externalSelected,
+  onSelect: externalOnSelect,
   goToPage = true,
 }: PaginationProps) => {
+  // 전체 페이지를 기반으로 드롭다운 옵션 생성
+  const [pageOptions, setPageOptions] = useState<DropdownOption[]>([]);
+  const [selectedPageOption, setSelectedPageOption] =
+    useState<DropdownOption | null>(null);
+
+  useEffect(() => {
+    const options = Array.from({ length: totalPages }, (_, i) => ({
+      label: `${i + 1}`,
+      value: `${i + 1}`,
+    }));
+    setPageOptions(options);
+    setSelectedPageOption(options[0] || null);
+  }, [totalPages]);
+
+  // currentPage가 변경될 때 드롭다운 선택값도 업데이트
+  useEffect(() => {
+    if (pageOptions.length > 0) {
+      const currentOption = pageOptions.find(
+        (opt) => opt.value === `${currentPage}`
+      );
+      if (currentOption) {
+        setSelectedPageOption(currentOption);
+      }
+    }
+  }, [currentPage, pageOptions]);
+
+  const handleGoClick = () => {
+    if (selectedPageOption) {
+      const pageNumber = parseInt(selectedPageOption.value, 10);
+      onPageChange(pageNumber);
+    }
+  };
+
+  const handlePageSelect = (option: DropdownOption) => {
+    setSelectedPageOption(option);
+    if (externalOnSelect) {
+      externalOnSelect(option);
+    }
+  };
+
+  const dropdownOptions = externalOptions || pageOptions;
+  const dropdownSelected = externalSelected || selectedPageOption;
+  const dropdownOnSelect = externalOnSelect || handlePageSelect;
   const createPageList = () => {
     const pages: (number | "ellipsis")[] = [];
 
@@ -110,23 +156,23 @@ const Pagination = ({
             onClick={handleRightClick}
             disabled={currentPage === totalPages}
           >
-            <ChevronRightIcon />
+            <ChevronRightIcon color="#000" />
           </button>
         </Flex>
       </Flex>
 
-      {goToPage && (
+      {goToPage && dropdownSelected && (
         <Flex align="center" gap="0.75rem" className={styles.paginationRight}>
           <Text typography="label2_m_16" color="neutral-30">
             Go to Page
           </Text>
           <Flex gap="0.25rem" align="center">
             <Dropdown
-              options={options}
-              selected={selected}
-              onSelect={onSelect}
+              options={dropdownOptions}
+              selected={dropdownSelected}
+              onSelect={dropdownOnSelect}
             />
-            <Button variant="secondary" size="large">
+            <Button variant="secondary" size="large" onClick={handleGoClick}>
               GO
             </Button>
           </Flex>

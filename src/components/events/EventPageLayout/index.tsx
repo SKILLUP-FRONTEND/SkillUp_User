@@ -14,7 +14,7 @@ import Text from "@/components/common/Text";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import { Event } from "@/types/event";
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
-import { ITEMS_PER_PAGE, generatePageOptions } from "@/constants/pagination";
+import { ITEMS_PER_PAGE } from "@/constants/pagination";
 import styles from "./styles.module.css";
 import { EventSortOption } from "@/constants/event";
 import { useRecommendedEvents } from "@/hooks/useRecommendedEvents";
@@ -68,10 +68,6 @@ export default function EventPageLayout({
     useRecommendedEvents(category, shouldFetchRecommended);
 
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-  const pageOptions = useMemo(
-    () => generatePageOptions(totalPages),
-    [totalPages]
-  );
 
   const paginatedEvents = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -210,12 +206,6 @@ export default function EventPageLayout({
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
-              options={pageOptions}
-              selected={
-                pageOptions.find((opt) => opt.value === `${currentPage}`) ||
-                pageOptions[0]
-              }
-              onSelect={(option) => setCurrentPage(parseInt(option.value))}
             />
           </Flex>
         )}
