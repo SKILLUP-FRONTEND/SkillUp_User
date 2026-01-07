@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
 import styles from "./styles.module.css";
-import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import CloseIcon from "@/assets/icons/CloseIcon";
 import { useRecentSearches } from "@/hooks/useRecentSearches";
