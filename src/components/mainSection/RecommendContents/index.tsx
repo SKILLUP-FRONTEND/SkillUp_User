@@ -6,22 +6,25 @@ import styles from "./styles.module.css";
 import TabMenu from "@/components/common/Tab";
 import Text from "@/components/common/Text";
 import { useRecommendedArticles } from "@/hooks/useArticle";
-import { ARTICLE_TAB, ARTICLE_TABS } from "@/constants/article";
 import { Article } from "@/types/article";
+import {
+  JobCategory,
+  JOB_CATEGORY,
+  getJobCategoryByLabel,
+  getJobCategoryLabel,
+  JOB_CATEGORY_TABS,
+} from "@/constants/category";
+import { useRouter } from "next/navigation";
 
 export default function RecommendedContent() {
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    ARTICLE_TAB.ALL
+  const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState<JobCategory>(
+    JOB_CATEGORY.ALL
   );
 
-  const { data, isLoading, error } = useRecommendedArticles(
-    selectedCategory as unknown as typeof ARTICLE_TAB
-  );
-  const articles = data?.articles || [];
+  const { data, isLoading, error } = useRecommendedArticles(selectedCategory);
+  const articles = data || [];
 
-  const handleTabChange = (selected: string) => {
-    setSelectedCategory(selected);
-  };
   return (
     <Flex
       as="section"
@@ -46,9 +49,14 @@ export default function RecommendedContent() {
         </Flex>
 
         <TabMenu
-          tabs={ARTICLE_TABS}
-          defaultIndex={ARTICLE_TABS.indexOf(selectedCategory)}
-          onChange={handleTabChange}
+          tabs={JOB_CATEGORY_TABS}
+          defaultIndex={JOB_CATEGORY_TABS.indexOf(
+            getJobCategoryLabel(selectedCategory)
+          )}
+          onChange={(selected: string) => {
+            const category = getJobCategoryByLabel(selected);
+            setSelectedCategory(category);
+          }}
           theme="light"
         />
       </Flex>
@@ -80,6 +88,7 @@ export default function RecommendedContent() {
               className={`${styles.card} ${idx === 0 ? styles.heroCard : ""}`}
               as="article"
               gap="0.75rem"
+              onClick={() => router.push(article.originalUrl)}
             >
               <div
                 className={`${styles.thumb} ${
@@ -94,21 +103,17 @@ export default function RecommendedContent() {
 
               <Flex direction="column">
                 <Flex align="center" justify="space-between">
-                  <Text typography="head4_sb_20" color="black">
+                  <Text
+                    typography="head4_sb_20"
+                    color="black"
+                    className={styles.cardTitle}
+                  >
                     {article.title}
                   </Text>
                   <Flex align="center" gap="0.5rem">
                     <div className={styles.badge}>
                       <Text typography="label3_m_14" color="neutral-60">
-                        {article.targetRoles.map((role) => (
-                          <Text
-                            typography="label3_m_14"
-                            color="neutral-60"
-                            key={role}
-                          >
-                            #{role}
-                          </Text>
-                        ))}
+                        {article.source}
                       </Text>
                     </div>
                     <div className={styles.badge}>

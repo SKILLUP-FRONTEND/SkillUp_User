@@ -8,7 +8,6 @@ export interface Article {
   source: string;
   originalPublishedDate: string;
   originalUrl: string;
-  targetRoles: string[];
 }
 
 export interface SearchArticlesResponse {
