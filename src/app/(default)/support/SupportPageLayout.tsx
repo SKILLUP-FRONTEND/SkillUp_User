@@ -109,7 +109,7 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
                   </Button>
                 ) : undefined,
             }))}
-            defaultOpenId={currentFAQs[0]?.question}
+            allowMultiple={true}
           />
         </div>
 
