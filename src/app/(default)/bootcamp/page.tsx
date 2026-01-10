@@ -1,6 +1,6 @@
 // src/app/bootcamp/page.tsx
 
-import BootcampPageLayout from "./BootcampPageLayout";
+import EventPageLayout from "@/components/events/EventPageLayout";
 import { getEventList } from "@/api/events";
 import { EventSearchParams, Event } from "@/types/event";
 import { EventSortOption, EVENT_SORT_OPTIONS } from "@/constants/event";
@@ -68,7 +68,8 @@ export default async function page({ searchParams }: PageProps) {
 
   return (
     <div style={{ paddingTop: "6rem" }}>
-      <BootcampPageLayout
+      <EventPageLayout
+        pageId="bootcamp"
         initialEventList={initialEventList}
         initialParams={apiParams}
       />

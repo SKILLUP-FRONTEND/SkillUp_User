@@ -2,7 +2,8 @@
 
 "use client";
 
-import { useAtom } from "jotai";
+import { useMemo } from "react";
+import { useAtom, useAtomValue } from "jotai";
 import EventCard from "@/components/common/EventCard";
 import EventEmpty from "@/components/events/EventEmpty";
 import EventPageHeader from "@/components/events/EventPageHeader";
@@ -11,36 +12,51 @@ import Button from "@/components/common/Button";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
-import { Event } from "@/types/event";
+import { Event, EventSearchParams } from "@/types/event";
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
 import { ITEMS_PER_PAGE } from "@/constants/pagination";
 import styles from "./styles.module.css";
 import { EventSortOption } from "@/constants/event";
 import { useRecommendedEvents } from "@/hooks/useRecommendedEvents";
+import { useEventList } from "@/hooks/useEventList";
 import {
   PAGE_CATEGORY_MAP,
   pageFilterAtomsMap,
+  createEventSearchParamsAtom,
 } from "@/components/events/filters/atoms/pageFilterAtoms";
+import { PAGE_CONFIGS, PageId } from "./config";
 
 interface EventPageLayoutProps {
-  pageId: "bootcamp" | "conference" | "hackathon" | "mentoring";
-  title: string;
-  eventList: Event[];
-  total: number;
-  FilterView: React.ComponentType;
-  emptyUrl: string;
-  isLoadingEventList?: boolean;
+  pageId: PageId;
+  initialEventList: Event[];
+  initialParams: EventSearchParams;
 }
 
 export default function EventPageLayout({
   pageId,
-  title,
-  eventList,
-  total,
-  FilterView,
-  emptyUrl,
-  isLoadingEventList = false,
+  initialEventList,
+  initialParams,
 }: EventPageLayoutProps) {
+  // config에서 페이지 설정 가져오기
+  const config = PAGE_CONFIGS[pageId];
+  const { title, FilterView, emptyUrl } = config;
+
+  // searchParams atom 생성
+  const searchParamsAtom = useMemo(
+    () => createEventSearchParamsAtom(pageId),
+    [pageId]
+  );
+  const searchParams = useAtomValue(searchParamsAtom);
+
+  // 이벤트 목록 조회
+  const { data, isLoading: isLoadingEventList } = useEventList(
+    searchParams,
+    initialEventList,
+    initialParams
+  );
+
+  const eventList = data?.homeEventResponseList || [];
+  const total = data?.total || 0;
   const {
     selectedRoles,
     setSelectedRoles,

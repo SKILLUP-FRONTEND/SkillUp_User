@@ -1,6 +1,6 @@
 // src/app/hackathon/page.tsx
 
-import HackathonPageLayout from "./HackathonPageLayout";
+import EventPageLayout from "@/components/events/EventPageLayout";
 import { getEventList } from "@/api/events";
 import { EventSearchParams, Event } from "@/types/event";
 import { EventSortOption, EVENT_SORT_OPTIONS } from "@/constants/event";
@@ -68,7 +68,8 @@ export default async function HackathonPage({ searchParams }: PageProps) {
 
   return (
     <div style={{ paddingTop: "6rem" }}>
-      <HackathonPageLayout
+      <EventPageLayout
+        pageId="hackathon"
         initialEventList={initialEventList}
         initialParams={apiParams}
       />

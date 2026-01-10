@@ -150,6 +150,7 @@ export default function RecommendInterest() {
                       }
                       onClick={(e) => handleBookmarkClick(e, event.id)}
                       className={styles.bookmarkBtn}
+                      ariaLabel="Bookmark Icon"
                     />
                   </div>
                   <Flex direction="column">

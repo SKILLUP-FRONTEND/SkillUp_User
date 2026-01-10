@@ -1,6 +1,6 @@
 // src/app/mentoring/page.tsx
 
-import MentoringPageLayout from "./MentoringPageLayout";
+import EventPageLayout from "@/components/events/EventPageLayout";
 import { getEventList } from "@/api/events";
 import { EventSearchParams, Event } from "@/types/event";
 import { EventSortOption, EVENT_SORT_OPTIONS } from "@/constants/event";
@@ -68,7 +68,8 @@ export default async function MentoringPage({ searchParams }: PageProps) {
 
   return (
     <div style={{ paddingTop: "6rem" }}>
-      <MentoringPageLayout
+      <EventPageLayout
+        pageId="mentoring"
         initialEventList={initialEventList}
         initialParams={apiParams}
       />

@@ -10,6 +10,7 @@ interface IconButtonProps {
   icon: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  ariaLabel: string;
 }
 
 export default function IconButton({
@@ -19,6 +20,7 @@ export default function IconButton({
   icon,
   onClick,
   className,
+  ariaLabel,
 }: IconButtonProps) {
   return (
     <button
@@ -33,6 +35,7 @@ export default function IconButton({
       )}
       onClick={onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
     >
       {icon}
     </button>

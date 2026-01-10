@@ -99,6 +99,7 @@ export default function EventCard({
               />
             }
             onClick={handleBookmarkClick}
+            ariaLabel="Bookmark Icon"
           />
         </Flex>
       </div>
