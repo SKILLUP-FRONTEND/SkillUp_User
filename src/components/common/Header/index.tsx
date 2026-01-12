@@ -148,11 +148,16 @@ export default function Header({ variant }: HeaderProps) {
               <Image src={SearchIcon} alt="search" width={20} height={20} />
             </button>
           </div>
-          <button className={styles.inquiryBtn}>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfi28YC_XHpe94p9TkJvjmZz20lWvPAGiCNQgSvYq4YTlYerQ/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.inquiryBtn}
+          >
             <Text typography="label3_m_14" color="fill-normal">
               문의하기
             </Text>
-          </button>
+          </a>
 
           {isMounted && (
             <>
