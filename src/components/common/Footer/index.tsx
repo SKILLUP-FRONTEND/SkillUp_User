@@ -30,8 +30,8 @@ export default function Footer() {
             </div>
             <Flex align="center" gap="0.625rem" className={styles.policyGroup}>
               <Link href="/support">자주 묻는 질문</Link>
-              <Link href="#">서비스이용약관</Link>
-              <Link href="#">개인정보처리방침</Link>
+              <Link href="/terms">서비스이용약관</Link>
+              <Link href="/terms?tab=privacy">개인정보처리방침</Link>
             </Flex>
           </Flex>
 
