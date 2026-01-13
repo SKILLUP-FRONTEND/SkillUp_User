@@ -3,27 +3,28 @@
 import { useState } from "react";
 import { SERVICE_TERMS, PRIVACY_POLICY } from "@/constants/policyPages";
 import Text from "@/components/common/Text";
+import Dropdown, { DropdownOption } from "@/components/common/Dropdown";
 import styles from "./styles.module.css";
 import clsx from "clsx";
 
 type TabType = "service" | "privacy";
 
+const dateOptions: DropdownOption[] = [
+  { label: "2026년 1월 9일", value: "2026-01-09" },
+];
+
 export default function TermsPage() {
   const [activeTab, setActiveTab] = useState<TabType>("service");
+  const [selectedDate, setSelectedDate] = useState<DropdownOption>(
+    dateOptions[0]
+  );
 
-  const currentPolicy = activeTab === "service" ? SERVICE_TERMS : PRIVACY_POLICY;
-  const currentDate = "2026년 1월 9일";
+  const currentPolicy =
+    activeTab === "service" ? SERVICE_TERMS : PRIVACY_POLICY;
 
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
-        {/* 헤더 섹션 */}
-        <div className={styles.header}>
-          <Text typography="head1_b_42" color="black">
-            서비스 정책
-          </Text>
-        </div>
-
         {/* 탭 섹션 */}
         <div className={styles.tabContainer}>
           <button
@@ -33,10 +34,10 @@ export default function TermsPage() {
             onClick={() => setActiveTab("service")}
           >
             <Text
-              typography="head4_sb_20"
-              color={activeTab === "service" ? "black" : "neutral-70"}
+              typography="label2_m_16"
+              color={activeTab === "service" ? "black" : "neutral-30"}
             >
-              서비스이용약관
+              서비스 이용약관
             </Text>
           </button>
           <button
@@ -46,8 +47,8 @@ export default function TermsPage() {
             onClick={() => setActiveTab("privacy")}
           >
             <Text
-              typography="head4_sb_20"
-              color={activeTab === "privacy" ? "black" : "neutral-70"}
+              typography="label2_m_16"
+              color={activeTab === "privacy" ? "black" : "neutral-30"}
             >
               개인정보처리방침
             </Text>
@@ -58,31 +59,18 @@ export default function TermsPage() {
         <div className={styles.contentContainer}>
           {/* 제목과 날짜 */}
           <div className={styles.titleSection}>
-            <Text typography="head2_sb_30" color="black">
+            <Text typography="head2_sb_30" color="neutral-15">
               {activeTab === "service"
-                ? "스킬업 서비스이용약관"
+                ? "스킬업 서비스 이용약관"
                 : "스킬업 개인정보처리방침"}
             </Text>
-            <div className={styles.dateDropdown}>
-              <Text typography="body1_r_16" color="neutral-70">
-                {currentDate}
-              </Text>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 7.5L10 12.5L15 7.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+            <Dropdown
+              options={dateOptions}
+              selected={selectedDate}
+              onSelect={setSelectedDate}
+              className={styles.dateDropdown}
+              spaceBetween
+            />
           </div>
 
           {/* 약관 섹션들 */}
@@ -98,16 +86,18 @@ export default function TermsPage() {
                     {section.title}
                   </Text>
                 )}
-                {section.content.map((paragraph, pIndex) => (
-                  <Text
-                    key={pIndex}
-                    typography="body2_r_14"
-                    color="black"
-                    className={styles.paragraph}
-                  >
-                    {paragraph}
-                  </Text>
-                ))}
+                <div className={styles.sectionContent}>
+                  {section.content.map((paragraph, pIndex) => (
+                    <Text
+                      key={pIndex}
+                      typography="body1_r_16"
+                      color="black"
+                      className={styles.paragraph}
+                    >
+                      {paragraph}
+                    </Text>
+                  ))}
+                </div>
                 {section.table && (
                   <table className={styles.table}>
                     <thead>
