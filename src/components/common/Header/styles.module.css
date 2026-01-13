@@ -18,11 +18,6 @@
   background: var(--Common-white);
 }
 
-.policyHeader {
-  background: var(--Common-white);
-  border-bottom: 1px solid var(--Neutral-30);
-}
-
 .header .inner {
   max-width: 1240px;
   margin: 0 auto;
