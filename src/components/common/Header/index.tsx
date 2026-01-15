@@ -15,7 +15,7 @@ import SearchIcon from "@/assets/svg/searchIcon.svg";
 import ProfileModal from "@/components/login/ProfileModal";
 import LogoDefaultImg from "@/assets/images/logoDefaultImg.png";
 import { useAuth } from "@/hooks/useAuth";
-import { getSocialLogin } from "@/api/auth";
+import { useSocialLogin } from "@/hooks/useSocialLogin";
 import { useAtomValue } from "jotai";
 import { userNameAtom, userEmailAtom } from "@/store/authAtoms";
 import { useUserEmailAndName } from "@/hooks/useUser";
@@ -32,6 +32,7 @@ export default function Header({ variant }: HeaderProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen((prev) => !prev);
   const { isAuthenticated, logout } = useAuth();
+  const { mutate: startSocialLogin } = useSocialLogin();
   const router = useRouter();
   // 로그인 상태일 때 유저 이메일/이름 자동 조회 (백그라운드 업데이트)
   useUserEmailAndName();
@@ -71,28 +72,19 @@ export default function Header({ variant }: HeaderProps) {
     setIsTermsModalOpen(true);
   };
 
-  const handleTermsConfirm = async () => {
+  const handleTermsConfirm = () => {
     if (!pendingSocialType) return;
 
-    try {
-      const response = await getSocialLogin(pendingSocialType.toLowerCase());
-      console.log("소셜 로그인 응답:", response);
-
-      // 응답에서 URL 추출 (data 필드에 URL이 포함되어 있음)
-      if (response.code === "SUCCESS" && response.data) {
-        const url = response.data.includes(":")
-          ? response.data.split(": ")[1]
-          : response.data;
-
-        console.log("리다이렉트될 URL:", url);
-        window.location.href = url;
-      }
-    } catch (error) {
-      console.error("소셜 로그인 실패:", error);
-      // 에러 발생 시에만 모달 닫기
-      setIsTermsModalOpen(false);
-      setPendingSocialType(null);
-    }
+    // 소셜 로그인 시작 (useSocialLogin 훅이 자동으로 URL을 가져와서 리다이렉트)
+    startSocialLogin(pendingSocialType.toLowerCase() as SocialType, {
+      onError: (error) => {
+        console.error("소셜 로그인 실패:", error);
+        // 에러 발생 시 모달 닫기
+        setIsTermsModalOpen(false);
+        setPendingSocialType(null);
+      },
+    });
+    // 성공 시에는 리다이렉트되므로 모달을 닫지 않음
   };
 
   const handleTermsCancel = () => {
