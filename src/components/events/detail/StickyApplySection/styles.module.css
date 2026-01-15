@@ -103,3 +103,13 @@
   line-height: 150%;
   letter-spacing: -0.035rem;
 }
+
+.hashTagLink {
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.hashTagLink:hover {
+  opacity: 0.8;
+}

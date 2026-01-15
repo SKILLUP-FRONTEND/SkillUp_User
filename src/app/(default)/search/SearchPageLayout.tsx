@@ -104,7 +104,7 @@ export default function SearchPageLayout({
     >
       {/* 검색 헤더 - 직군 필터 제외 */}
       <Flex direction="column" gap={1.5} style={{ width: "100%" }}>
-        <EventHeader title="행사 검색 결과" count={total} />
+        <EventHeader title={`'${searchQuery}' 검색 결과`} count={total} />
         <Flex align="center" justify="flex-end">
           <Flex align="center" gap={0.5}>
             <FilterBadges

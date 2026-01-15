@@ -12,6 +12,7 @@ import { EVENT_CATEGORY_LABEL } from "@/constants/event";
 import { EventCategory } from "@/constants/event";
 import { formatPrice } from "@/utils/format";
 import LoginImage from "@/assets/images/loginImg.png";
+import Link from "next/link";
 
 interface StickyApplySectionProps {
   category: EventCategory;
@@ -93,12 +94,19 @@ export default function StickyApplySection({
           </div>
           <div className={styles.stickyApplySectionContentBodyItemDivider} />
           <div className={styles.stickyApplySectionContentBodyItem}>
-            {hashTags.map((tag, index) => (
-              <Badge
-                key={index}
-                label={tag.startsWith("#") ? tag : `#${tag}`}
-              />
-            ))}
+            {hashTags.map((tag, index) => {
+              // # 기호 제거
+              const cleanTag = tag.startsWith("#") ? tag.slice(1) : tag;
+              return (
+                <Link
+                  key={index}
+                  href={`/search?q=${encodeURIComponent(cleanTag)}`}
+                  className={styles.hashTagLink}
+                >
+                  <Badge label={tag.startsWith("#") ? tag : `#${tag}`} />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
