@@ -53,8 +53,7 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
           // 로그인 성공 시 메인 페이지로 이동
           router.push("/");
         },
-        onError: (err) => {
-          console.error("Social login callback error:", err);
+        onError: () => {
           setError("로그인 처리 중 오류가 발생했습니다.");
           setTimeout(() => {
             router.push("/");

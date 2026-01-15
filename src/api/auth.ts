@@ -9,12 +9,16 @@ export const getSocialLoginUrl = async (
   socialLoginType: SocialLoginType
 ): Promise<string> => {
   const response = await instance.get(`/oauth/${socialLoginType}`);
+
   // 백엔드에서 "SOCIAL_LOGIN_TYPE : URL" 형식으로 반환
   const data = response.data.data || response.data;
+
   // "SOCIAL_LOGIN_TYPE : URL" 형식에서 URL만 추출
   if (typeof data === "string" && data.includes(":")) {
-    return data.split(":").slice(1).join(":").trim();
+    const extractedUrl = data.split(":").slice(1).join(":").trim();
+    return extractedUrl;
   }
+
   return data;
 };
 
