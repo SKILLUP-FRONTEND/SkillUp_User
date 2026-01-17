@@ -3,8 +3,7 @@
 import { atom } from "jotai";
 import { EventSearchParams } from "@/types/event";
 import { EVENT_SORT_OPTIONS, EventSortOption } from "@/constants/event";
-import { JobCategory } from "@/constants/category";
-import { JOB_CATEGORY, JOB_CATEGORY_LABEL } from "@/constants/category";
+import { JobCategory, JOB_CATEGORY } from "@/constants/category";
 
 // 기본 필터 상태 타입 정의
 export interface PageFilterState {
@@ -68,11 +67,11 @@ export const PAGE_CATEGORY_MAP: Partial<
   article: "ARTICLE",
 };
 
-// UI 역할명을 API 역할명으로 변환하는 함수
-const convertRolesToApi = (roles: JobCategory[]): string[] => {
-  return roles
-    .filter((role) => role !== JOB_CATEGORY.ALL)
-    .map((role) => JOB_CATEGORY_LABEL[role] || role);
+// UI 역할명을 API로 전달하는 함수 (단일 값, JOB_CATEGORY 그대로 전달)
+const convertRoleToApi = (roles: JobCategory[]): string | undefined => {
+  const filtered = roles.filter((role) => role !== JOB_CATEGORY.ALL);
+  if (filtered.length === 0) return undefined;
+  return filtered[0];
 };
 
 // Jotai 필터 상태를 API params로 변환하는 derived atom 생성
@@ -98,8 +97,9 @@ export const createEventSearchParamsAtom = (
     };
 
     // 선택 필드들 - 값이 있을 때만 추가
-    if (selectedRoles.length > 0 && !selectedRoles.includes(JOB_CATEGORY.ALL)) {
-      params.targetRoles = convertRolesToApi(selectedRoles);
+    const targetRole = convertRoleToApi(selectedRoles);
+    if (targetRole) {
+      params.targetRole = targetRole;
     }
 
     if (onOfflineFilter === "online") {

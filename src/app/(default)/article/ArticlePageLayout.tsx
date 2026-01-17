@@ -43,7 +43,6 @@ export default function ArticlePageLayout() {
           <RoleSelector
             selected={selectedRoles}
             onSelect={setSelectedRoles}
-            multiSelect={false}
           />
         </Flex>
         <Flex direction="column" gap={3.75}>

@@ -18,7 +18,6 @@ import {
 interface RoleSelectorProps {
   selected: JobCategory[];
   onSelect: (option: JobCategory[]) => void;
-  multiSelect?: boolean; // true: 다중 선택 가능, false: 단일 선택만 가능
 }
 
 const ROLES: {
@@ -36,36 +35,10 @@ const ROLES: {
 export default function RoleSelector({
   selected = [JOB_CATEGORY.ALL],
   onSelect,
-  multiSelect = true,
 }: RoleSelectorProps) {
   const handleClick = (category: JobCategory) => {
-    // 단일 선택 모드
-    if (!multiSelect) {
-      onSelect([category]);
-      return;
-    }
-
-    // 다중 선택 모드 (기존 로직)
-    if (category === JOB_CATEGORY.ALL) {
-      onSelect([JOB_CATEGORY.ALL]);
-      return;
-    }
-
-    let newSelected: JobCategory[] = selected.filter(
-      (r) => r !== JOB_CATEGORY.ALL
-    );
-
-    if (newSelected.includes(category)) {
-      newSelected = newSelected.filter((r) => r !== category);
-    } else {
-      newSelected = [...newSelected, category];
-    }
-
-    if (newSelected.length === 0) {
-      newSelected = [JOB_CATEGORY.ALL];
-    }
-
-    onSelect(newSelected);
+    // 항상 단일 선택 모드
+    onSelect([category]);
   };
 
   const isActive = (category: JobCategory) => {

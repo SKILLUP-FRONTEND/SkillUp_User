@@ -64,7 +64,7 @@ export interface EventSearchParams {
   startDate?: string; // YYYY-MM-DD 형식
   endDate?: string; // YYYY-MM-DD 형식
   sort: EventSortOption;
-  targetRoles?: string[];
+  targetRole?: string;
   page: number;
   validDateRange?: boolean;
   validSort?: boolean;
