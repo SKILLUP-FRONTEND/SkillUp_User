@@ -41,14 +41,13 @@ export const useSocialLoginCallback = () => {
       code: string;
       state?: string;
     }) => {
+      // 1. 토큰 받기
       const token = await sendAuthorizationCode(socialType, code, state);
-      return token;
-    },
-    onSuccess: async (token: string) => {
-      // 토큰 저장
+
+      // 2. 토큰 저장
       login(token);
 
-      // 유저 이메일 및 이름 바로 조회하여 전역 상태에 저장
+      // 3. 유저 정보 가져오기 (토큰 저장 후 바로 호출)
       try {
         const userData = await getUserEmailAndName();
         if (userData?.userName) {
@@ -63,8 +62,11 @@ export const useSocialLoginCallback = () => {
         console.error("Failed to fetch user email and name:", error);
       }
 
-      // 유저 데이터 쿼리 무효화
+      // 4. 유저 데이터 쿼리 무효화
       queryClient.invalidateQueries({ queryKey: ["user"] });
+
+      // 모든 작업 완료 후 반환
+      return token;
     },
   });
 };
