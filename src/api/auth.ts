@@ -40,6 +40,6 @@ export const sendAuthorizationCode = async (
     params,
   });
 
-  // 백엔드에서 액세스 토큰 반환
-  return response.data.data.accessToken;
+  // 백엔드에서 액세스 토큰 반환 (중첩된 구조)
+  return response.data.data.accessToken.accessToken;
 };
