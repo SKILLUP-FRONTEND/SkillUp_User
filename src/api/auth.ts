@@ -28,7 +28,10 @@ export const sendAuthorizationCode = async (
   code: string,
   state?: string
 ): Promise<string> => {
-  const params: Record<string, string> = { code };
+  const params: Record<string, string> = {
+    code,
+    socialLoginType,
+  };
   if (state) {
     params.state = state;
   }
