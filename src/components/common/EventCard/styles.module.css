@@ -6,7 +6,7 @@
   border-radius: 0.5rem;
   background: var(--Common-white);
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  overflow: hidden; /* 원래대로 복구 (Portal 사용으로 문제 없음) */
   cursor: pointer;
 
   &:hover {

@@ -1,0 +1,83 @@
+/* src/components/common/Tooltip/styles.module.css */
+
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 99999; /* 매우 높은 z-index로 다른 요소 위에 표시 */
+  padding: 6px 12px;
+  background-color: #2d2d2d;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* 화살표 */
+.arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Top 위치 */
+.top {
+  transform: translate(-50%, -100%);
+}
+
+.top .arrow {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0 6px;
+  border-color: #2d2d2d transparent transparent transparent;
+}
+
+/* Bottom 위치 */
+.bottom {
+  transform: translate(-50%, 0);
+}
+
+.bottom .arrow {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent #2d2d2d transparent;
+}
+
+/* Left 위치 */
+.left {
+  transform: translate(-100%, -50%);
+}
+
+.left .arrow {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 6px;
+  border-color: transparent transparent transparent #2d2d2d;
+}
+
+/* Right 위치 */
+.right {
+  transform: translate(0, -50%);
+}
+
+.right .arrow {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 6px 6px 0;
+  border-color: transparent #2d2d2d transparent transparent;
+}

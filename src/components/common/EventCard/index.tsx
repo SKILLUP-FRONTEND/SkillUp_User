@@ -14,6 +14,7 @@ import Text from "@/components/common/Text";
 import IconButton from "@/components/common/IconButton";
 import Button from "@/components/common/Button";
 import Flex from "@/components/common/Flex";
+import Tooltip from "@/components/common/Tooltip";
 import { Event } from "@/types/event";
 import { EVENT_CATEGORY_LABEL } from "@/constants/event";
 import { useToggleEventBookmark } from "@/hooks/useEventDetail";
@@ -89,18 +90,20 @@ export default function EventCard({
 
         <Flex justify="space-between" className={styles.eventCardImageOverlay}>
           <Badge label={d_dayLabel || ""} variant="opacity" />
-          <IconButton
-            variant="opacity"
-            size="large"
-            icon={
-              <BookmarkIcon
-                fillColor={isBookmarked ? "var(--Common-white)" : "none"}
-                strokeColor={isBookmarked ? "none" : "var(--Common-white)"}
-              />
-            }
-            onClick={handleBookmarkClick}
-            ariaLabel="Bookmark Icon"
-          />
+          <Tooltip content="북마크">
+            <IconButton
+              variant="opacity"
+              size="large"
+              icon={
+                <BookmarkIcon
+                  fillColor={isBookmarked ? "var(--Common-white)" : "none"}
+                  strokeColor={isBookmarked ? "none" : "var(--Common-white)"}
+                />
+              }
+              onClick={handleBookmarkClick}
+              ariaLabel="Bookmark Icon"
+            />
+          </Tooltip>
         </Flex>
       </div>
       <Flex
