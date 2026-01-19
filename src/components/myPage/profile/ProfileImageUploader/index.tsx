@@ -29,18 +29,35 @@ export default function ProfileImageUploader({
     }
   };
 
+  // data: URL (미리보기)인지 확인
+  const isDataUrl = imageUrl && imageUrl.startsWith("data:");
+
   // 유효한 이미지 URL인지 확인
-  const isValidUrl = imageUrl && (imageUrl.startsWith('/') || imageUrl.startsWith('http://') || imageUrl.startsWith('https://'));
+  const isValidUrl =
+    imageUrl &&
+    (imageUrl.startsWith("/") ||
+      imageUrl.startsWith("http://") ||
+      imageUrl.startsWith("https://"));
 
   return (
     <div className={styles.wrapper}>
-      <Image
-        src={isValidUrl ? imageUrl : logoDefaultImg}
-        alt="Profile"
-        width={120}
-        height={120}
-        className={styles.profileImg}
-      />
+      {isDataUrl ? (
+        <img
+          src={imageUrl}
+          alt="Profile Preview"
+          width={120}
+          height={120}
+          className={styles.profileImg}
+        />
+      ) : (
+        <Image
+          src={isValidUrl ? imageUrl : logoDefaultImg}
+          alt="Profile"
+          width={120}
+          height={120}
+          className={styles.profileImg}
+        />
+      )}
       <button className={styles.editBtn} onClick={handleClick}>
         <PenIcon fillColor="none" />
       </button>
