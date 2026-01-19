@@ -13,7 +13,7 @@ import {
 import { useAuth } from "./useAuth";
 import { useSetAtom } from "jotai";
 import { userNameAtom, userEmailAtom } from "@/store/authAtoms";
-import { UserProfile, UserBookmarks } from "@/types/user";
+import { UserBookmarks, UpdateUserProfileRequest } from "@/types/user";
 import { RoleName } from "@/constants/role";
 
 // 유저 데이터 조회 Hook
@@ -37,7 +37,7 @@ export const useUpdateUserProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: UserProfile) => {
+    mutationFn: async (data: UpdateUserProfileRequest) => {
       return await updateUserProfile(data);
     },
     onSuccess: () => {

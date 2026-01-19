@@ -2,7 +2,7 @@
 
 import tokenInstance from "@/api/tokenInstance";
 import instance from "@/api/instance";
-import { UserProfile, UserBookmarks } from "@/types/user";
+import { UserBookmarks, UpdateUserProfileRequest } from "@/types/user";
 import { RoleName } from "@/constants/role";
 
 // 테스트 로그인 API
@@ -19,10 +19,39 @@ export const getUser = async () => {
 };
 
 // 유저 프로필 업데이트
-export const updateUserProfile = async (data: UserProfile) => {
+export const updateUserProfile = async (data: UpdateUserProfileRequest) => {
+  const formData = new FormData();
+
+  // request 객체를 JSON Blob으로 만들어서 추가
+  const requestData = {
+    name: data.name,
+    age: data.age,
+    gender: data.gender,
+    role: data.role,
+    interests: data.interests,
+    marketingAgreement: data.marketingAgreement,
+  };
+
+  // request part를 JSON Blob으로 추가
+  formData.append(
+    "request",
+    new Blob([JSON.stringify(requestData)], { type: "application/json" })
+  );
+
+  // 프로필 이미지가 있으면 추가
+  if (data.profileImage) {
+    formData.append("profileImage", data.profileImage);
+  }
+
+  // axios가 자동으로 Content-Type을 multipart/form-data로 설정하고 boundary를 추가합니다
   const response = await tokenInstance.put(
     "/user/my-page/profile/update",
-    data
+    formData,
+    {
+      headers: {
+        "Content-Type": undefined, // axios가 자동으로 설정하도록 강제
+      },
+    }
   );
   return response.data;
 };

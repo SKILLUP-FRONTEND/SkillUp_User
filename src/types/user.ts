@@ -13,6 +13,17 @@ export interface UserProfile {
   marketingAgreement: boolean;
 }
 
+// 프로필 업데이트 요청 타입
+export interface UpdateUserProfileRequest {
+  name: string;
+  age: string;
+  gender: string;
+  role: string;
+  interests: string[];
+  marketingAgreement: boolean;
+  profileImage?: File | null; // 선택적 파일
+}
+
 export interface CustomerCenterInquiry {
   question: string;
   answerTitle: string;

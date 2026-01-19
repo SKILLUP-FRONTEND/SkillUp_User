@@ -7,14 +7,17 @@ import { RoleName, ROLE_NAME } from "@/constants/role";
 import { useUpdateUserProfile, useUserInterests } from "@/hooks/useUser";
 import { DropdownOption } from "@/components/common/Dropdown";
 import ProfileImageDefault from "@/assets/images/logoDefaultImg.png";
+import { useToast } from "./useToast";
 
 export const useProfileEditForm = (initialData: UserProfile) => {
   const router = useRouter();
+  const { showToast } = useToast();
 
   // Form State
   const [imageUrl, setImageUrl] = useState<string>(
     initialData.profileImageUrl || ProfileImageDefault.src.toString()
   );
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null); // File 객체 저장
   const [name, setName] = useState<string>(initialData.name);
   const [selectedGender, setSelectedGender] = useState<string>(
     initialData.gender
@@ -52,6 +55,10 @@ export const useProfileEditForm = (initialData: UserProfile) => {
 
   // Handlers
   const handleChangeImage = (file: File) => {
+    // File 객체 저장 (API 전송용)
+    setProfileImageFile(file);
+
+    // 미리보기 URL 생성 (UI 표시용)
     const reader = new FileReader();
     reader.onloadend = () => {
       setImageUrl(reader.result as string);
@@ -98,23 +105,32 @@ export const useProfileEditForm = (initialData: UserProfile) => {
   };
 
   const handleSave = () => {
-    const userProfile: UserProfile = {
+    const updateData = {
       name,
-      profileImageUrl: imageUrl,
       age: selectedAge,
       gender: selectedGender,
       role: selectedJob,
       interests: selectedInterests,
       marketingAgreement: isMarketingAgreed,
+      profileImage: profileImageFile, // File 객체 전달
     };
 
-    updateProfile(userProfile, {
+    updateProfile(updateData, {
       onSuccess: () => {
-        // 추후 토스트 메시지 추가
-        console.log("프로필 업데이트 성공");
+        showToast({
+          title: "프로필 업데이트 성공",
+          message: "프로필이 성공적으로 업데이트되었습니다.",
+          type: "success",
+          duration: 3000,
+        });
       },
-      onError: (error) => {
-        console.error("프로필 업데이트 실패:", error);
+      onError: () => {
+        showToast({
+          title: "프로필 업데이트 실패",
+          message: "프로필 업데이트에 실패했습니다.",
+          type: "error",
+          duration: 3000,
+        });
       },
     });
   };
