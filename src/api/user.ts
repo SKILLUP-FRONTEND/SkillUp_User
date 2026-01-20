@@ -7,7 +7,7 @@ import { RoleName } from "@/constants/role";
 
 // 테스트 로그인 API
 export const getTestLogin = async () => {
-  const response = await tokenInstance.get("/user/test-login");
+  const response = await instance.get("/user/test-login");
   // response.data.data가 실제 토큰 값
   return response.data.data;
 };
