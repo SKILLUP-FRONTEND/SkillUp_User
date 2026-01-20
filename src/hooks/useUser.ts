@@ -102,6 +102,7 @@ export const useUserEmailAndName = () => {
     },
     enabled: isAuthenticated,
     retry: false,
+    staleTime: 5 * 60 * 1000, 
   });
 };
 
