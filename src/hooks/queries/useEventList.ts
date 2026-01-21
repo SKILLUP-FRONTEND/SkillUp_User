@@ -1,4 +1,4 @@
-// src/hooks/useEventList.ts
+// src/hooks/queries/useEventList.ts
 
 import { useQuery } from "@tanstack/react-query";
 import { getEventList, searchEvents } from "@/api/events";
@@ -8,6 +8,7 @@ import {
   Event,
   EventSearchRequest,
 } from "@/types/event";
+import { queryKeys } from "../queryKeys";
 
 export const useEventList = (
   params: EventSearchParams,
@@ -27,7 +28,7 @@ export const useEventList = (
       : undefined;
 
   return useQuery<EventListResponse>({
-    queryKey: ["events", params],
+    queryKey: queryKeys.events.list(params),
     queryFn: () => getEventList(params),
     initialData: transformedInitialData,
     staleTime: 0, // 항상 최신 데이터를 fetch하도록 설정
@@ -37,7 +38,7 @@ export const useEventList = (
 // 행사 검색
 export const useSearchEvents = (searchParams: EventSearchRequest) => {
   return useQuery<EventListResponse>({
-    queryKey: ["events", "search", searchParams],
+    queryKey: [...queryKeys.events.all, "search", searchParams],
     queryFn: () => searchEvents(searchParams),
     staleTime: 0, // 항상 최신 데이터를 fetch하도록 설정
   });

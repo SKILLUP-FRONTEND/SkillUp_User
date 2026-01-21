@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 import { BookmarkIcon } from "@/assets/icons/BookmarkIcon";
 import IconButton from "@/components/common/IconButton";
 import Text from "@/components/common/Text";
-import { useRecommendedEvents } from "@/hooks/useHome";
+import { useRecommendedEvents } from "@/hooks/queries/useHome";
 import { Event } from "@/types/event";
 import { useAuth } from "@/hooks/useAuth";
 

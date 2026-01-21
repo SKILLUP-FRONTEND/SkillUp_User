@@ -7,7 +7,7 @@ import Text from "@/components/common/Text";
 import Button from "@/components/common/Button";
 import EventCard from "@/components/common/EventCard";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
-import { useRecommendedEvents } from "@/hooks/useRecommendedEvents";
+import { useRecommendedEvents } from "@/hooks/queries/useRecommendedEvents";
 import { EventCategory } from "@/constants/event";
 import { Event } from "@/types/event";
 

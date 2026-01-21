@@ -3,7 +3,7 @@
 "use client";
 
 import SupportPageLayout from "./SupportPageLayout";
-import { useCustomerCenterInquiry } from "@/hooks/useUser";
+import { useCustomerCenterInquiry } from "@/hooks/queries/useUser";
 import Skeleton from "@/components/common/Skeleton";
 import Flex from "@/components/common/Flex";
 

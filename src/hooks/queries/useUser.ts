@@ -1,27 +1,26 @@
-// src/hooks/useUser.ts
+// src/hooks/queries/useUser.ts
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   getUser,
-  updateUserProfile,
-  getTestLogin,
   getCustomerCenterInquiry,
   getUserInterests,
   getUserEmailAndName,
   getUserBookmarks,
 } from "@/api/user";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../useAuth";
 import { useSetAtom } from "jotai";
 import { userNameAtom, userEmailAtom } from "@/store/authAtoms";
-import { UserBookmarks, UpdateUserProfileRequest } from "@/types/user";
+import { UserBookmarks } from "@/types/user";
 import { RoleName } from "@/constants/role";
+import { queryKeys } from "../queryKeys";
 
 // 유저 데이터 조회 Hook
 export const useUser = () => {
   const { isAuthenticated } = useAuth();
 
   return useQuery({
-    queryKey: ["user"],
+    queryKey: queryKeys.user.profile(),
     queryFn: async () => {
       const data = await getUser();
       return data;
@@ -29,30 +28,6 @@ export const useUser = () => {
     // 로그인 상태일 때만 쿼리 실행
     enabled: isAuthenticated,
     retry: false,
-  });
-};
-
-// 유저 프로필 업데이트 Hook
-export const useUpdateUserProfile = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (data: UpdateUserProfileRequest) => {
-      return await updateUserProfile(data);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-      queryClient.invalidateQueries({ queryKey: ["userEmailAndName"] });
-    },
-  });
-};
-
-// 테스트 로그인 Hook
-export const useTestLogin = () => {
-  return useMutation({
-    mutationFn: async () => {
-      return await getTestLogin();
-    },
   });
 };
 
@@ -89,7 +64,7 @@ export const useUserEmailAndName = () => {
   const setUserEmail = useSetAtom(userEmailAtom);
 
   return useQuery({
-    queryKey: ["userEmailAndName"],
+    queryKey: queryKeys.user.emailAndName(),
     queryFn: async () => {
       const data = await getUserEmailAndName();
       if (data?.name) {
@@ -102,7 +77,7 @@ export const useUserEmailAndName = () => {
     },
     enabled: isAuthenticated,
     retry: false,
-    staleTime: 5 * 60 * 1000, 
+    staleTime: 5 * 60 * 1000,
   });
 };
 
@@ -111,7 +86,7 @@ export const useUserBookmarks = (sort: "deadline" | "latest", page: number) => {
   const { isAuthenticated } = useAuth();
 
   return useQuery<UserBookmarks>({
-    queryKey: ["userBookmarks", sort, page],
+    queryKey: queryKeys.user.bookmarks(sort, page),
     queryFn: async () => {
       return await getUserBookmarks(sort, page);
     },

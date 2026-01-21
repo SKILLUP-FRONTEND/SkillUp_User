@@ -6,7 +6,7 @@ import Flex from "@/components/common/Flex";
 import styles from "./styles.module.css";
 import TabMenu from "@/components/common/Tab";
 import Text from "@/components/common/Text";
-import { useCategoryEvents } from "@/hooks/useHome";
+import { useCategoryEvents } from "@/hooks/queries/useHome";
 import { EVENT_CATEGORY } from "@/constants/event";
 import { Event } from "@/types/event";
 import {

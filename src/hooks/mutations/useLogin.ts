@@ -1,8 +1,9 @@
-// src/hooks/useLogin.ts
+// src/hooks/mutations/useLogin.ts
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getTestLogin, getUserEmailAndName } from "@/api/user";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../useAuth";
+import { queryKeys } from "../queryKeys";
 
 // 테스트 로그인 Mutation Hook 코드
 export const useLogin = () => {
@@ -24,13 +25,13 @@ export const useLogin = () => {
           setUserEmail(userData.userEmail);
         }
         // 쿼리 캐시에도 저장
-        queryClient.setQueryData(["userEmailAndName"], userData);
+        queryClient.setQueryData(queryKeys.user.emailAndName(), userData);
       } catch (error) {
         console.error("Failed to fetch user email and name:", error);
       }
 
       // 유저 데이터 쿼리 무효화 -> useUser 훅이 자동으로 데이터 재조회
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
     },
   });
 };

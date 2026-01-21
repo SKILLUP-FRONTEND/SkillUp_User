@@ -1,4 +1,4 @@
-// src/hooks/useSocialLogin.ts
+// src/hooks/mutations/useSocialLogin.ts
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -7,7 +7,8 @@ import {
   SocialLoginType,
 } from "@/api/auth";
 import { getUserEmailAndName } from "@/api/user";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../useAuth";
+import { queryKeys } from "../queryKeys";
 
 // 소셜 로그인 URL 가져오기 및 리다이렉트
 export const useSocialLogin = () => {
@@ -57,13 +58,13 @@ export const useSocialLoginCallback = () => {
           setUserEmail(userData.email);
         }
         // 쿼리 캐시에도 저장
-        queryClient.setQueryData(["userEmailAndName"], userData);
+        queryClient.setQueryData(queryKeys.user.emailAndName(), userData);
       } catch (error) {
         console.error("Failed to fetch user email and name:", error);
       }
 
       // 4. 유저 데이터 쿼리 무효화
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
 
       // 모든 작업 완료 후 반환
       return token;

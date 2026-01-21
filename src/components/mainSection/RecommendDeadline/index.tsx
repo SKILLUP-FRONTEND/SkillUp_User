@@ -4,7 +4,7 @@ import Flex from "@/components/common/Flex";
 import EventCard from "@/components/common/EventCard";
 import Text from "@/components/common/Text";
 import styles from "./styles.module.css";
-import { useEndingSoonEvents } from "@/hooks/useHome";
+import { useEndingSoonEvents } from "@/hooks/queries/useHome";
 import { Event } from "@/types/event";
 import CautionIcon from "@/assets/icons/CautionIcon";
 

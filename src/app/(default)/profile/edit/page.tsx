@@ -3,7 +3,7 @@
 "use client";
 
 import ProfileEditPageLayout from "./ProfileEditPageLayout";
-import { useUser } from "@/hooks/useUser";
+import { useUser } from "@/hooks/queries/useUser";
 
 export default function ProfileEditPage() {
   const { data: userData, isLoading: isLoadingUser } = useUser();

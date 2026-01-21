@@ -8,7 +8,7 @@ import EventCard from "@/components/common/EventCard";
 import Text from "@/components/common/Text";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
-import { useRecentEvents } from "@/hooks/useHome";
+import { useRecentEvents } from "@/hooks/queries/useHome";
 import { Event } from "@/types/event";
 
 export default function RecentEvent() {

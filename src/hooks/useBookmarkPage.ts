@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { DropdownOption } from "@/components/common/Dropdown";
-import { useUserBookmarks } from "@/hooks/useUser";
+import { useUserBookmarks } from "@/hooks/queries/useUser";
 
 const sortOptions: DropdownOption[] = [
   { label: "마감임박순", value: "deadline" },

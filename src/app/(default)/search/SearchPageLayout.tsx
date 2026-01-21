@@ -20,9 +20,9 @@ import { Event, EventSearchRequest } from "@/types/event";
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
 import { ITEMS_PER_PAGE, SORT_OPTIONS } from "@/constants/pagination";
 import { EventSortOption } from "@/constants/event";
-import { useRecommendedEvents } from "@/hooks/useRecommendedEvents";
+import { useRecommendedEvents } from "@/hooks/queries/useRecommendedEvents";
 import { pageFilterAtomsMap } from "@/components/events/filters/atoms/pageFilterAtoms";
-import { useSearchEvents } from "@/hooks/useEventList";
+import { useSearchEvents } from "@/hooks/queries/useEventList";
 import styles from "@/components/events/EventPageLayout/styles.module.css";
 
 interface SearchPageLayoutProps {

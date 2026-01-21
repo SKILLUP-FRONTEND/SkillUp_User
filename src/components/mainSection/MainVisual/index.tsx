@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";
-import { useBanners } from "@/hooks/useHome";
+import { useBanners } from "@/hooks/queries/useHome";
 import Banner from "@/assets/images/main_banner.jpg";
 import Banner2 from "@/assets/images/main_banner2.png";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";

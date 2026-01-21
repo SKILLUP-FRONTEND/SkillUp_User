@@ -8,7 +8,7 @@ import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters
 import styles from "./styles.module.css";
 import ArticleCard from "@/components/events/ArticleCard";
 import Pagination from "@/components/common/Pagination";
-import { useSearchArticles } from "@/hooks/useArticle";
+import { useSearchArticles } from "@/hooks/queries/useArticle";
 import Text from "@/components/common/Text";
 import { Article } from "@/types/article";
 import { JOB_CATEGORY } from "@/constants/category";

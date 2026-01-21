@@ -15,7 +15,7 @@ import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters
 import { ITEMS_PER_PAGE } from "@/constants/pagination";
 import styles from "./styles.module.css";
 import { EventSortOption } from "@/constants/event";
-import { useEventList } from "@/hooks/useEventList";
+import { useEventList } from "@/hooks/queries/useEventList";
 import {
   PAGE_CATEGORY_MAP,
   pageFilterAtomsMap,

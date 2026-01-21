@@ -12,7 +12,7 @@ import Image from "next/image";
 import Text from "@/components/common/Text";
 import Flex from "@/components/common/Flex";
 import RecommendedEventsSection from "@/components/events/RecommendedEventsSection";
-import { useEventDetail } from "@/hooks/useEventDetail";
+import { useEventDetail } from "@/hooks/queries/useEventDetail";
 import { formatDate, formatPriceWithUnit, getDdayLabel } from "@/utils/format";
 import { EventCategory } from "@/constants/event";
 

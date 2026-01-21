@@ -5,7 +5,7 @@ import Flex from "@/components/common/Flex";
 import styles from "./styles.module.css";
 import TabMenu from "@/components/common/Tab";
 import Text from "@/components/common/Text";
-import { useRecommendedArticles } from "@/hooks/useArticle";
+import { useRecommendedArticles } from "@/hooks/queries/useArticle";
 import { Article } from "@/types/article";
 import {
   JobCategory,

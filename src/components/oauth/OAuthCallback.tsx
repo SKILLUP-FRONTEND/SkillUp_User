@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSocialLoginCallback } from "@/hooks/useSocialLogin";
+import { useSocialLoginCallback } from "@/hooks/mutations/useSocialLogin";
 import { SocialLoginType } from "@/api/auth";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";

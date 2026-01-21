@@ -11,7 +11,7 @@ import TabMenu from "@/components/common/Tab";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import Text from "@/components/common/Text";
-import { useFeaturedEvents } from "@/hooks/useHome";
+import { useFeaturedEvents } from "@/hooks/queries/useHome";
 import { Event } from "@/types/event";
 import {
   JobCategory,

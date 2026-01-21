@@ -15,7 +15,7 @@ import { EventCategory } from "@/constants/event";
 import { formatPrice } from "@/utils/format";
 import LoginImage from "@/assets/images/loginImg.png";
 import Link from "next/link";
-import { useToggleEventBookmark } from "@/hooks/useEventDetail";
+import { useToggleEventBookmark } from "@/hooks/mutations/useToggleEventBookmark";
 
 interface StickyApplySectionProps {
   eventId: number;

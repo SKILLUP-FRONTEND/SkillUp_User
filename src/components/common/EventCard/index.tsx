@@ -17,7 +17,7 @@ import Flex from "@/components/common/Flex";
 import Tooltip from "@/components/common/Tooltip";
 import { Event } from "@/types/event";
 import { EVENT_CATEGORY_LABEL } from "@/constants/event";
-import { useToggleEventBookmark } from "@/hooks/useEventDetail";
+import { useToggleEventBookmark } from "@/hooks/mutations/useToggleEventBookmark";
 import LoginImage from "@/assets/images/loginImg.png";
 
 interface EventCardProps {

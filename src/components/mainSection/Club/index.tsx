@@ -5,7 +5,7 @@ import Button from "@/components/common/Button";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import Text from "@/components/common/Text";
-import { useCategoryEvents } from "@/hooks/useHome";
+import { useCategoryEvents } from "@/hooks/queries/useHome";
 import { EVENT_CATEGORY } from "@/constants/event";
 import { Event } from "@/types/event";
 import { useRouter } from "next/navigation";

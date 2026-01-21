@@ -13,7 +13,7 @@ import Naver from "@/assets/svg/naverIcon.svg";
 import Text from "@/components/common/Text";
 import Flex from "@/components/common/Flex";
 import Button from "@/components/common/Button";
-import { useLogin } from "@/hooks/useLogin";
+import { useLogin } from "@/hooks/mutations/useLogin";
 
 type SocialType = "google" | "kakao" | "naver";
 
