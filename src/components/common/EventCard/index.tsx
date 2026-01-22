@@ -46,7 +46,7 @@ export default function EventCard({
   } = event;
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const router = useRouter();
-  const { mutate: toggleBookmark, isPending } = useToggleEventBookmark();
+  const { mutate: toggleBookmark } = useToggleEventBookmark();
 
   const handleBookmarkClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

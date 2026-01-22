@@ -23,7 +23,7 @@ export const JOB_CATEGORY_LABEL: Record<JobCategory, string> = {
 // 라벨로 카테고리 찾기 (탭 선택 시 사용)
 export const getJobCategoryByLabel = (label: string): JobCategory => {
   const entry = Object.entries(JOB_CATEGORY_LABEL).find(
-    ([_, value]) => value === label
+    ([, value]) => value === label
   );
   return entry ? (entry[0] as JobCategory) : JOB_CATEGORY.ALL;
 };

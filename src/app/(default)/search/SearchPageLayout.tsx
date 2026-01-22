@@ -74,7 +74,10 @@ export default function SearchPageLayout({
 
   const { data, isLoading } = useSearchEvents(searchParams);
 
-  const eventList = data?.homeEventResponseList || [];
+  const eventList = useMemo(() => {
+    return data?.homeEventResponseList || [];
+  }, [data?.homeEventResponseList]);
+
   const total = data?.total || 0;
 
   // 추천 이벤트 조회 - 검색 결과가 없을 때만 호출

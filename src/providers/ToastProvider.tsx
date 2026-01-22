@@ -15,30 +15,6 @@ export default function ToastProvider({ children }: ToastProviderProps) {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const timersRef = useRef<Map<string, NodeJS.Timeout>>(new Map());
 
-  // 토스트 추가
-  const showToast = useCallback((options: ToastOptions) => {
-    const id = `toast-${Date.now()}-${Math.random()}`;
-    const newToast: Toast = {
-      id,
-      title: options.title,
-      message: options.message,
-      type: options.type || "info",
-      duration: options.duration ?? 3000, // 기본 3초
-      showCloseButton: options.showCloseButton ?? true,
-      isClosing: false,
-    };
-
-    setToasts((prev) => [...prev, newToast]);
-
-    // duration이 설정되어 있으면 자동으로 제거
-    if (newToast.duration && newToast.duration > 0) {
-      const timer = setTimeout(() => {
-        hideToast(id);
-      }, newToast.duration);
-      timersRef.current.set(id, timer);
-    }
-  }, []);
-
   // 토스트 제거
   const hideToast = useCallback((id: string) => {
     // 먼저 isClosing을 true로 설정하여 애니메이션 시작
@@ -61,6 +37,33 @@ export default function ToastProvider({ children }: ToastProviderProps) {
     }, 300); // 애니메이션 시간과 일치
   }, []);
 
+  // 토스트 추가
+  const showToast = useCallback(
+    (options: ToastOptions) => {
+      const id = `toast-${Date.now()}-${Math.random()}`;
+      const newToast: Toast = {
+        id,
+        title: options.title,
+        message: options.message,
+        type: options.type || "info",
+        duration: options.duration ?? 3000, // 기본 3초
+        showCloseButton: options.showCloseButton ?? true,
+        isClosing: false,
+      };
+
+      setToasts((prev) => [...prev, newToast]);
+
+      // duration이 설정되어 있으면 자동으로 제거
+      if (newToast.duration && newToast.duration > 0) {
+        const timer = setTimeout(() => {
+          hideToast(id);
+        }, newToast.duration);
+        timersRef.current.set(id, timer);
+      }
+    },
+    [hideToast]
+  );
+
   // 모든 토스트 제거
   const clearAllToasts = useCallback(() => {
     setToasts([]);
@@ -72,9 +75,10 @@ export default function ToastProvider({ children }: ToastProviderProps) {
 
   // 컴포넌트 언마운트 시 모든 타이머 정리
   useEffect(() => {
+    const timers = timersRef.current;
     return () => {
-      timersRef.current.forEach((timer) => clearTimeout(timer));
-      timersRef.current.clear();
+      timers.forEach((timer) => clearTimeout(timer));
+      timers.clear();
     };
   }, []);
 
