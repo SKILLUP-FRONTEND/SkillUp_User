@@ -45,6 +45,8 @@ export interface EventDetailDto extends BaseEvent {
   hashTags: string[];
   targetRoles: string[];
   bookmarked: boolean;
+  latitude?: number; // 위도 (백엔드에 요청 필요)
+  longitude?: number; // 경도 (백엔드에 요청 필요)
 }
 
 // 클라이언트에서 사용하는 이벤트 타입

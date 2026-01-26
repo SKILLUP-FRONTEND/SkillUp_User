@@ -15,6 +15,7 @@ import RecommendedEventsSection from "@/components/events/RecommendedEventsSecti
 import { useEventDetail } from "@/hooks/queries/useEventDetail";
 import { formatDate, formatPriceWithUnit, getDdayLabel } from "@/utils/format";
 import { EventCategory } from "@/constants/event";
+import NaverMap from "@/components/common/NaverMap";
 
 interface EventDetailLayoutProps {
   eventId: number;
@@ -83,7 +84,7 @@ export default function EventDetailLayout({
             </Flex>
           </EventInfoCard>
           <EventInfoCard title="장소">
-            <Flex direction="column" gap="0.375rem">
+            <Flex direction="column" gap="0.75rem">
               <Flex align="center" gap="0.375rem">
                 <Image src={GlobeIcon} alt="globe icon" />
                 <Text typography="body1_r_16" color="neutral-20">
@@ -95,8 +96,10 @@ export default function EventDetailLayout({
                 <Text typography="body1_r_16" color="neutral-20">
                   {eventDetail.locationText}
                 </Text>
-                {/* TODO : 추후 네이버 지도 api 추가 */}
               </Flex>
+              {!eventDetail.isOnline && (
+                <NaverMap address={eventDetail.locationText} height="400px" />
+              )}
             </Flex>
           </EventInfoCard>
         </Flex>

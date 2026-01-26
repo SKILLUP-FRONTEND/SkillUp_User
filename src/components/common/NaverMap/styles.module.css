@@ -1,0 +1,5 @@
+.mapContainer {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid var(--Neutral-90);
+}
