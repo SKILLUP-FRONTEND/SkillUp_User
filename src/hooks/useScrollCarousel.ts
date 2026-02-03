@@ -7,6 +7,7 @@ interface UseScrollCarouselOptions {
   gap?: number;
   cardSelector?: string;
   itemCount?: number;
+  scrollCount?: number; // 한 번에 이동할 카드 개수
 }
 
 export function useScrollCarousel(options: UseScrollCarouselOptions = {}) {
@@ -15,6 +16,7 @@ export function useScrollCarousel(options: UseScrollCarouselOptions = {}) {
     gap = 12,
     cardSelector,
     itemCount = 0,
+    scrollCount = 1, // 기본값: 1개씩 이동
   } = options;
 
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -37,7 +39,7 @@ export function useScrollCarousel(options: UseScrollCarouselOptions = {}) {
     const el = carouselRef.current;
     if (!el) return;
 
-    const scrollAmount = getCardWidth();
+    const scrollAmount = getCardWidth() * scrollCount;
     el.scrollBy({ left: -scrollAmount, behavior: "smooth" });
   };
 
@@ -45,7 +47,7 @@ export function useScrollCarousel(options: UseScrollCarouselOptions = {}) {
     const el = carouselRef.current;
     if (!el) return;
 
-    const scrollAmount = getCardWidth();
+    const scrollAmount = getCardWidth() * scrollCount;
     el.scrollBy({ left: scrollAmount, behavior: "smooth" });
   };
 

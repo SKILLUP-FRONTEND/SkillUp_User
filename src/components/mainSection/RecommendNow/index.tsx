@@ -24,7 +24,7 @@ import { useScrollCarousel } from "@/hooks/useScrollCarousel";
 
 export default function RecommendNow() {
   const [selectedCategory, setSelectedCategory] = useState<JobCategory>(
-    JOB_CATEGORY.ALL
+    JOB_CATEGORY.ALL,
   );
 
   // API 데이터 가져오기
@@ -34,6 +34,7 @@ export default function RecommendNow() {
   const { carouselRef, prev, next } = useScrollCarousel({
     gap: 12, // 0.75rem = 12px
     cardSelector: `.${styles.carouselItem}`,
+    scrollCount: 3, // 한 번에 3개씩 이동
   });
 
   return (
@@ -69,7 +70,12 @@ export default function RecommendNow() {
           {isLoading ? (
             <Flex gap="0.75rem">
               {[1, 2, 3, 4].map((i) => (
-                <Flex key={i} direction="column" gap="0.75rem" style={{ flex: "0 0 calc(25% - 0.5625rem)" }}>
+                <Flex
+                  key={i}
+                  direction="column"
+                  gap="0.75rem"
+                  style={{ flex: "0 0 calc(25% - 0.5625rem)" }}
+                >
                   <Skeleton height="320px" borderRadius="0.75rem" />
                   <Skeleton height="1.5rem" width="80%" />
                   <Skeleton height="1rem" width="60%" />

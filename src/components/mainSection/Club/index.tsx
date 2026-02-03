@@ -34,6 +34,7 @@ export default function Club() {
     itemCount: originalCards.length,
     gap: 24, // 1.5rem = 24px
     cardSelector: `.${styles.card}`,
+    scrollCount: 3, // 한 번에 3개씩 이동
   });
 
   return (
