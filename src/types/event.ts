@@ -76,6 +76,7 @@ export interface EventSearchParams {
 export interface EventListResponse {
   total: number;
   homeEventResponseList: Event[];
+  fallback?: boolean; // true일 경우 검색 결과가 없음을 의미
 }
 
 // 행사 검색 요청 파라미터

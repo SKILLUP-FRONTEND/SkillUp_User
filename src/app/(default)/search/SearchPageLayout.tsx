@@ -74,14 +74,20 @@ export default function SearchPageLayout({
 
   const { data, isLoading } = useSearchEvents(searchParams);
 
+  // fallback이 true이면 검색 결과가 없는 것으로 처리
+  const isFallback = data?.fallback === true;
+
   const eventList = useMemo(() => {
+    if (isFallback) {
+      return [];
+    }
     return data?.homeEventResponseList || [];
-  }, [data?.homeEventResponseList]);
+  }, [data?.homeEventResponseList, isFallback]);
 
-  const total = data?.total || 0;
+  const total = isFallback ? 0 : data?.total || 0;
 
-  // 추천 이벤트 조회 - 검색 결과가 없을 때만 호출
-  const shouldFetchRecommended = !isLoading && eventList.length === 0;
+  // 추천 이벤트 조회 - 검색 결과가 없거나 fallback일 때만 호출
+  const shouldFetchRecommended = !isLoading && (eventList.length === 0 || isFallback);
   const { data: recommendedEvents, isLoading: isLoadingRecommended } =
     useRecommendedEvents("CONFERENCE_SEMINAR", shouldFetchRecommended);
 
