@@ -41,7 +41,7 @@ export const updateUserProfile = async (data: UpdateUserProfileRequest) => {
   // request part를 JSON Blob으로 추가
   formData.append(
     "request",
-    new Blob([JSON.stringify(requestData)], { type: "application/json" })
+    new Blob([JSON.stringify(requestData)], { type: "application/json" }),
   );
 
   // 프로필 이미지가 있으면 추가
@@ -57,7 +57,7 @@ export const updateUserProfile = async (data: UpdateUserProfileRequest) => {
       headers: {
         "Content-Type": undefined, // axios가 자동으로 설정하도록 강제
       },
-    }
+    },
   );
   return response.data;
 };
@@ -87,7 +87,7 @@ export const getUserEmailAndName = async (): Promise<UserEmailAndName> => {
 // 유저 북마크 조회
 export const getUserBookmarks = async (
   sort: "deadline" | "latest",
-  page: number
+  page: number,
 ): Promise<UserBookmarks> => {
   const response = await tokenInstance.get("/user/my-page/bookmark", {
     params: {

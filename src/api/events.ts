@@ -19,7 +19,8 @@ export const createEvent = async (event: Event) => {
 
 // 행사 목록 조회 API (공개)
 export const getEventList = async (
-  eventSearchParams: EventSearchParams
+  eventSearchParams: EventSearchParams,
+  isAuthenticated: boolean = false
 ): Promise<EventListResponse> => {
   // 필수 필드와 선택 필드 분리
   const { category, sort, page, ...optionalParams } = eventSearchParams;
@@ -49,13 +50,18 @@ export const getEventList = async (
     ...filteredOptionalParams,
   };
 
-  const response = await instance.post("/events/category-page/search", params);
+  const axiosInstance = isAuthenticated ? tokenInstance : instance;
+  const response = await axiosInstance.post("/events/category-page/search", params);
   return response.data.data;
 };
 
 // 행사 상세 조회 API (공개)
-export const getEventDetail = async (eventId: number) => {
-  const response = await instance.get(`/events/${eventId}`);
+export const getEventDetail = async (
+  eventId: number,
+  isAuthenticated: boolean = false
+) => {
+  const axiosInstance = isAuthenticated ? tokenInstance : instance;
+  const response = await axiosInstance.get(`/events/${eventId}`);
   return response.data.data;
 };
 
@@ -72,8 +78,12 @@ export const deleteEvent = async (eventId: number) => {
 };
 
 // "이런 행사는 어때요" 추천 행사 조회 API (공개)
-export const getRecommendedEvents = async (category: EventCategory) => {
-  const response = await instance.get("/events/category-page/recommended", {
+export const getRecommendedEvents = async (
+  category: EventCategory,
+  isAuthenticated: boolean = false
+) => {
+  const axiosInstance = isAuthenticated ? tokenInstance : instance;
+  const response = await axiosInstance.get("/events/category-page/recommended", {
     params: {
       category,
     },
@@ -83,14 +93,20 @@ export const getRecommendedEvents = async (category: EventCategory) => {
 
 // 행사 검색
 export const searchEvents = async (
-  searchParams: EventSearchRequest
+  searchParams: EventSearchRequest,
+  isAuthenticated: boolean = false
 ): Promise<EventListResponse> => {
-  const response = await instance.post("/events/search/home", searchParams);
+  const axiosInstance = isAuthenticated ? tokenInstance : instance;
+  const response = await axiosInstance.post("/events/search/home", searchParams);
   return response.data.data;
 };
 
 // 행사 북마크 토글
-export const toggleEventBookmark = async (eventId: number) => {
-  const response = await tokenInstance.patch(`/events/${eventId}/bookmarked`);
+export const toggleEventBookmark = async (
+  eventId: number,
+  isAuthenticated: boolean
+) => {
+  const axiosInstance = isAuthenticated ? tokenInstance : instance;
+  const response = await axiosInstance.patch(`/events/${eventId}/bookmarked`);
   return response.data.data;
 };

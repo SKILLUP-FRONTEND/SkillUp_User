@@ -3,19 +3,72 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-// Access Token Atom - localStorage에 자동 저장
-export const tokenAtom = atomWithStorage<string | null>("accessToken", null);
+// SSR 환경에서 안전한 localStorage wrapper
+const createSafeStorage = <T,>() => ({
+  getItem: (key: string, initialValue: T): T => {
+    if (typeof window === "undefined") {
+      return initialValue;
+    }
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  },
+  setItem: (key: string, value: T): void => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  },
+  removeItem: (key: string): void => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    try {
+      window.localStorage.removeItem(key);
+    } catch (error) {
+      console.error(`Error removing localStorage key "${key}":`, error);
+    }
+  },
+});
 
-// 유저 이름 Atom - localStorage에 자동 저장
-export const userNameAtom = atomWithStorage<string | null>("userName", null);
+// Access Token Atom - localStorage에 자동 저장 (SSR 안전)
+export const tokenAtom = atomWithStorage<string | null>(
+  "accessToken",
+  null,
+  createSafeStorage<string | null>(),
+  { getOnInit: true }
+);
 
-// 유저 이메일 Atom - localStorage에 자동 저장
-export const userEmailAtom = atomWithStorage<string | null>("userEmail", null);
+// 유저 이름 Atom - localStorage에 자동 저장 (SSR 안전)
+export const userNameAtom = atomWithStorage<string | null>(
+  "userName",
+  null,
+  createSafeStorage<string | null>(),
+  { getOnInit: true }
+);
 
-// 유저 프로필 이미지 Atom - localStorage에 자동 저장
+// 유저 이메일 Atom - localStorage에 자동 저장 (SSR 안전)
+export const userEmailAtom = atomWithStorage<string | null>(
+  "userEmail",
+  null,
+  createSafeStorage<string | null>(),
+  { getOnInit: true }
+);
+
+// 유저 프로필 이미지 Atom - localStorage에 자동 저장 (SSR 안전)
 export const userProfileImageAtom = atomWithStorage<string | null>(
   "userProfileImage",
-  null
+  null,
+  createSafeStorage<string | null>(),
+  { getOnInit: true }
 );
 
 // 로그인 상태 확인 Atom (파생 상태)
