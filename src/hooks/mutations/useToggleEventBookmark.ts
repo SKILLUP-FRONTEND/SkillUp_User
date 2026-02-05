@@ -3,15 +3,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toggleEventBookmark } from "@/api/events";
 import { queryKeys } from "../queryKeys";
-import { useAuth } from "../useAuth";
 
 // 행사 북마크 토글
 export const useToggleEventBookmark = () => {
   const queryClient = useQueryClient();
-  const { isAuthenticated } = useAuth();
 
   return useMutation({
-    mutationFn: (eventId: number) => toggleEventBookmark(eventId, isAuthenticated),
+    mutationFn: (eventId: number) => toggleEventBookmark(eventId),
     onSuccess: (_, eventId) => {
       // 해당 행사의 상세 정보 refetch
       queryClient.invalidateQueries({ queryKey: queryKeys.event(eventId) });

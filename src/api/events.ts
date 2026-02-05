@@ -101,12 +101,10 @@ export const searchEvents = async (
   return response.data.data;
 };
 
-// 행사 북마크 토글
-export const toggleEventBookmark = async (
-  eventId: number,
-  isAuthenticated: boolean
-) => {
-  const axiosInstance = isAuthenticated ? tokenInstance : instance;
-  const response = await axiosInstance.patch(`/events/${eventId}/bookmarked`);
+// 행사 북마크 토글 (로그인 필수)
+export const toggleEventBookmark = async (eventId: number) => {
+  // 북마크는 로그인이 필요한 기능이므로 항상 tokenInstance 사용
+  // 401 에러 발생 시 tokenInstance interceptor가 자동으로 로그인 모달 표시
+  const response = await tokenInstance.patch(`/events/${eventId}/bookmarked`);
   return response.data.data;
 };
