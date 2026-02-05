@@ -8,6 +8,8 @@ import {
   UserEmailAndName,
   WithdrawalCategory,
   WithdrawRequest,
+  RecentSearchesResponse,
+  SaveSearchRequest,
 } from "@/types/user";
 import { RoleName } from "@/constants/role";
 
@@ -112,4 +114,28 @@ export const withdrawUser = async (data: WithdrawRequest) => {
     data,
   });
   return response.data;
+};
+
+// 최근 검색어 조회 (로그인 필수)
+export const getRecentSearches = async (): Promise<RecentSearchesResponse> => {
+  const response = await tokenInstance.get("/user/search/recent");
+  return response.data.data;
+};
+
+// 검색어 저장 (로그인 필수)
+export const saveRecentSearch = async (data: SaveSearchRequest) => {
+  const response = await tokenInstance.post("/user/search/recent", data);
+  return response.data.data;
+};
+
+// 검색어 단일 삭제 (로그인 필수)
+export const deleteRecentSearch = async (recentId: number) => {
+  const response = await tokenInstance.delete(`/user/search/recent/${recentId}`);
+  return response.data.data;
+};
+
+// 검색어 전체 삭제 (로그인 필수)
+export const deleteAllRecentSearches = async () => {
+  const response = await tokenInstance.delete("/user/search/recent/all");
+  return response.data.data;
 };

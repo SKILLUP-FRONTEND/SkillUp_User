@@ -8,6 +8,7 @@ import {
   getUserEmailAndName,
   getUserBookmarks,
   getWithdrawalCategories,
+  getRecentSearches,
 } from "@/api/user";
 import { useAuth } from "../useAuth";
 import { useSetAtom } from "jotai";
@@ -16,7 +17,7 @@ import {
   userEmailAtom,
   userProfileImageAtom,
 } from "@/store/authAtoms";
-import { UserBookmarks, WithdrawalCategory } from "@/types/user";
+import { UserBookmarks, WithdrawalCategory, RecentSearchesResponse } from "@/types/user";
 import { RoleName } from "@/constants/role";
 import { queryKeys } from "../queryKeys";
 
@@ -116,5 +117,20 @@ export const useWithdrawalCategories = () => {
     enabled: isAuthenticated,
     retry: false,
     staleTime: 10 * 60 * 1000,
+  });
+};
+
+// 최근 검색어 조회 Hook (로그인 시에만 사용)
+export const useRecentSearchesQuery = () => {
+  const { isAuthenticated } = useAuth();
+
+  return useQuery<RecentSearchesResponse>({
+    queryKey: queryKeys.user.recentSearches,
+    queryFn: async () => {
+      return await getRecentSearches();
+    },
+    enabled: isAuthenticated,
+    retry: false,
+    staleTime: 1 * 60 * 1000, // 1분간 캐시 유지
   });
 };

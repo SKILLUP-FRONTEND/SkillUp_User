@@ -76,3 +76,19 @@ export interface WithdrawalCategory {
 export interface WithdrawRequest {
   detail: string;
 }
+
+// 최근 검색어 항목
+export interface RecentSearch {
+  id: number;
+  keyword: string;
+}
+
+// 최근 검색어 목록 응답
+export interface RecentSearchesResponse {
+  items: RecentSearch[];
+}
+
+// 검색어 저장 요청
+export interface SaveSearchRequest {
+  keyword: string;
+}

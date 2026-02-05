@@ -36,6 +36,7 @@ export const queryKeys = {
     emailAndName: () => [...queryKeys.user.all, "email-name"] as const,
     bookmarks: (sort: "deadline" | "latest", page: number) =>
       [...queryKeys.user.all, "bookmarks", sort, page] as const,
+    recentSearches: ["user", "recent-searches"] as const,
   },
 
   // Article
