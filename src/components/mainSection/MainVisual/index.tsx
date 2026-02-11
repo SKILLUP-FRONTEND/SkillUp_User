@@ -42,7 +42,7 @@ export default function MainVisual() {
       setIsAnimating(false); // 애니메이션 완료, 클릭 가능
 
       // 마지막 복제본에 도달했을 때 (첫번째 실제 배너로 점프)
-      if (currentIndex === extendedBanners.length - 1) {
+      if (currentIndex === sortedBanners.length + 1) {
         setIsTransitioning(false);
         setCurrentIndex(1);
       }
@@ -56,7 +56,7 @@ export default function MainVisual() {
     slider.addEventListener("transitionend", handleTransitionEnd);
     return () =>
       slider.removeEventListener("transitionend", handleTransitionEnd);
-  }, [currentIndex, sortedBanners.length, extendedBanners.length]);
+  }, [currentIndex, sortedBanners.length]);
 
   // transition 상태 복원
   useEffect(() => {
