@@ -67,7 +67,7 @@ export default async function HackathonPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div style={{ paddingTop: "6rem" }}>
+    <div style={{ paddingTop: "6.25rem" }}>
       <EventPageLayout
         pageId="hackathon"
         initialEventList={initialEventList}

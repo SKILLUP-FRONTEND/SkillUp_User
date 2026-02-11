@@ -33,7 +33,11 @@ export default function MiddleBanner() {
             100%효율 높이기
           </Text>
         </Flex>
-        <Button variant="primary" size="extraLarge" icon={<ChevronRightIcon />}>
+        <Button
+          variant="primary"
+          size="extraLarge"
+          icon={<ChevronRightIcon width={16} height={16} />}
+        >
           <Text typography="sub2_m_18" color="white">
             자세히 알아보기
           </Text>

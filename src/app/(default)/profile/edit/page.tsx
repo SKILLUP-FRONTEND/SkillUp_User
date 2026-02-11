@@ -18,8 +18,8 @@ export default function ProfileEditPage() {
   }
 
   return (
-    <div style={{ paddingTop: "6rem" }}>
-      <ProfileEditPageLayout initialData={userData}/>
+    <div style={{ paddingTop: "6.25rem" }}>
+      <ProfileEditPageLayout initialData={userData} />
     </div>
   );
 }

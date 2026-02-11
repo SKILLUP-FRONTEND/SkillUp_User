@@ -79,7 +79,7 @@ export default function Footer() {
           <Button
             variant="secondary"
             size="extraLarge"
-            icon={<ChevronRightIcon />}
+            icon={<ChevronRightIcon width={16} height={16} />}
           >
             <Text typography="sub2_m_18" color="white">
               행사 제보하기

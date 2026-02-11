@@ -40,7 +40,7 @@ export default function EventEmpty({
           variant="secondary"
           size="medium"
           onClick={() => router.push(url)}
-          icon={<ChevronRightIcon />}
+          icon={<ChevronRightIcon width={16} height={16} />}
         >
           {buttonText}
         </Button>

@@ -6,7 +6,7 @@ import BookmarkPageLayout from "./BookmarkPageLayout";
 
 export default function BookmarksPage() {
   return (
-    <div style={{ paddingTop: "6rem" }}>
+    <div style={{ paddingTop: "6.25rem" }}>
       <BookmarkPageLayout />
     </div>
   );

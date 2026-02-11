@@ -18,10 +18,10 @@ const renderEmptyState = () => (
   <BookmarkEmpty
     title="저장한 행사가 없습니다"
     description={
-      <>
+      <div style={{ textAlign: "center" }}>
         관심 있는 행사를 북마크하여 <br />
         나만의 행사 목록을 만들어보세요
-      </>
+      </div>
     }
     url="/conference"
     buttonText="행사 둘러보기"
@@ -68,7 +68,11 @@ export default function BookmarkPageLayout() {
           job={bookmarkData?.role || ""}
           bookmarkCount={bookmarkData?.bookmarkCount || 0}
         />
-        <Flex direction="column" gap={6.25} className={styles.cardListContainer}>
+        <Flex
+          direction="column"
+          gap={6.25}
+          className={styles.cardListContainer}
+        >
           {renderEmptyState()}
         </Flex>
       </Flex>

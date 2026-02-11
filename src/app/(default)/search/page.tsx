@@ -13,14 +13,14 @@ export default async function SearchPage({ searchParams }: PageProps) {
   // 검색어가 없으면 홈으로 리다이렉트하거나 빈 상태 표시
   if (!searchQuery) {
     return (
-      <div style={{ paddingTop: "6rem" }}>
+      <div style={{ paddingTop: "6.25rem" }}>
         <SearchPageLayout searchQuery="" />
       </div>
     );
   }
 
   return (
-    <div style={{ paddingTop: "6rem" }}>
+    <div style={{ paddingTop: "6.25rem" }}>
       <SearchPageLayout searchQuery={searchQuery} />
     </div>
   );

@@ -66,7 +66,10 @@ export default function RecommendedContent() {
         <div className={styles.cardList}>
           {[1, 2, 3, 4, 5].map((i) => (
             <Flex key={i} direction="column" gap="0.75rem">
-              <Skeleton height={i === 1 ? "520px" : "220px"} borderRadius="0.75rem" />
+              <Skeleton
+                height={i === 1 ? "520px" : "220px"}
+                borderRadius="0.75rem"
+              />
               <Skeleton height="1.5rem" width="80%" />
               <Skeleton height="1rem" width="60%" />
             </Flex>
@@ -106,7 +109,7 @@ export default function RecommendedContent() {
                 }}
               />
 
-              <Flex direction="column">
+              <Flex direction="column" gap="0.5rem">
                 <Flex align="center" justify="space-between">
                   <Text
                     typography="head4_sb_20"

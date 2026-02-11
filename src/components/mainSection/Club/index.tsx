@@ -82,7 +82,12 @@ export default function Club() {
       {isLoading ? (
         <Flex gap="1.5rem" style={{ overflow: "hidden" }}>
           {[1, 2, 3, 4].map((i) => (
-            <Flex key={i} direction="column" gap="0.75rem" style={{ flex: "0 0 calc(25% - 1.125rem)" }}>
+            <Flex
+              key={i}
+              direction="column"
+              gap="0.75rem"
+              style={{ flex: "0 0 calc(25% - 1.125rem)" }}
+            >
               <Skeleton height="400px" borderRadius="0.75rem" />
             </Flex>
           ))}
@@ -144,8 +149,14 @@ export default function Club() {
                         {event.scheduleText}
                       </Text>
                     </Flex>
-                    <Button size="small" variant="secondary">
-                      자세히 보기
+                    <Button
+                      size="medium"
+                      variant="secondary"
+                      icon={<ChevronRightIcon width={16} height={16} />}
+                    >
+                      <Text typography="sub3_m_16" color="white">
+                        자세히 보기
+                      </Text>
                     </Button>
                   </Flex>
                 </article>
