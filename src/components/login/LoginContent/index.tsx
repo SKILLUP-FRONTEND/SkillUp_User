@@ -14,17 +14,20 @@ import Text from "@/components/common/Text";
 import Flex from "@/components/common/Flex";
 import Button from "@/components/common/Button";
 import { useLogin } from "@/hooks/mutations/useLogin";
+import CloseIcon from "@/assets/icons/CloseIcon";
 
 type SocialType = "google" | "kakao" | "naver";
 
 interface LoginContentProps {
   onSocialLoginClick: (socialType: SocialType) => void;
   onLoginSuccess?: () => void;
+  onClose?: () => void;
 }
 
 export default function LoginContent({
   onSocialLoginClick,
   onLoginSuccess,
+  onClose,
 }: LoginContentProps) {
   const { mutate: testLogin, isPending } = useLogin();
   const isDevelopment = process.env.NODE_ENV === "development";
@@ -38,6 +41,11 @@ export default function LoginContent({
   };
   return (
     <Flex className={styles.loginModal}>
+      {onClose && (
+        <button className={styles.closeButton} onClick={onClose}>
+          <CloseIcon width={28} height={28} />
+        </button>
+      )}
       <div className={styles.loginModalLeft}>
         <div className={styles.imageWrapper}>
           <div className={styles.overlay}></div>

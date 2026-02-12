@@ -213,6 +213,7 @@ export default function Header({ variant }: HeaderProps) {
         <LoginContent
           onSocialLoginClick={handleSocialLoginClick}
           onLoginSuccess={toggleModal}
+          onClose={toggleModal}
         />
       </Modal>
 
