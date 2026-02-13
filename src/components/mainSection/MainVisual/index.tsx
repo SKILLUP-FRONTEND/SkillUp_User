@@ -12,7 +12,10 @@ export default function MainVisual() {
   const [currentIndex, setCurrentIndex] = useState(1); // 무한 슬라이드: 초기값 1
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false); // 애니메이션 중 클릭 방지
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const dragStartXRef = useRef(0);
   const { data, isLoading, error } = useBanners();
 
   // displayOrder로 정렬
@@ -76,15 +79,44 @@ export default function MainVisual() {
 
   // API 배너 핸들러
   const handlePrev = () => {
-    if (!isTransitioning || isAnimating) return;
+    if (!isTransitioning || isAnimating || isDragging) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    if (!isTransitioning || isAnimating) return;
+    if (!isTransitioning || isAnimating || isDragging) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => prev + 1);
+  };
+
+  const handleDragStart = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isAnimating || sortedBanners.length <= 1) return;
+    setIsDragging(true);
+    setIsTransitioning(false);
+    dragStartXRef.current = e.clientX;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const handleDragMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    setDragOffset(e.clientX - dragStartXRef.current);
+  };
+
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+
+    const threshold = 80;
+    const moved = dragOffset;
+
+    setIsDragging(false);
+    setIsTransitioning(true);
+    setDragOffset(0);
+
+    if (Math.abs(moved) < threshold) return;
+
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (moved > 0 ? prev - 1 : prev + 1));
   };
 
   // API 데이터가 없거나 로딩 중이거나 에러일 경우 표시하지 않음
@@ -103,10 +135,18 @@ export default function MainVisual() {
       <div className={styles.visualSlide}>
         <div
           ref={sliderRef}
-          className={styles.sliderTrack}
+          className={`${styles.sliderTrack} ${isDragging ? styles.dragging : ""}`}
+          onPointerDown={handleDragStart}
+          onPointerMove={handleDragMove}
+          onPointerUp={handleDragEnd}
+          onPointerCancel={handleDragEnd}
           style={{
-            transform: `translateX(-${currentIndex * 100}%)`,
-            transition: isTransitioning ? "transform 0.5s ease-in-out" : "none",
+            transform:
+              dragOffset === 0
+                ? `translateX(-${currentIndex * 100}%)`
+                : `calc(-${currentIndex * 100}% + ${dragOffset}px)`,
+            transition:
+              isTransitioning && !isDragging ? "transform 0.5s ease-in-out" : "none",
           }}
         >
           {extendedBanners.map((banner, index) => (
@@ -115,6 +155,7 @@ export default function MainVisual() {
                 <img
                   src={banner.bannerImageUrl ?? Banner.src.toString()}
                   alt={banner.mainTitle}
+                  draggable={false}
                 />
               </div>
               <div className={styles.slideInner}>
