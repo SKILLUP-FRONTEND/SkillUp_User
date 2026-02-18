@@ -21,6 +21,7 @@ interface PaginationProps {
   selected?: DropdownOption;
   onSelect?: (option: DropdownOption) => void;
   goToPage?: boolean;
+  isMobile?: boolean;
 }
 
 const Pagination = ({
@@ -31,6 +32,7 @@ const Pagination = ({
   selected: externalSelected,
   onSelect: externalOnSelect,
   goToPage = true,
+  isMobile = false,
 }: PaginationProps) => {
   // 전체 페이지를 기반으로 드롭다운 옵션 생성
   const [pageOptions, setPageOptions] = useState<DropdownOption[]>([]);
@@ -114,6 +116,37 @@ const Pagination = ({
   const handleRightClick = () => {
     if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
+
+  // 모바일 레이아웃
+  if (isMobile) {
+    return (
+      <div className={`${styles.pagination} ${styles.mobilePagination}`}>
+        <Flex gap="1.25rem" align="center" justify="center">
+          <button
+            className={`${styles.paginationPageButton} ${styles.mobileButton}`}
+            onClick={handleLeftClick}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeftIcon />
+          </button>
+
+          <button
+            className={`${styles.paginationButton} ${styles.active} ${styles.mobileButton}`}
+          >
+            {currentPage}
+          </button>
+
+          <button
+            className={`${styles.paginationPageButton} ${styles.mobileButton}`}
+            onClick={handleRightClick}
+            disabled={currentPage === totalPages}
+          >
+            <ChevronRightIcon color="#000" />
+          </button>
+        </Flex>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.pagination}>

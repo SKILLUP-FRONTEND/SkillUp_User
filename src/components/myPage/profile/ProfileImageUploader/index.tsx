@@ -10,12 +10,15 @@ import logoDefaultImg from "@/assets/images/logoDefaultImg.png";
 interface ProfileImageUploaderProps {
   imageUrl: string;
   onChangeImage: (file: File) => void;
+  size?: "small" | "large";
 }
 
 export default function ProfileImageUploader({
   imageUrl,
   onChangeImage,
+  size = "large",
 }: ProfileImageUploaderProps) {
+  const imageSize = size === "small" ? 100 : 120;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -40,21 +43,23 @@ export default function ProfileImageUploader({
       imageUrl.startsWith("https://"));
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={`${styles.wrapper} ${size === "small" ? styles.small : ""}`}
+    >
       {isDataUrl ? (
         <img
           src={imageUrl}
           alt="Profile Preview"
-          width={120}
-          height={120}
+          width={imageSize}
+          height={imageSize}
           className={styles.profileImg}
         />
       ) : (
         <Image
           src={isValidUrl ? imageUrl : logoDefaultImg}
           alt="Profile"
-          width={120}
-          height={120}
+          width={imageSize}
+          height={imageSize}
           className={styles.profileImg}
         />
       )}

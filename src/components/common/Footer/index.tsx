@@ -75,14 +75,6 @@ export default function Footer() {
                   <MailIcon color="#d8d8d8" />
                 </span>
               </Link>
-              <Link
-                href="https://forms.gle/XuLEETJJjKVGku9A6"
-                target="_blank"
-                className={styles.iconBtnMobile}
-                aria-label="행사 제보"
-              >
-                <ChevronRightIcon color="#d8d8d8" width={18} height={18} />
-              </Link>
             </Flex>
 
             <Link
@@ -92,7 +84,7 @@ export default function Footer() {
               className={styles.detailBtnMobile}
             >
               <Text typography="label2_m_16" color="white">
-                자세히 보기
+                행사 제보하기
               </Text>
               <ChevronRightIcon color="#fff" width={16} height={16} />
             </Link>

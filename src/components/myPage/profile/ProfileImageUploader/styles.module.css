@@ -6,6 +6,11 @@
   height: 7.5rem;
 }
 
+.wrapper.small {
+  width: 6.25rem;
+  height: 6.25rem;
+}
+
 .profileImg {
   border-radius: 50%;
   object-fit: cover;
@@ -27,4 +32,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.wrapper.small .editBtn {
+  width: 2rem;
+  height: 2rem;
 }

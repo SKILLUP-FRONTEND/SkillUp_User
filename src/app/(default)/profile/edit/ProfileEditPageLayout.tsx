@@ -25,12 +25,17 @@ import {
   JOB_OPTIONS,
 } from "@/constants/profileFormOptions";
 import CautionIcon from "@/assets/icons/CautionIcon";
+import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 export default function ProfileEditPageLayout({
   initialData,
 }: {
   initialData: UserProfile;
 }) {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const isMobileOrTablet = isMobile || isTablet;
+
   const {
     imageUrl,
     name,
@@ -59,19 +64,33 @@ export default function ProfileEditPageLayout({
   } = useProfileEditForm(initialData);
 
   return (
-    <Flex direction="column" gap={2.5} className={styles.container}>
-      <Flex justify="space-between" style={{ width: "100%" }}>
-        <Flex direction="column" gap={1.25} className={styles.header}>
-          <Text typography="head2_sb_30" color="black" as="h2">
+    <Flex direction="column" gap={isMobileOrTablet ? 2.5 : 2.5} className={styles.container}>
+      <Flex
+        justify={isMobileOrTablet ? "flex-start" : "space-between"}
+        direction={isMobileOrTablet ? "column" : "row"}
+        gap={isMobileOrTablet ? 2 : 0}
+        style={{ width: "100%" }}
+      >
+        <Flex direction="column" gap={isMobileOrTablet ? 2 : 1.25} className={styles.header}>
+          <Text
+            typography={isMobileOrTablet ? "head1_sb_24" : "head2_sb_30"}
+            color="black"
+            as="h2"
+          >
             프로필 설정
           </Text>
           <ProfileImageUploader
             imageUrl={imageUrl}
             onChangeImage={handleChangeImage}
+            size={isMobileOrTablet ? "small" : "large"}
           />
         </Flex>
         <Flex direction="column" gap={1.5} className={styles.itemGroup}>
-          <Flex gap={1} align="center">
+          <Flex
+            gap={1}
+            align={isMobileOrTablet ? "stretch" : "center"}
+            direction={isMobileOrTablet ? "column" : "row"}
+          >
             <InputField label="이름">
               <Input
                 type="text"
@@ -91,7 +110,11 @@ export default function ProfileEditPageLayout({
               />
             </InputField>
           </Flex>
-          <Flex gap={1} align="center">
+          <Flex
+            gap={1}
+            align={isMobileOrTablet ? "stretch" : "center"}
+            direction={isMobileOrTablet ? "column" : "row"}
+          >
             <InputField label="성별">
               <RadioGroup
                 options={GENDER_OPTIONS}
@@ -111,7 +134,12 @@ export default function ProfileEditPageLayout({
             </InputField>
           </Flex>
           <Flex direction="column" gap={1}>
-            <Flex justify="space-between" align="center">
+            <Flex
+              justify="space-between"
+              align={isMobileOrTablet ? "flex-start" : "center"}
+              direction={isMobileOrTablet ? "column" : "row"}
+              gap={isMobileOrTablet ? 0.5 : 0}
+            >
               <Flex direction="column" gap={0.125}>
                 <Text typography="label3_m_14" color="black" as="span">
                   관심사
@@ -171,7 +199,11 @@ export default function ProfileEditPageLayout({
           />
         </Flex>
       </Flex>
-      <Flex justify="flex-end" gap={0.5} style={{ width: "100%" }}>
+      <Flex
+        justify={isMobileOrTablet ? "center" : "flex-end"}
+        gap={0.5}
+        className={styles.footerButtons}
+      >
         <Button
           variant="outlined"
           size="extraLarge"

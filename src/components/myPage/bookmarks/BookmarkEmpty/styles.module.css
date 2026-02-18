@@ -5,3 +5,17 @@
   margin: 0 auto;
   padding: 12.5rem 0;
 }
+
+/* 태블릿 (768px ~ 1279px) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .container {
+    padding: 8rem 0;
+  }
+}
+
+/* 모바일 (~767px) */
+@media (max-width: 767px) {
+  .container {
+    padding: 6.25rem 0;
+  }
+}

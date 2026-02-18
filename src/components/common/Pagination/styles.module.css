@@ -63,4 +63,16 @@
 .active {
   background: var(--Primary-normal);
   color: var(--Common-white);
+  border-color: var(--Primary-normal);
+}
+
+/* 모바일 페이지네이션 */
+.mobilePagination {
+  display: flex;
+  justify-content: center;
+}
+
+.mobileButton {
+  width: 2.25rem;
+  height: 2.25rem;
 }

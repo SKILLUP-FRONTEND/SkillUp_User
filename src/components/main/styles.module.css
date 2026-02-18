@@ -78,3 +78,47 @@
   background: var(--Neutral-99);
   padding: 1rem 9.75rem 0.9375rem 9.8125rem;
 }
+
+/* 태블릿 (768px ~ 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .searchModalContent {
+    width: 90vw;
+    max-width: 40rem;
+    height: auto;
+    min-height: 28rem;
+    padding: 2rem 2rem;
+  }
+
+  .searchModalContentRecentSearchEmpty {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* 모바일 (~767px) */
+@media (max-width: 767px) {
+  .searchModalContent {
+    width: 100vw;
+    height: auto;
+    min-height: 50vh;
+    padding: 1.5rem 1.25rem 2rem;
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+
+  .searchModalContentInput {
+    height: 3rem;
+    padding: 0.25rem 0.25rem 0.25rem 1rem;
+  }
+
+  .searchModalContentInputButton {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .searchModalContentRecentSearchEmpty {
+    padding: 1.5rem 1rem;
+  }
+
+  .searchModalContentRecentSearchText {
+    max-width: 10rem;
+  }
+}

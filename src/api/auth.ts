@@ -1,6 +1,7 @@
 // src/api/auth.ts
 
 import instance from "./instance";
+import { OAuthCallbackResponse } from "@/types/user";
 
 export type SocialLoginType = "google" | "kakao" | "naver";
 
@@ -27,7 +28,7 @@ export const sendAuthorizationCode = async (
   socialLoginType: SocialLoginType,
   code: string,
   state?: string
-): Promise<string> => {
+): Promise<OAuthCallbackResponse> => {
   const params: Record<string, string> = {
     code,
     socialLoginType,
@@ -40,6 +41,10 @@ export const sendAuthorizationCode = async (
     params,
   });
 
-  // 백엔드에서 액세스 토큰 반환 (중첩된 구조)
-  return response.data.data.accessToken.accessToken;
+  // 백엔드에서 액세스 토큰 및 로그인 상태 반환
+  const { accessToken, userLoginStatus } = response.data.data;
+  return {
+    accessToken: accessToken.accessToken,
+    userLoginStatus,
+  };
 };

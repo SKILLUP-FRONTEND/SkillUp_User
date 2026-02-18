@@ -28,3 +28,19 @@
 .tab.active {
   background-color: var(--Neutral-99);
 }
+
+/* 태블릿 (768px ~ 1279px) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .tab {
+    width: 3rem;
+    padding: 0.375rem 0;
+  }
+}
+
+/* 모바일 (~767px) */
+@media (max-width: 767px) {
+  .tab {
+    width: 3rem;
+    padding: 0.375rem 0;
+  }
+}

@@ -15,6 +15,7 @@ import { DropdownOption } from "@/components/common/Dropdown";
 import { CustomerCenterInquiry } from "@/types/user";
 import Modal from "@/components/common/Modal";
 import WithDrawalModalContent from "@/components/myPage/support/WithDrawalModalContent";
+import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 // 한 페이지에 몇 개씩 보여줄지
 const ITEMS_PER_PAGE = 10;
@@ -26,6 +27,9 @@ interface SupportPageLayoutProps {
 export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
   const faqs = faqData && faqData.length > 0 ? faqData : [];
   const router = useRouter();
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const isMobileOrTablet = isMobile || isTablet;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPageOption, setSelectedPageOption] = useState<DropdownOption>({
@@ -78,8 +82,16 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
 
   return (
     <>
-      <Flex direction="column" gap={2} className={styles.content}>
-        <Text typography="head2_sb_30" color="black" as="h1">
+      <Flex
+        direction="column"
+        gap={2}
+        className={`${styles.content} ${isMobileOrTablet ? styles.mobileContent : ""}`}
+      >
+        <Text
+          typography={isMobileOrTablet ? "head1_sb_24" : "head2_sb_30"}
+          color="black"
+          as="h1"
+        >
           고객센터
         </Text>
 
@@ -94,7 +106,7 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
                 index === 0 ? (
                   <Button
                     variant="secondary"
-                    size="medium"
+                    size={isMobileOrTablet ? "small" : "medium"}
                     onClick={handleWithdrawalClick}
                   >
                     탈퇴하기
@@ -102,6 +114,7 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
                 ) : undefined,
             }))}
             allowMultiple={true}
+            isMobile={isMobileOrTablet}
           />
         </div>
 
@@ -114,6 +127,7 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
             selected={selectedPageOption}
             onSelect={handleDropdownSelect}
             goToPage={false}
+            isMobile={isMobileOrTablet}
           />
         </Flex>
       </Flex>

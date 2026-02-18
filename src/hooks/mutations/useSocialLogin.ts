@@ -9,6 +9,7 @@ import {
 import { getUserEmailAndName } from "@/api/user";
 import { useAuth } from "../useAuth";
 import { queryKeys } from "../queryKeys";
+import { OAuthCallbackResponse } from "@/types/user";
 
 // 소셜 로그인 URL 가져오기 및 리다이렉트
 export const useSocialLogin = () => {
@@ -41,12 +42,16 @@ export const useSocialLoginCallback = () => {
       socialType: SocialLoginType;
       code: string;
       state?: string;
-    }) => {
-      // 토큰 받기
-      const token = await sendAuthorizationCode(socialType, code, state);
+    }): Promise<OAuthCallbackResponse> => {
+      // 토큰 및 로그인 상태 받기
+      const { accessToken, userLoginStatus } = await sendAuthorizationCode(
+        socialType,
+        code,
+        state
+      );
 
       // 토큰 저장
-      login(token);
+      login(accessToken);
 
       // 유저 정보 가져오기 (토큰 저장 후 바로 호출)
       try {
@@ -63,11 +68,11 @@ export const useSocialLoginCallback = () => {
         console.error("Failed to fetch user email and name:", error);
       }
 
-      // 4. 유저 데이터 쿼리 무효화
+      // 유저 데이터 쿼리 무효화
       queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
 
-      // 모든 작업 완료 후 반환
-      return token;
+      // 모든 작업 완료 후 반환 (accessToken과 userLoginStatus 모두 반환)
+      return { accessToken, userLoginStatus };
     },
   });
 };

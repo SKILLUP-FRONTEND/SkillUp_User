@@ -123,11 +123,6 @@
     height: 11rem;
   }
 
-  .eventCardContentBodyItemTitle,
-  .eventCardContentBodyItemTitleMedium {
-    height: auto;
-    max-height: 3.5rem;
-  }
 }
 
 /* 모바일 (~767px) */
@@ -158,12 +153,5 @@
   .eventCardImageOverlayButton {
     width: 2rem;
     height: 2rem;
-  }
-
-  .eventCardContentBodyItemTitle,
-  .eventCardContentBodyItemTitleMedium {
-    -webkit-line-clamp: 2;
-    height: auto;
-    max-height: 3rem;
   }
 }

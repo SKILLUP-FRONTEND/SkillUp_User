@@ -31,7 +31,7 @@ import SearchModalContent from "@/components/main/SearchModalContent";
 import { useToast } from "@/hooks/useToast";
 import Skeleton from "@/components/common/Skeleton";
 import MobileHeader from "./MobileHeader";
-import { useIsMobile } from "@/hooks/useMediaQuery";
+import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 interface HeaderProps {
   variant: "main" | "sub";
@@ -39,6 +39,7 @@ interface HeaderProps {
 
 export default function Header({ variant }: HeaderProps) {
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [isModalOpen, setIsModalOpen] = useAtom(loginModalAtom);
   const toggleModal = () => setIsModalOpen((prev) => !prev);
   const { isAuthenticated, logout } = useAuth();
@@ -110,8 +111,8 @@ export default function Header({ variant }: HeaderProps) {
     setPendingSocialType(null);
   };
 
-  // 모바일일 때 MobileHeader 렌더링
-  if (isMobile) {
+  // 모바일/태블릿일 때 MobileHeader 렌더링
+  if (isMobile || isTablet) {
     return <MobileHeader variant={variant} />;
   }
 

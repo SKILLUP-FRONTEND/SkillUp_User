@@ -54,16 +54,16 @@ export function useIsMobile(): boolean {
 
 /**
  * 태블릿 뷰포트 여부를 반환하는 훅
- * @returns 태블릿 뷰포트 여부 (768px ~ 1023px)
+ * @returns 태블릿 뷰포트 여부 (768px ~ 1279px)
  */
 export function useIsTablet(): boolean {
-  return useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
+  return useMediaQuery("(min-width: 768px) and (max-width: 1279px)");
 }
 
 /**
  * 데스크톱 뷰포트 여부를 반환하는 훅
- * @returns 데스크톱 뷰포트 여부 (1024px 이상)
+ * @returns 데스크톱 뷰포트 여부 (1280px 이상)
  */
 export function useIsDesktop(): boolean {
-  return useMediaQuery("(min-width: 1024px)");
+  return useMediaQuery("(min-width: 1280px)");
 }

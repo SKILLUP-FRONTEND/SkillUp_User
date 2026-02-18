@@ -9,6 +9,10 @@
   gap: 1rem;
 }
 
+.item.mobile {
+  padding: 1.25rem 0;
+}
+
 .question {
   width: 100%;
   background: none;
@@ -22,6 +26,10 @@
   flex-shrink: 0;
   text-align: center;
   letter-spacing: -0.06rem;
+}
+
+.mobile .answerTitle {
+  width: 1.5rem;
 }
 
 .icon {

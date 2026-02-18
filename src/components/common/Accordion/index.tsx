@@ -14,6 +14,7 @@ interface AccordionItemProps {
   isOpen?: boolean;
   onToggle?: (id: string) => void;
   extraButton?: React.ReactNode;
+  isMobile?: boolean;
 }
 
 export function AccordionItem({
@@ -24,10 +25,11 @@ export function AccordionItem({
   isOpen = false,
   onToggle,
   extraButton,
+  isMobile = false,
 }: AccordionItemProps) {
   return (
     <div
-      className={`${styles.item} ${isOpen ? styles.open : ""}`}
+      className={`${styles.item} ${isOpen ? styles.open : ""} ${isMobile ? styles.mobile : ""}`}
       onClick={() => onToggle?.(id)}
     >
       <Flex
@@ -37,16 +39,16 @@ export function AccordionItem({
         className={styles.question}
         aria-label={question}
       >
-        <Flex align="center" gap="1rem">
+        <Flex align="flex-start" gap={isMobile ? "0" : "1rem"}>
           <Text
-            typography="head3_m_24"
+            typography={isMobile ? "sub1_m_20" : "head3_m_24"}
             color="neutral-30"
             as="span"
             className={styles.answerTitle}
           >
             Q
           </Text>
-          <Text typography="sub2_m_18" color="black">
+          <Text typography={isMobile ? "sub3_m_16" : "sub2_m_18"} color="black">
             {question}
           </Text>
         </Flex>
@@ -68,9 +70,9 @@ export function AccordionItem({
         </svg>
       </Flex>
       {isOpen && (
-        <Flex gap="1rem">
+        <Flex gap={isMobile ? "0" : "1rem"} style={{ paddingRight: isMobile ? "2rem" : "0" }}>
           <Text
-            typography="head3_m_24"
+            typography={isMobile ? "sub1_m_20" : "head3_m_24"}
             color="primary-strong"
             as="span"
             className={styles.answerTitle}
@@ -83,7 +85,7 @@ export function AccordionItem({
             gap="0.75rem"
             style={{ flex: "1 0 0" }}
           >
-            <Text typography="sub2_m_18" color="black">
+            <Text typography={isMobile ? "sub3_m_16" : "sub2_m_18"} color="black">
               {answerTitle}
             </Text>
             <Text typography="body2_r_14" color="neutral-30">
@@ -109,12 +111,14 @@ interface AccordionProps {
   }>;
   defaultOpenId?: string;
   allowMultiple?: boolean;
+  isMobile?: boolean;
 }
 
 export default function Accordion({
   items,
   defaultOpenId,
   allowMultiple = false,
+  isMobile = false,
 }: AccordionProps) {
   const [openIds, setOpenIds] = useState<string[]>(
     defaultOpenId ? [defaultOpenId] : []
@@ -142,6 +146,7 @@ export default function Accordion({
           isOpen={openIds.includes(item.id)}
           onToggle={handleToggle}
           extraButton={item.extraButton}
+          isMobile={isMobile}
         />
       ))}
     </Flex>

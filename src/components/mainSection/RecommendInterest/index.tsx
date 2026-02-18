@@ -13,9 +13,12 @@ import { useRecommendedEvents } from "@/hooks/queries/useHome";
 import { Event } from "@/types/event";
 import { useAuth } from "@/hooks/useAuth";
 import LoginImage from "@/assets/images/loginImg.png";
+import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 export default function RecommendInterest() {
   const { isAuthenticated } = useAuth();
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [bookmarkedCards, setBookmarkedCards] = useState<Set<number>>(
     new Set(),
   );
@@ -48,57 +51,100 @@ export default function RecommendInterest() {
   // API에서 받아온 해시태그 사용
   const keywords = data?.hashTags || [];
 
+  // 모바일/태블릿 헤더 렌더링
+  const renderMobileHeader = () => (
+    <Flex direction="column" gap="0.75rem" className={styles.sectionHeader}>
+      <Flex direction="column" gap="0.25rem">
+        <Text typography="label4_m_12" color="neutral-95">
+          HERE&apos;S AN EVENTS YOU MIGHT BE INTERESTED IN
+        </Text>
+        <Text typography="head3_m_24" color="white" as="h2">
+          관심있어하실 행사를
+          <br />
+          골라왔어요
+        </Text>
+      </Flex>
+      <Flex wrap="wrap" gap="0.25rem" className={styles.keywordScroll}>
+        {isLoading ? (
+          <>
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <Skeleton
+                key={i}
+                width="60px"
+                height="28px"
+                borderRadius="4px"
+              />
+            ))}
+          </>
+        ) : (
+          keywords.map((kw, i) => (
+            <span key={i} className={styles.keywordBtn}>
+              {kw}
+            </span>
+          ))
+        )}
+      </Flex>
+    </Flex>
+  );
+
+  // 데스크톱 헤더 렌더링
+  const renderDesktopHeader = () => (
+    <Flex direction="column" gap="1.5rem">
+      <Flex direction="column" gap="1rem">
+        <Text typography="label1_r_18" color="neutral-95">
+          HERE&apos;S EVENTS YOU MIGHT BE INTERESTED IN
+        </Text>
+        <Flex direction="column">
+          <Flex gap="0.5rem">
+            <Text typography="head5_sb_42" color="white">
+              관심있어하실
+            </Text>
+            <Text typography="head1_m_42" color="white">
+              행사를
+            </Text>
+          </Flex>
+          <Text typography="head1_m_42" color="white">
+            골라왔어요
+          </Text>
+        </Flex>
+      </Flex>
+
+      <Flex wrap="wrap" gap="0.5rem" className={styles.keywordBox}>
+        {isLoading ? (
+          <>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <Skeleton
+                key={i}
+                width="80px"
+                height="34px"
+                borderRadius="4px"
+              />
+            ))}
+          </>
+        ) : (
+          keywords.map((kw, i) => (
+            <span key={i} className={styles.keywordBtn}>
+              {kw}
+            </span>
+          ))
+        )}
+      </Flex>
+    </Flex>
+  );
+
   return (
     <section className={styles.interestSection}>
       <Flex
         justify="space-between"
         align="flex-start"
-        gap="3.75rem"
+        gap={isMobile || isTablet ? "1.25rem" : "3.75rem"}
+        direction={isMobile || isTablet ? "column" : "row"}
         className={styles.inner}
       >
-        <Flex direction="column" gap="1.5rem">
-          <Flex direction="column" gap="1rem">
-            <Text typography="label1_r_18" color="neutral-95">
-              HERE&apos;S EVENTS YOU MIGHT BE INTERESTED IN
-            </Text>
-            <Flex direction="column">
-              <Flex gap="0.5rem">
-                <Text typography="head5_sb_42" color="white">
-                  관심있어하실
-                </Text>
-                <Text typography="head1_m_42" color="white">
-                  행사를
-                </Text>
-              </Flex>
-              <Text typography="head1_m_42" color="white">
-                골라왔어요
-              </Text>
-            </Flex>
-          </Flex>
+        {isMobile || isTablet ? renderMobileHeader() : renderDesktopHeader()}
 
-          <Flex wrap="wrap" gap="0.5rem" className={styles.keywordBox}>
-            {isLoading ? (
-              <>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                  <Skeleton
-                    key={i}
-                    width="80px"
-                    height="34px"
-                    borderRadius="4px"
-                  />
-                ))}
-              </>
-            ) : (
-              keywords.map((kw, i) => (
-                <span key={i} className={styles.keywordBtn}>
-                  {kw}
-                </span>
-              ))
-            )}
-          </Flex>
-        </Flex>
-
-        <div className={styles.cardGrid}>
+        <div className={isMobile || isTablet ? styles.cardGridWrap : undefined}>
+          <div className={styles.cardGrid}>
           {isLoading ? (
             <>
               {[1, 2, 3, 4].map((i) => (
@@ -164,17 +210,21 @@ export default function RecommendInterest() {
                       ariaLabel="Bookmark Icon"
                     />
                   </div>
-                  <Flex direction="column">
+                  <Flex direction="column" gap="0.25rem">
                     <Text
-                      typography="head4_sb_20"
+                      typography={
+                        isMobile || isTablet ? "head4_sb_20" : "head4_sb_20"
+                      }
                       color="white"
                       className={styles.metaText}
                     >
                       {event.title}
                     </Text>
                     <Text
-                      typography="body1_r_16"
-                      color="neutral-95"
+                      typography={
+                        isMobile || isTablet ? "body2_r_14" : "body1_r_16"
+                      }
+                      color="neutral-90"
                       className={styles.metaText}
                     >
                       {event.scheduleText}
@@ -184,6 +234,7 @@ export default function RecommendInterest() {
               );
             })
           )}
+          </div>
         </div>
       </Flex>
     </section>

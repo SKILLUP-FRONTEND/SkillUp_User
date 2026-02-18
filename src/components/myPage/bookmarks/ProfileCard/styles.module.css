@@ -12,6 +12,15 @@
   box-sizing: border-box;
 }
 
+/* 모바일/태블릿 카드 */
+.cardMobile {
+  width: 100%;
+  padding: 1.5rem 1rem 2rem;
+  border-bottom: 8px solid var(--Neutral-99);
+  background: var(--Common-white);
+  box-sizing: border-box;
+}
+
 .header {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--Line-neutral);
@@ -22,6 +31,7 @@
   height: 2.25rem;
   border-radius: 50%;
   overflow: hidden;
+  background: var(--Common-black);
 }
 
 .headerImage img {
@@ -31,5 +41,5 @@
 }
 
 .item {
-  padding: 0.4375rem 0;
+  padding: 0.25rem 0;
 }

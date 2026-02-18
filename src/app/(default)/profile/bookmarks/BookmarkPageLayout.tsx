@@ -3,6 +3,7 @@
 "use client";
 
 import EventCard from "@/components/common/EventCard";
+import EventCardMobile from "@/components/common/EventCardMobile";
 import styles from "./styles.module.css";
 import ProfileCard from "@/components/myPage/bookmarks/ProfileCard";
 import Pagination from "@/components/common/Pagination";
@@ -12,6 +13,7 @@ import Flex from "@/components/common/Flex";
 import Skeleton from "@/components/common/Skeleton";
 import BookmarkEmpty from "@/components/myPage/bookmarks/BookmarkEmpty";
 import { useBookmarkPage } from "@/hooks/useBookmarkPage";
+import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 // BookmarkEmpty 컴포넌트를 반환하는 헬퍼 함수
 const renderEmptyState = () => (
@@ -29,6 +31,8 @@ const renderEmptyState = () => (
 );
 
 export default function BookmarkPageLayout() {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const {
     bookmarkData,
     isLoading,
@@ -199,7 +203,11 @@ export default function BookmarkPageLayout() {
   }
 
   return (
-    <Flex gap={1} className={styles.container}>
+    <Flex
+      gap={isMobile || isTablet ? 0 : 1}
+      direction={isMobile || isTablet ? "column" : "row"}
+      className={styles.container}
+    >
       <ProfileCard
         name={bookmarkData?.name || ""}
         email={bookmarkData?.email || ""}
@@ -207,8 +215,12 @@ export default function BookmarkPageLayout() {
         bookmarkCount={bookmarkData?.bookmarkCount || 0}
       />
 
-      <Flex direction="column" gap={6.25} className={styles.cardListContainer}>
-        <Flex direction="column" gap={1.25}>
+      <Flex
+        direction="column"
+        gap={isMobile || isTablet ? 2 : 6.25}
+        className={styles.cardListContainer}
+      >
+        <Flex direction="column" gap={isMobile || isTablet ? 0.75 : 1.25}>
           <Flex align="center" justify="space-between">
             <TabBar
               tabs={[
@@ -232,15 +244,19 @@ export default function BookmarkPageLayout() {
           </Flex>
           {eventList.length > 0 ? (
             <div className={styles.cardList}>
-              {eventList.map((event) => (
-                <EventCard key={event.id} size="medium" event={event} />
-              ))}
+              {eventList.map((event) =>
+                isMobile || isTablet ? (
+                  <EventCardMobile key={event.id} event={event} />
+                ) : (
+                  <EventCard key={event.id} size="medium" event={event} />
+                )
+              )}
             </div>
           ) : (
             renderEmptyState()
           )}
         </Flex>
-        {totalPages > 0 && (
+        {eventList.length > 0 && totalPages > 0 && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

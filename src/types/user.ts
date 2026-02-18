@@ -3,6 +3,19 @@
 import { EventCategory } from "@/constants/event";
 import { RoleName } from "@/constants/role";
 
+// OAuth 로그인 상태
+export type UserLoginStatus =
+  | "NEW_USER" // 신규 유저 (회원가입/온보딩 필요)
+  | "EXISTING_USER" // 기존 유저 (정상 사용자)
+  | "OTHER_OAUTH_USER" // 동일 이메일로 다른 OAuth로 가입된 유저
+  | "WITHDRAW_PENDING_USER"; // 탈퇴 대기 상태 유저
+
+// OAuth 콜백 응답
+export interface OAuthCallbackResponse {
+  accessToken: string;
+  userLoginStatus: UserLoginStatus;
+}
+
 export interface UserProfile {
   name: string;
   profileImageUrl: string;

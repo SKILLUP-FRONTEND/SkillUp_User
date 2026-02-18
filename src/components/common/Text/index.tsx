@@ -11,6 +11,7 @@ interface TextProps {
   typography:
     | "head1_b_42"
     | "head1_m_42"
+    | "head1_sb_24"
     | "head2_sb_30"
     | "head3_m_24"
     | "head4_sb_20"

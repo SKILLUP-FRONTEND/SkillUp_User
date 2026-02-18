@@ -25,6 +25,72 @@
   background: var(--Primary-ExtraLight);
 }
 
+.footerButtons {
+  width: 100%;
+}
+
 .footerButton {
   width: 7.5rem;
+}
+
+/* 태블릿 (768px ~ 1279px) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .container {
+    max-width: 100%;
+    height: auto;
+    padding: 0 2rem;
+    padding-bottom: 5rem;
+  }
+
+  .header {
+    width: 100%;
+  }
+
+  .itemGroup {
+    width: 100%;
+  }
+
+  .marketingSection {
+    padding: 1rem;
+  }
+
+  .footerButtons {
+    width: 100%;
+  }
+
+  .footerButton {
+    flex: 1;
+    width: auto;
+  }
+}
+
+/* 모바일 (~767px) */
+@media (max-width: 767px) {
+  .container {
+    max-width: 100%;
+    height: auto;
+    padding: 0 1rem;
+    padding-bottom: 5rem;
+  }
+
+  .header {
+    width: 100%;
+  }
+
+  .itemGroup {
+    width: 100%;
+  }
+
+  .marketingSection {
+    padding: 1rem;
+  }
+
+  .footerButtons {
+    width: 100%;
+  }
+
+  .footerButton {
+    flex: 1;
+    width: auto;
+  }
 }
