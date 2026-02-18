@@ -4,16 +4,11 @@
 export interface Banner {
   displayOrder: number;
   id: number;
-  no: number;
   mainTitle: string;
   subTitle: string;
-  clickCount: number;
   description: string;
   bannerImageUrl: string;
   bannerLink: string;
-  bannerType: string;
-  startAt: string;
-  endAt: string;
 }
 
 // 배너 목록 응답 타입

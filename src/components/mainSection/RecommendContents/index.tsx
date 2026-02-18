@@ -142,7 +142,7 @@ export default function RecommendedContent() {
         <div className={styles.cardList}>
           {articles.map((article: Article, idx: number) => (
             <Flex
-              key={article.id}
+              key={`article-${article.id ?? idx}`}
               direction="column"
               className={`${styles.card} ${idx === 0 ? styles.heroCard : ""}`}
               as="article"

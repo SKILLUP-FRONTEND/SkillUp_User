@@ -136,23 +136,12 @@ export default function MobileHeader({ variant }: MobileHeaderProps) {
         {/* 상단 바 */}
         <div className={styles.topBar}>
           <div className={styles.leftSection}>
-            <button
-              className={styles.hamburgerBtn}
-              onClick={toggleDrawer}
-              aria-label="메뉴 열기"
-            >
-              <div className={styles.hamburgerIcon}>
-                <span />
-                <span />
-                <span />
-              </div>
-            </button>
             <Link href="/">
               <Image
                 src={variant === "main" ? SkillUpWhiteLogo : SkillUpBlackLogo}
                 alt="스킬업 로고"
-                width={100}
-                height={15}
+                width={130}
+                height={18}
                 priority
               />
             </Link>
@@ -172,6 +161,17 @@ export default function MobileHeader({ variant }: MobileHeaderProps) {
                   filter: variant === "main" ? "invert(1)" : "none",
                 }}
               />
+            </button>
+            <button
+              className={styles.hamburgerBtn}
+              onClick={toggleDrawer}
+              aria-label="메뉴 열기"
+            >
+              <div className={styles.hamburgerIcon}>
+                <span />
+                <span />
+                <span />
+              </div>
             </button>
           </div>
         </div>

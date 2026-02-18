@@ -19,6 +19,7 @@ export default function MainVisual() {
   const [isMounted, setIsMounted] = useState(false); // 마운트 상태 추적
   const sliderRef = useRef<HTMLDivElement>(null);
   const dragStartXRef = useRef(0);
+  const hasDraggedRef = useRef(false); // 드래그 여부 추적
   const { data, isLoading, error } = useBanners();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
@@ -108,6 +109,7 @@ export default function MainVisual() {
   };
 
   const handleDragStart = (e: React.PointerEvent<HTMLDivElement>) => {
+    hasDraggedRef.current = false;
     if (isAnimating || sortedBanners.length <= 1) return;
     setIsDragging(true);
     setIsTransitioning(false);
@@ -117,23 +119,36 @@ export default function MainVisual() {
 
   const handleDragMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!isDragging) return;
-    setDragOffset(e.clientX - dragStartXRef.current);
+    const moved = e.clientX - dragStartXRef.current;
+    setDragOffset(moved);
+    if (Math.abs(moved) > 10) {
+      hasDraggedRef.current = true;
+    }
   };
 
   const handleDragEnd = () => {
-    if (!isDragging) return;
-
-    const threshold = 80;
+    const wasDragging = isDragging;
     const moved = dragOffset;
+    const threshold = 80;
 
     setIsDragging(false);
     setIsTransitioning(true);
     setDragOffset(0);
 
-    if (Math.abs(moved) < threshold) return;
+    // 드래그 중이었고 threshold를 넘었으면 슬라이드 이동
+    if (wasDragging && Math.abs(moved) >= threshold) {
+      setIsAnimating(true);
+      setCurrentIndex((prev) => (moved > 0 ? prev - 1 : prev + 1));
+      return;
+    }
 
-    setIsAnimating(true);
-    setCurrentIndex((prev) => (moved > 0 ? prev - 1 : prev + 1));
+    // 드래그가 아닌 클릭이면 현재 배너의 링크로 이동
+    if (!hasDraggedRef.current) {
+      const currentBanner = extendedBanners[currentIndex];
+      if (currentBanner?.bannerLink) {
+        window.location.href = currentBanner.bannerLink;
+      }
+    }
   };
 
   // 로딩 중일 때 스켈레톤 UI 표시
@@ -192,7 +207,11 @@ export default function MainVisual() {
           }}
         >
           {extendedBanners.map((banner, index) => (
-            <div key={`banner-${index}`} className={styles.slideItem}>
+            <div
+              key={`banner-${index}`}
+              className={styles.slideItem}
+              style={{ cursor: banner.bannerLink ? "pointer" : "default" }}
+            >
               <div className={styles.slideItemImage}>
                 <img
                   src={banner.bannerImageUrl ?? Banner.src.toString()}
@@ -203,26 +222,23 @@ export default function MainVisual() {
               <div className={styles.slideInner}>
                 <div className={styles.slideContent}>
                   {isMobile || isTablet ? (
-                    <>
+                    <Flex direction="column" gap="0.25rem">
                       <Text
                         typography="label4_m_12"
                         color="primary-strong"
                         as="p"
-                        className={styles.mobileSubTitle}
                       >
                         {banner.subTitle || ""}
                       </Text>
                       <Flex direction="column" gap="1rem">
-                        <h2 className={styles.mobileTitle}>
-                          <span className={styles.mobileTitleLight}>
-                            {banner.mainTitle}
-                          </span>
-                        </h2>
-                        <p className={styles.mobileDesc}>
+                        <Text typography="head4_sb_20" color="white" as="h2">
+                          {banner.mainTitle}
+                        </Text>
+                        <Text typography="body1_r_16" color="neutral-70" as="p">
                           {banner.description || ""}
-                        </p>
+                        </Text>
                       </Flex>
-                    </>
+                    </Flex>
                   ) : (
                     <>
                       <Text typography="sub2_m_18" color="primary-strong" as="p">

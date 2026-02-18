@@ -42,6 +42,12 @@
   height: 100%;
 }
 
+.slideItemImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .slideItemImage::after {
   content: "";
   position: absolute;
@@ -101,34 +107,6 @@
     padding: 0;
   }
 
-  .mobileSubTitle {
-    margin-bottom: 0.25rem;
-  }
-
-  .mobileTitle {
-    font-size: 1.75rem; /* 28px */
-    line-height: 1.3;
-    color: var(--Common-white);
-    letter-spacing: -0.96px;
-    margin: 0;
-  }
-
-  .mobileTitleLight {
-    font-weight: 300;
-  }
-
-  .mobileTitleBold {
-    font-weight: 600;
-  }
-
-  .mobileDesc {
-    font-size: 0.875rem; /* 14px */
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.8);
-    letter-spacing: -0.48px;
-    margin: 0;
-  }
-
   .paging {
     bottom: 1.5rem;
     padding: 0 2rem;
@@ -138,7 +116,7 @@
 /* 모바일 (~767px) */
 @media (max-width: 767px) {
   .mainVisual {
-    height: 32.5rem; /* 520px - Figma 기준 */
+    height: 32.5rem;
   }
 
   .slideInner {
@@ -147,39 +125,11 @@
 
   .slideContent {
     max-width: calc(100% - 2rem);
-    gap: 0.25rem;
-    top: auto;
-    bottom: 4rem;
-    transform: none;
-    padding: 0;
-  }
-
-  .mobileSubTitle {
-    margin-bottom: 0.25rem;
-  }
-
-  .mobileTitle {
-    font-size: 1.5rem; /* 24px - Figma 기준 */
-    line-height: 1.3;
-    color: var(--Common-white);
-    letter-spacing: -0.96px;
-    margin: 0;
-  }
-
-  .mobileTitleLight {
-    font-weight: 300; /* Light */
-  }
-
-  .mobileTitleBold {
-    font-weight: 600; /* SemiBold */
-  }
-
-  .mobileDesc {
-    font-size: 0.75rem; /* 12px - Figma 기준 */
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.8);
-    letter-spacing: -0.48px;
-    margin: 0;
+    gap: 0.5rem;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    padding: 0 1rem;
   }
 
   .paging {

@@ -164,9 +164,17 @@
   .trackInner {
     height: auto;
     gap: 0.5rem; /* 8px */
-    padding: 0 2rem;
+    padding: 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .card:first-child {
+    margin-left: 2rem;
+  }
+
+  .card:last-child {
+    margin-right: 2rem;
   }
 
   .card {
@@ -226,9 +234,17 @@
   .trackInner {
     height: auto;
     gap: 0.5rem; /* 8px - Figma 기준 */
-    padding: 0 1rem;
+    padding: 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .card:first-child {
+    margin-left: 1rem;
+  }
+
+  .card:last-child {
+    margin-right: 1rem;
   }
 
   .card {
