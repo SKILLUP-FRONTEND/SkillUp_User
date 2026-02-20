@@ -2,16 +2,24 @@
 
 .eventCard {
   width: 18.8125rem;
-  padding-bottom: 1.25rem;
   border-radius: 0.5rem;
-  background: var(--Common-white);
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
-  overflow: hidden; /* 원래대로 복구 (Portal 사용으로 문제 없음) */
+  overflow: visible;
   cursor: pointer;
 
   &:hover {
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.12);
   }
+}
+
+.eventCardInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-radius: inherit;
+  background: var(--Common-white);
+  overflow: hidden;
 }
 
 .large {
@@ -129,13 +137,16 @@
 @media (max-width: 767px) {
   .eventCard {
     width: 15rem; /* 240px - Figma 기준 */
-    padding-bottom: 1rem;
   }
 
   .large,
   .medium,
   .small {
     width: 15rem;
+  }
+
+  .eventCardInner {
+    padding-bottom: 1rem;
   }
 
   .eventCardImage {

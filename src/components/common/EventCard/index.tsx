@@ -84,104 +84,106 @@ export default function EventCard({
         className,
       )}
     >
-      <div className={styles.eventCardImage}>
-        {/* 추후 바뀔 수도 있음 */}
-        <img src={imageSrc} alt="Event Card Image" />
+      <div className={styles.eventCardInner}>
+        <div className={styles.eventCardImage}>
+          {/* 추후 바뀔 수도 있음 */}
+          <img src={imageSrc} alt="Event Card Image" />
 
-        <Flex justify="space-between" className={styles.eventCardImageOverlay}>
-          <Badge label={d_dayLabel || ""} variant="opacity" />
-          <Tooltip content="북마크">
-            <IconButton
-              variant="opacity"
-              size="large"
-              icon={
-                <BookmarkIcon
-                  fillColor={isBookmarked ? "var(--Common-white)" : "none"}
-                  strokeColor={isBookmarked ? "none" : "var(--Common-white)"}
-                />
-              }
-              onClick={handleBookmarkClick}
-              ariaLabel="Bookmark Icon"
-            />
-          </Tooltip>
+          <Flex justify="space-between" className={styles.eventCardImageOverlay}>
+            <Badge label={d_dayLabel || ""} variant="opacity" />
+            <Tooltip content="북마크">
+              <IconButton
+                variant="opacity"
+                size="large"
+                icon={
+                  <BookmarkIcon
+                    fillColor={isBookmarked ? "var(--Common-white)" : "none"}
+                    strokeColor={isBookmarked ? "none" : "var(--Common-white)"}
+                  />
+                }
+                onClick={handleBookmarkClick}
+                ariaLabel="Bookmark Icon"
+              />
+            </Tooltip>
+          </Flex>
+        </div>
+        <Flex
+          direction="column"
+          justify="space-between"
+          gap="1rem"
+          className={styles.eventCardContentContainer}
+        >
+          <Flex direction="column" gap="0.75rem">
+            <Flex direction="column" gap="0.25rem">
+              <Badge label={categoryBadgeLabel} />
+              {size === "large" || size === "small" ? (
+                <Text
+                  typography="head3_m_24"
+                  color="black"
+                  as="h3"
+                  className={styles.eventCardContentBodyItemTitle}
+                >
+                  {title}
+                </Text>
+              ) : (
+                <Text
+                  typography="sub1_m_20"
+                  color="black"
+                  as="h3"
+                  className={styles.eventCardContentBodyItemTitleMedium}
+                >
+                  {title}
+                </Text>
+              )}
+            </Flex>
+            <Flex direction="column" gap="0.12rem">
+              <Flex align="center" gap="0.5rem">
+                <Image src={CalendarIcon} alt="Calendar Icon" />
+                <Text
+                  typography="body2_r_14"
+                  color="neutral-40"
+                  className={styles.eventCardContentBodyDatePlaceItemText}
+                >
+                  {scheduleText}
+                </Text>
+              </Flex>
+              <Flex align="center" gap="0.5rem">
+                <Image src={LocationIcon} alt="Location Icon" />
+                <Text
+                  typography="body2_r_14"
+                  color="neutral-40"
+                  className={styles.eventCardContentBodyDatePlaceItemText}
+                >
+                  {locationText || "온라인"}
+                </Text>
+              </Flex>
+            </Flex>
+          </Flex>
+          {(size === "large" || size === "medium") && (
+            <Flex justify="space-between">
+              <Flex align="center" gap="0.5rem">
+                <Text typography="sub2_m_18" color="black">
+                  {priceText}
+                </Text>
+                {priceText === "0원" && <Badge label="무료" />}
+              </Flex>
+              {size === "large" && (
+                <Button
+                  variant="secondary"
+                  size="medium"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    router.push(eventUrl);
+                  }}
+                >
+                  자세히 보기
+                </Button>
+              )}
+            </Flex>
+          )}
         </Flex>
       </div>
-      <Flex
-        direction="column"
-        justify="space-between"
-        gap="1rem"
-        className={styles.eventCardContentContainer}
-      >
-        <Flex direction="column" gap="0.75rem">
-          <Flex direction="column" gap="0.25rem">
-            <Badge label={categoryBadgeLabel} />
-            {size === "large" || size === "small" ? (
-              <Text
-                typography="head3_m_24"
-                color="black"
-                as="h3"
-                className={styles.eventCardContentBodyItemTitle}
-              >
-                {title}
-              </Text>
-            ) : (
-              <Text
-                typography="sub1_m_20"
-                color="black"
-                as="h3"
-                className={styles.eventCardContentBodyItemTitleMedium}
-              >
-                {title}
-              </Text>
-            )}
-          </Flex>
-          <Flex direction="column" gap="0.12rem">
-            <Flex align="center" gap="0.5rem">
-              <Image src={CalendarIcon} alt="Calendar Icon" />
-              <Text
-                typography="body2_r_14"
-                color="neutral-40"
-                className={styles.eventCardContentBodyDatePlaceItemText}
-              >
-                {scheduleText}
-              </Text>
-            </Flex>
-            <Flex align="center" gap="0.5rem">
-              <Image src={LocationIcon} alt="Location Icon" />
-              <Text
-                typography="body2_r_14"
-                color="neutral-40"
-                className={styles.eventCardContentBodyDatePlaceItemText}
-              >
-                {locationText || "온라인"}
-              </Text>
-            </Flex>
-          </Flex>
-        </Flex>
-        {(size === "large" || size === "medium") && (
-          <Flex justify="space-between">
-            <Flex align="center" gap="0.5rem">
-              <Text typography="sub2_m_18" color="black">
-                {priceText}
-              </Text>
-              {priceText === "0원" && <Badge label="무료" />}
-            </Flex>
-            {size === "large" && (
-              <Button
-                variant="secondary"
-                size="medium"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  router.push(eventUrl);
-                }}
-              >
-                자세히 보기
-              </Button>
-            )}
-          </Flex>
-        )}
-      </Flex>
     </Flex>
   );
 }

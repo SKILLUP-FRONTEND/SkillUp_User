@@ -2,12 +2,20 @@
 
 .card {
   width: 100%;
-  padding-bottom: 0.75rem;
   border-radius: 0.5rem;
-  background: var(--Common-white);
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  overflow: visible;
   cursor: pointer;
+}
+
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-radius: inherit;
+  background: var(--Common-white);
+  overflow: hidden;
 }
 
 .card:active {

@@ -7,6 +7,10 @@ import { useSocialLoginCallback } from "@/hooks/mutations/useSocialLogin";
 import { SocialLoginType } from "@/api/auth";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
+import NewUserOnboardingModal from "@/components/oauth/NewUserOnboardingModal";
+import OtherOAuthUserModal from "@/components/oauth/OtherOAuthUserModal";
+import WithdrawPendingUserModal from "@/components/oauth/WithdrawPendingUserModal";
+import { useAuth } from "@/hooks/useAuth";
 
 interface OAuthCallbackProps {
   provider: SocialLoginType;
@@ -16,7 +20,12 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mutate: handleCallback, isPending } = useSocialLoginCallback();
+  const { userEmail, logout } = useAuth();
   const [error, setError] = useState<string | null>(null);
+  const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
+  const [isOtherOAuthModalOpen, setIsOtherOAuthModalOpen] = useState(false);
+  const [isWithdrawPendingModalOpen, setIsWithdrawPendingModalOpen] =
+    useState(false);
 
   useEffect(() => {
     const code = searchParams.get("code");
@@ -49,7 +58,22 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
         state: state || undefined,
       },
       {
-        onSuccess: () => {
+        onSuccess: ({ userLoginStatus }) => {
+          if (userLoginStatus === "NEW_USER") {
+            setIsNewUserModalOpen(true);
+            return;
+          }
+          if (userLoginStatus === "OTHER_OAUTH_USER") {
+            logout();
+            setIsOtherOAuthModalOpen(true);
+            return;
+          }
+          if (userLoginStatus === "WITHDRAW_PENDING_USER") {
+            logout();
+            setIsWithdrawPendingModalOpen(true);
+            return;
+          }
+
           // 상태가 완전히 반영될 수 있도록 짧은 딜레이 후 리다이렉트
           setTimeout(() => {
             router.push("/");
@@ -63,7 +87,7 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
         },
       }
     );
-  }, [searchParams, handleCallback, router, provider]);
+  }, [searchParams, handleCallback, router, provider, logout]);
 
   return (
     <Flex
@@ -91,6 +115,26 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
           </Text>
         </>
       )}
+
+      <NewUserOnboardingModal
+        isOpen={isNewUserModalOpen}
+        onSaved={() => router.push("/profile/edit")}
+      />
+
+      <OtherOAuthUserModal
+        isOpen={isOtherOAuthModalOpen}
+        identifier={userEmail}
+        onConfirm={() => router.push("/")}
+      />
+
+      <WithdrawPendingUserModal
+        isOpen={isWithdrawPendingModalOpen}
+        onCancel={() => router.push("/")}
+        onRejoin={() => {
+          // TODO: 재가입하기 플로우 기획 확정 후 연결
+          console.info("TODO: rejoin flow for WITHDRAW_PENDING_USER");
+        }}
+      />
     </Flex>
   );
 }

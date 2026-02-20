@@ -18,3 +18,11 @@ export const ROLE_NAMES: RoleName[] = [
   ROLE_NAME.DEVELOPER,
   ROLE_NAME.MARKETING,
 ];
+
+// UI 표시용 직군 옵션 (라벨은 축약, 값은 서버 전송용 RoleName)
+export const ROLE_DISPLAY_OPTIONS = [
+  { label: "기획", value: ROLE_NAME.PLANNING },
+  { label: "디자인", value: ROLE_NAME.DESIGN },
+  { label: "마케팅", value: ROLE_NAME.MARKETING },
+  { label: "개발", value: ROLE_NAME.DEVELOPER },
+] as const;

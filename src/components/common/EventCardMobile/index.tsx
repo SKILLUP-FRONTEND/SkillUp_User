@@ -62,76 +62,78 @@ export default function EventCardMobile({
   return (
     <Flex
       direction="column"
-      gap="0.5rem"
+      gap="0"
       onClick={() => router.push(eventUrl)}
       className={clsx(styles.card, className)}
     >
-      <div className={styles.imageContainer}>
-        <img src={imageSrc} alt={title} className={styles.image} />
-        <Flex justify="space-between" className={styles.imageOverlay}>
-          <Badge label={d_dayLabel || ""} variant="opacity" />
-          <IconButton
-            variant="opacity"
-            size="medium"
-            icon={
-              <BookmarkIcon
-                width={20}
-                height={20}
-                fillColor={isBookmarked ? "var(--Common-white)" : "none"}
-                strokeColor={isBookmarked ? "none" : "var(--Common-white)"}
-              />
-            }
-            onClick={handleBookmarkClick}
-            ariaLabel="북마크"
-          />
+      <div className={styles.cardInner}>
+        <div className={styles.imageContainer}>
+          <img src={imageSrc} alt={title} className={styles.image} />
+          <Flex justify="space-between" className={styles.imageOverlay}>
+            <Badge label={d_dayLabel || ""} variant="opacity" />
+            <IconButton
+              variant="opacity"
+              size="medium"
+              icon={
+                <BookmarkIcon
+                  width={20}
+                  height={20}
+                  fillColor={isBookmarked ? "var(--Common-white)" : "none"}
+                  strokeColor={isBookmarked ? "none" : "var(--Common-white)"}
+                />
+              }
+              onClick={handleBookmarkClick}
+              ariaLabel="북마크"
+            />
+          </Flex>
+        </div>
+
+        <Flex direction="column" gap="0.75rem" className={styles.content}>
+          <Flex direction="column" gap="0.5rem">
+            <Flex direction="column" gap="0.25rem">
+              <Badge label={categoryBadgeLabel} />
+              <Text
+                typography="sub3_m_16"
+                color="black"
+                as="h3"
+                className={styles.title}
+              >
+                {title}
+              </Text>
+            </Flex>
+            <Flex direction="column" gap="0.125rem">
+              <Flex align="center" gap="0.25rem">
+                <Image
+                  src={CalendarIcon}
+                  alt="Calendar"
+                  width={16}
+                  height={16}
+                />
+                <Text
+                  typography="label4_m_12"
+                  color="neutral-40"
+                  className={styles.metaText}
+                >
+                  {scheduleText}
+                </Text>
+              </Flex>
+              <Flex align="center" gap="0.25rem">
+                <Image src={LocationIcon} alt="Location" width={16} height={16} />
+                <Text
+                  typography="label4_m_12"
+                  color="neutral-40"
+                  className={styles.metaText}
+                >
+                  {locationText || "온라인"}
+                </Text>
+              </Flex>
+            </Flex>
+          </Flex>
+          <Text typography="sub3_m_16" color="black">
+            {priceText}
+          </Text>
         </Flex>
       </div>
-
-      <Flex direction="column" gap="0.75rem" className={styles.content}>
-        <Flex direction="column" gap="0.5rem">
-          <Flex direction="column" gap="0.25rem">
-            <Badge label={categoryBadgeLabel} />
-            <Text
-              typography="sub3_m_16"
-              color="black"
-              as="h3"
-              className={styles.title}
-            >
-              {title}
-            </Text>
-          </Flex>
-          <Flex direction="column" gap="0.125rem">
-            <Flex align="center" gap="0.25rem">
-              <Image
-                src={CalendarIcon}
-                alt="Calendar"
-                width={16}
-                height={16}
-              />
-              <Text
-                typography="label4_m_12"
-                color="neutral-40"
-                className={styles.metaText}
-              >
-                {scheduleText}
-              </Text>
-            </Flex>
-            <Flex align="center" gap="0.25rem">
-              <Image src={LocationIcon} alt="Location" width={16} height={16} />
-              <Text
-                typography="label4_m_12"
-                color="neutral-40"
-                className={styles.metaText}
-              >
-                {locationText || "온라인"}
-              </Text>
-            </Flex>
-          </Flex>
-        </Flex>
-        <Text typography="sub3_m_16" color="black">
-          {priceText}
-        </Text>
-      </Flex>
     </Flex>
   );
 }
