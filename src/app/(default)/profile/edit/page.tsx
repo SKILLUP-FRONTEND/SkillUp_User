@@ -87,20 +87,17 @@ function ProfileEditSkeleton() {
 export default function ProfileEditPage() {
   const { data: userData, isLoading: isLoadingUser } = useUser();
 
-  if (isLoadingUser) {
+  // 로딩 중이거나 데이터가 없는 경우 스켈레톤 표시
+  if (isLoadingUser || !userData) {
     return (
-      <div style={{ paddingTop: "6.25rem" }}>
+      <div style={{ paddingTop: "6.25rem", minHeight: "calc(100vh - 12rem)" }}>
         <ProfileEditSkeleton />
       </div>
     );
   }
 
-  if (!userData) {
-    return <div>User not found</div>;
-  }
-
   return (
-    <div style={{ paddingTop: "6.25rem" }}>
+    <div style={{ paddingTop: "6.25rem", minHeight: "calc(100vh - 12rem)" }}>
       <ProfileEditPageLayout initialData={userData} />
     </div>
   );

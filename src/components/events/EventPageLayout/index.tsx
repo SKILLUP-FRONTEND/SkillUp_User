@@ -23,8 +23,16 @@ import {
   createEventSearchParamsAtom,
 } from "@/components/events/filters/atoms/pageFilterAtoms";
 import { PAGE_CONFIGS, PageId } from "./config";
+import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 function EventPageSkeleton() {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+
+  // 화면 크기에 따른 카드 개수
+  const cardCounts = isMobile ? 1 : isTablet ? 3 : 4;
+  const rowCount = isMobile ? 5 : 3;
+
   return (
     <Flex direction="column" gap="20px" style={{ width: "100%" }}>
       {/* 헤더 스켈레톤 */}
@@ -33,58 +41,58 @@ function EventPageSkeleton() {
           <Skeleton width="194px" height="36px" borderRadius="100px" />
           <Skeleton width="121px" height="20px" borderRadius="100px" />
         </Flex>
-        <Flex justify="space-between" align="center">
-          <Flex gap="8px">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Skeleton key={i} width="80px" height="40px" borderRadius="100px" />
-            ))}
+        {!isMobile && (
+          <Flex justify="space-between" align="center">
+            <Flex gap="8px">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Skeleton key={i} width="80px" height="40px" borderRadius="100px" />
+              ))}
+            </Flex>
+            <Flex gap="8px">
+              <Skeleton width="98px" height="40px" borderRadius="100px" />
+              <Skeleton width="127px" height="40px" borderRadius="100px" />
+            </Flex>
           </Flex>
-          <Flex gap="8px">
-            <Skeleton width="98px" height="40px" borderRadius="100px" />
-            <Skeleton width="127px" height="40px" borderRadius="100px" />
-          </Flex>
-        </Flex>
+        )}
       </Flex>
 
       {/* 카드 그리드 스켈레톤 */}
-      <Flex direction="column" gap="60px">
-        {[0, 1, 2].map((row) => (
-          <Flex key={row} gap="12px">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className={styles.skeletonCard}>
-                <Skeleton height="212px" width="100%" borderRadius="8px 8px 0 0" />
-                <Flex direction="column" gap="28px" style={{ padding: "16px" }}>
-                  <Flex direction="column" gap="12px">
-                    <Flex direction="column" gap="4px">
-                      <Skeleton width="103px" height="24px" borderRadius="100px" />
-                      <Skeleton width="100%" height="36px" borderRadius="100px" />
-                    </Flex>
-                    <Flex direction="column" gap="6px">
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
-                    </Flex>
-                  </Flex>
-                  <Flex gap="8px" align="center">
-                    <Skeleton width="121px" height="28px" borderRadius="100px" />
-                    <Skeleton width="28px" height="28px" borderRadius="100px" />
-                  </Flex>
+      <div className={styles.cardList}>
+        {Array.from({ length: rowCount * cardCounts }).map((_, index) => (
+          <div key={index} className={styles.skeletonCard}>
+            <Skeleton height="212px" width="100%" borderRadius="8px 8px 0 0" />
+            <Flex direction="column" gap="28px" style={{ padding: "16px" }}>
+              <Flex direction="column" gap="12px">
+                <Flex direction="column" gap="4px">
+                  <Skeleton width="103px" height="24px" borderRadius="100px" />
+                  <Skeleton width="100%" height="36px" borderRadius="100px" />
                 </Flex>
-              </div>
-            ))}
-          </Flex>
+                <Flex direction="column" gap="6px">
+                  <Skeleton width="224px" height="18px" borderRadius="100px" />
+                  <Skeleton width="224px" height="18px" borderRadius="100px" />
+                </Flex>
+              </Flex>
+              <Flex gap="8px" align="center">
+                <Skeleton width="121px" height="28px" borderRadius="100px" />
+                <Skeleton width="28px" height="28px" borderRadius="100px" />
+              </Flex>
+            </Flex>
+          </div>
         ))}
-      </Flex>
+      </div>
 
       {/* 페이지네이션 스켈레톤 */}
-      <Flex justify="center" align="center" gap="60px" style={{ marginTop: "40px" }}>
-        <Skeleton width="40px" height="40px" borderRadius="100px" />
-        <Flex gap="8px" align="center">
-          {[1, 2, 3].map((i) => (
-            <Skeleton key={i} width="40px" height="40px" borderRadius="4px" />
-          ))}
+      {!isMobile && (
+        <Flex justify="center" align="center" gap="60px" style={{ marginTop: "40px" }}>
+          <Skeleton width="40px" height="40px" borderRadius="100px" />
+          <Flex gap="8px" align="center">
+            {[1, 2, 3].map((i) => (
+              <Skeleton key={i} width="40px" height="40px" borderRadius="4px" />
+            ))}
+          </Flex>
+          <Skeleton width="40px" height="40px" borderRadius="100px" />
         </Flex>
-        <Skeleton width="40px" height="40px" borderRadius="100px" />
-      </Flex>
+      )}
     </Flex>
   );
 }

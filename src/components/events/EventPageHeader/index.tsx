@@ -10,6 +10,7 @@ import FilterBadges from "@/components/events/filters/FilterBadges";
 import Flex from "@/components/common/Flex";
 import { SORT_OPTIONS } from "@/constants/pagination";
 import { JobCategory } from "@/constants/category";
+import { useIsMobile } from "@/hooks/useMediaQuery";
 
 interface EventPageHeaderProps {
   title: string;
@@ -42,31 +43,60 @@ export default function EventPageHeader({
   onReset,
   FilterView,
 }: EventPageHeaderProps) {
+  const isMobile = useIsMobile();
+
   return (
     <Flex direction="column" gap={1.5} style={{ width: "100%" }}>
       <EventHeader title={title} count={count} />
-      <Flex align="center" justify="space-between">
-        <RoleSelector selected={selectedRoles} onSelect={onRolesChange} />
-        <Flex align="center" gap={0.5}>
-          <FilterBadges
-            onOfflineFilter={onOfflineFilter}
-            freeFilter={freeFilter}
-            onClearOnOfflineFilter={onClearOnOfflineFilter}
-            onClearFreeFilter={onClearFreeFilter}
-          />
-          <FilterButton onApply={onApply} onReset={onReset}>
-            <FilterView />
-          </FilterButton>
-          <SortDropdown
-            selected={
-              SORT_OPTIONS.find((option) => option.value === sortOption) ||
-              SORT_OPTIONS[0]
-            }
-            setSelected={(option) => onSortChange(option.value)}
-            options={SORT_OPTIONS}
-          />
+      {isMobile ? (
+        // 모바일: 세로 정렬
+        <Flex direction="column" gap={0.75} style={{ width: "100%" }}>
+          <RoleSelector selected={selectedRoles} onSelect={onRolesChange} />
+          <Flex align="center" justify="flex-end" gap={0.5}>
+            <FilterBadges
+              onOfflineFilter={onOfflineFilter}
+              freeFilter={freeFilter}
+              onClearOnOfflineFilter={onClearOnOfflineFilter}
+              onClearFreeFilter={onClearFreeFilter}
+            />
+            <FilterButton onApply={onApply} onReset={onReset}>
+              <FilterView />
+            </FilterButton>
+            <SortDropdown
+              selected={
+                SORT_OPTIONS.find((option) => option.value === sortOption) ||
+                SORT_OPTIONS[0]
+              }
+              setSelected={(option) => onSortChange(option.value)}
+              options={SORT_OPTIONS}
+            />
+          </Flex>
         </Flex>
-      </Flex>
+      ) : (
+        // 태블릿/데스크톱: 가로 정렬
+        <Flex align="center" justify="space-between">
+          <RoleSelector selected={selectedRoles} onSelect={onRolesChange} />
+          <Flex align="center" gap={0.5}>
+            <FilterBadges
+              onOfflineFilter={onOfflineFilter}
+              freeFilter={freeFilter}
+              onClearOnOfflineFilter={onClearOnOfflineFilter}
+              onClearFreeFilter={onClearFreeFilter}
+            />
+            <FilterButton onApply={onApply} onReset={onReset}>
+              <FilterView />
+            </FilterButton>
+            <SortDropdown
+              selected={
+                SORT_OPTIONS.find((option) => option.value === sortOption) ||
+                SORT_OPTIONS[0]
+              }
+              setSelected={(option) => onSortChange(option.value)}
+              options={SORT_OPTIONS}
+            />
+          </Flex>
+        </Flex>
+      )}
     </Flex>
   );
 }

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "@/styles/global.css";
 import QueryProvider from "@/providers/QueryProvider";
@@ -6,10 +6,58 @@ import ToastProvider from "@/providers/ToastProvider";
 
 export const metadata: Metadata = {
   title: {
-    default: "Skill Up User",
-    template: "%s | Skill Up User",
+    default: "스킬업 - IT 행사 정보 플랫폼",
+    template: "%s | 스킬업",
   },
-  description: "스킬업 웹 구축 프로젝트",
+  description:
+    "컨퍼런스, 해커톤, 부트캠프, 연합 동아리까지 IT 행사 정보를 한눈에 확인하세요.",
+  keywords: [
+    "IT 행사",
+    "IT 행사 플랫폼",
+    "IT 행사 일정",
+    "IT 컨퍼런스",
+    "IT 세미나",
+    "해커톤",
+    "공모전",
+    "개발자 행사",
+    "AI 컨퍼런스",
+  ],
+  authors: [{ name: "스킬업" }],
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    title: "스킬업 - IT 행사 정보 플랫폼",
+    description:
+      "컨퍼런스, 해커톤, 부트캠프, 연합 동아리까지 IT 행사 정보를 한눈에 확인하세요.",
+    siteName: "스킬업",
+    // 추후 OG 이미지 추가 예정
+    // images: [
+    //   {
+    //     url: "/og-image.png",
+    //     width: 1200,
+    //     height: 630,
+    //     alt: "스킬업 - IT 행사 정보 플랫폼",
+    //   },
+    // ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "스킬업 - IT 행사 정보 플랫폼",
+    description:
+      "컨퍼런스, 해커톤, 부트캠프, 연합 동아리까지 IT 행사 정보를 한눈에 확인하세요.",
+    // 추후 OG 이미지 추가 예정
+    // images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

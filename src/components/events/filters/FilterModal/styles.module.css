@@ -1,5 +1,9 @@
 /* src/components/events/filters/FilterModal/styles.module.css */
 
+.backdrop {
+  position: relative;
+}
+
 .modal {
   width: 23.8rem;
   display: inline-flex;
@@ -76,4 +80,12 @@
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.04rem;
+}
+
+/* 모바일 (~767px) */
+@media (max-width: 767px) {
+  .modal {
+    width: calc(100vw - 2rem);
+    max-width: 23.8rem;
+  }
 }
