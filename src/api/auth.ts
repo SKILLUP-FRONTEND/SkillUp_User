@@ -44,7 +44,7 @@ export const sendAuthorizationCode = async (
   // 백엔드에서 액세스 토큰 및 로그인 상태 반환
   const { accessToken, userLoginStatus } = response.data.data;
   return {
-    accessToken: accessToken.accessToken,
+    accessToken,
     userLoginStatus,
   };
 };
