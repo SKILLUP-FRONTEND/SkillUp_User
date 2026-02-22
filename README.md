@@ -1,194 +1,58 @@
-# Skill Up Platform (Front-End)
+# SkillUp - IT 행사 정보 플랫폼
 
-Next.js 기반 웹 프론트엔드 프로젝트 🚀
+컨퍼런스, 해커톤, 부트캠프, 연합 동아리 등 IT 행사 정보를 한눈에 확인할 수 있는 웹 플랫폼입니다.
 
-## 📌 기술 스택
-- Framework: Next.js 14 (App Router)
-- Language: TypeScript
-- Linting: ESLint
+## Tech Stack
 
-## 📂 프로젝트 구조
+| Category | Technology |
+|----------|-----------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| State Management | Jotai, TanStack React Query |
+| Styling | CSS Modules, Tailwind CSS |
+| HTTP Client | Axios |
+| Testing | Vitest, Playwright |
+| UI Documentation | Storybook |
+| Deployment | Vercel |
+
+## Getting Started
+
+```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
+
+# 스토리북 실행
+npm run storybook
 ```
-📦public
- ┗ 📜favicon.ico
 
-📦src
- ┣ 📂app
- ┃ ┣ 📂bootcamp
- ┃ ┃ ┣ 📜BootcampPageLayout.tsx
- ┃ ┃ ┣ 📜layout.tsx
- ┃ ┃ ┣ 📜page.tsx
- ┃ ┃ ┗ 📜styles.module.css
- ┃ ┣ 📂conference
- ┃ ┃ ┣ 📜ConferencePageLayout.tsx
- ┃ ┃ ┣ 📜layout.tsx
- ┃ ┃ ┣ 📜page.tsx
- ┃ ┃ ┗ 📜styles.module.css
- ┃ ┣ 📂hackathon
- ┃ ┃ ┣ 📜HackathonPageLayout.tsx
- ┃ ┃ ┣ 📜layout.tsx
- ┃ ┃ ┣ 📜page.tsx
- ┃ ┃ ┗ 📜styles.module.css
- ┃ ┣ 📂mentoring
- ┃ ┃ ┣ 📜layout.tsx
- ┃ ┃ ┣ 📜MentoringPageLayout.tsx
- ┃ ┃ ┣ 📜page.tsx
- ┃ ┃ ┗ 📜styles.module.css
- ┃ ┣ 📜layout.tsx
- ┃ ┗ 📜page.tsx
- ┣ 📂assets
- ┃ ┣ 📂icons
- ┃ ┃ ┣ 📜ChevronLeftIcon.tsx
- ┃ ┃ ┣ 📜ChevronRightIcon.tsx
- ┃ ┃ ┣ 📜icon_article.png
- ┃ ┃ ┣ 📜icon_Education.png
- ┃ ┃ ┣ 📜icon_hackathon.png
- ┃ ┃ ┣ 📜icon_networking.png
- ┃ ┃ ┗ 📜icon_seminar.png
- ┃ ┣ 📂images
- ┃ ┃ ┣ 📜loginImg.png
- ┃ ┃ ┗ 📜main_banner.jpg
- ┃ ┗ 📂svg
- ┃ ┃ ┣ 📜calendarIcon.svg
- ┃ ┃ ┣ 📜cautionIcon.svg
- ┃ ┃ ┣ 📜chevronDownIcon.svg
- ┃ ┃ ┣ 📜closeIcon.svg
- ┃ ┃ ┣ 📜ellipsisIcon.svg
- ┃ ┃ ┣ 📜filterIcon.svg
- ┃ ┃ ┣ 📜googleIcon.svg
- ┃ ┃ ┣ 📜kakaoIcon.svg
- ┃ ┃ ┣ 📜locationIcon.svg
- ┃ ┃ ┣ 📜naverIcon.svg
- ┃ ┃ ┣ 📜resetIcon.svg
- ┃ ┃ ┣ 📜skillUp_black.svg
- ┃ ┃ ┣ 📜skillUp_symbol_black.svg
- ┃ ┃ ┣ 📜skillUp_symbol_white.svg
- ┃ ┃ ┗ 📜skillUp_white.svg
- ┣ 📂components
- ┃ ┣ 📂club
- ┃ ┃ ┗ 📜index.tsx
- ┃ ┣ 📂common
- ┃ ┃ ┣ 📂Badge
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┣ 📂Button
- ┃ ┃ ┃ ┣ 📂BookmarkBtn
- ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┣ 📂CalendarDatePicker
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┣ 📂Card
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┣ 📂Dropdown
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┣ 📂Footer
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┣ 📂Header
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┣ 📂Modal
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┗ 📂Pagination
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┣ 📂events
- ┃ ┃ ┣ 📂EventCard
- ┃ ┃ ┃ ┣ 📜icons.tsx
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┣ 📂EventEmpty
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┣ 📂EventHeader
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┣ 📂filters
- ┃ ┃ ┃ ┣ 📂atoms
- ┃ ┃ ┃ ┃ ┣ 📜filterAtoms.ts
- ┃ ┃ ┃ ┃ ┗ 📜pageFilterAtoms.ts
- ┃ ┃ ┃ ┣ 📂FilterBadges
- ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┃ ┣ 📂FilterButton
- ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┃ ┣ 📂filterElements
- ┃ ┃ ┃ ┃ ┣ 📂DateRangeFilter
- ┃ ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┃ ┃ ┣ 📂FreeFilter
- ┃ ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┃ ┃ ┗ 📂OnOfflineFilter
- ┃ ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┃ ┣ 📂FilterModal
- ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┃ ┣ 📂hooks
- ┃ ┃ ┃ ┃ ┗ 📜usePageFilters.ts
- ┃ ┃ ┃ ┣ 📂RoleSelector
- ┃ ┃ ┃ ┃ ┣ 📜icons.tsx
- ┃ ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┃ ┣ 📂types
- ┃ ┃ ┃ ┃ ┗ 📜role.ts
- ┃ ┃ ┃ ┗ 📂views
- ┃ ┃ ┃ ┃ ┣ 📜BootcampFilterView.tsx
- ┃ ┃ ┃ ┃ ┣ 📜ConferenceFilterView.tsx
- ┃ ┃ ┃ ┃ ┣ 📜HackathonFilterView.tsx
- ┃ ┃ ┃ ┃ ┣ 📜MentoringFilterView.tsx
- ┃ ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┃ ┗ 📂sorting
- ┃ ┃ ┃ ┗ 📂SortDropdown
- ┃ ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┣ 📂interest
- ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┗ 📜style.module.css
- ┃ ┣ 📂login
- ┃ ┃ ┣ 📂LoginContent
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┗ 📂SocialLoginButton
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┣ 📂mainVisual
- ┃ ┃ ┣ 📂IconMenu
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┗ 📜style.module.css
- ┃ ┣ 📂nav
- ┃ ┃ ┗ 📂EventCategoryTabs
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜styles.module.css
- ┃ ┣ 📂recommend-contents
- ┃ ┃ ┗ 📜index.tsx
- ┃ ┗ 📂recommend-event
- ┃ ┃ ┣ 📂recommend-deadline
- ┃ ┃ ┃ ┣ 📜dummyData.ts
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┣ 📂recommend-interest
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┣ 📂recommend-now
- ┃ ┃ ┃ ┣ 📜dummyData.ts
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜style.module.css
- ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┗ 📜style.module.css
- ┣ 📂lib
- ┣ 📂mocks
- ┃ ┗ 📜eventListMock.ts
- ┗ 📂styles
- ┃ ┗ 📜global.css
- 
- ```
+## Branch Strategy
+
+| Branch | Environment | URL |
+|--------|-------------|-----|
+| `main` | Production | [skillup.ai.kr](https://skillup.ai.kr) |
+| `develop` | Preview | dev-skillup.vercel.app |
+
+## Project Structure
+
+```
+src/
+├── app/                  # Next.js App Router 페이지
+├── assets/               # 아이콘, 이미지, SVG
+├── components/           # UI 컴포넌트
+│   ├── common/           #   공통 컴포넌트 (Button, Modal, Header 등)
+│   └── events/           #   행사 관련 컴포넌트 (Card, Filter 등)
+├── constants/            # 상수 정의
+├── hooks/                # 커스텀 훅
+├── lib/                  # 외부 라이브러리 설정
+├── providers/            # Context/Provider
+├── services/             # API 호출
+├── styles/               # 글로벌 스타일
+├── types/                # 타입 정의
+└── utils/                # 유틸리티 함수
+```
