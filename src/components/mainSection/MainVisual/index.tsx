@@ -4,6 +4,7 @@ import Flex from "@/components/common/Flex";
 import Skeleton from "@/components/common/Skeleton";
 import styles from "./styles.module.css";
 import { useBanners } from "@/hooks/queries/useHome";
+import { incrementBannerView } from "@/api/home";
 import Banner from "@/assets/images/main_banner.png";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
@@ -146,7 +147,8 @@ export default function MainVisual() {
     if (!hasDraggedRef.current) {
       const currentBanner = extendedBanners[currentIndex];
       if (currentBanner?.bannerLink) {
-        window.location.href = currentBanner.bannerLink;
+        incrementBannerView(currentBanner.id).catch(() => {});
+        window.open(currentBanner.bannerLink, "_blank");
       }
     }
   };

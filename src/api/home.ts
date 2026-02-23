@@ -81,3 +81,8 @@ export const getBanners = async (
   const response = await axiosInstance.get("/events/home/banners");
   return response.data.data;
 };
+
+// 배너 조회수 증가
+export const incrementBannerView = async (bannerId: number): Promise<void> => {
+  await instance.post(`/events/home/apply/banner/${bannerId}`);
+};
