@@ -116,6 +116,11 @@
     gap: 0.5rem;
   }
 
+  .carouselItem {
+    width: 16rem;
+    scroll-snap-align: start;
+  }
+
   .skeletonCard {
     flex: 0 0 calc(33.333% - 0.5rem);
   }
@@ -167,6 +172,7 @@
   }
 
   .carouselItem {
+    width: 15rem;
     scroll-snap-align: start;
   }
 

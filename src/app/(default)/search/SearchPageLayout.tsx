@@ -28,15 +28,16 @@ import styles from "@/components/events/EventPageLayout/styles.module.css";
 import RecommendedEventsEmpty from "@/components/events/RecommendedEventsEmpty";
 import { getCategoryPath } from "@/utils/format";
 import { useRouter } from "next/navigation";
-import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
+import { useIsMobile, useIsTablet, useIsSmallTablet } from "@/hooks/useMediaQuery";
 
 // 검색 페이지 스켈레톤 UI 컴포넌트
 function SearchPageSkeleton() {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const isSmallTablet = useIsSmallTablet();
 
   // 화면 크기에 따른 카드 개수
-  const cardCounts = isMobile ? 1 : isTablet ? 3 : 4;
+  const cardCounts = isSmallTablet ? 2 : isMobile ? 1 : isTablet ? 3 : 4;
   const rowCount = isMobile ? 5 : 3;
 
   return (

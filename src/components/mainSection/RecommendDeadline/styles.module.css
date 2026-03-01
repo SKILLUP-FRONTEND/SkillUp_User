@@ -69,6 +69,7 @@
   }
 
   .carouselItem {
+    width: 16rem;
     scroll-snap-align: start;
   }
 
@@ -105,6 +106,7 @@
   }
 
   .carouselItem {
+    width: 15rem;
     scroll-snap-align: start;
   }
 

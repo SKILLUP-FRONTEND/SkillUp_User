@@ -32,8 +32,20 @@
   }
 }
 
-/* 모바일 (~ 767px) */
-@media (max-width: 767px) {
+/* 소형 태블릿 (480px ~ 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .container {
+    padding: 0 1rem 5rem 1rem;
+  }
+
+  .cardList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 0.5rem;
+  }
+}
+
+/* 모바일 (~ 479px) */
+@media (max-width: 479px) {
   .container {
     padding: 0 1rem 5rem 1rem;
   }

@@ -13,6 +13,7 @@ interface TextProps {
     | "head1_m_42"
     | "head1_sb_24"
     | "head2_sb_30"
+    | "head2_m_42"
     | "head3_m_24"
     | "head4_sb_20"
     | "head5_sb_42"
@@ -72,7 +73,7 @@ export default function Text({
         styles.text,
         className,
         styles[typography],
-        color && styles[color as keyof typeof styles]
+        color && styles[color as keyof typeof styles],
       )}
       style={{ textAlign: align }}
     >

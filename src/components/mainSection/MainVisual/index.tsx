@@ -203,7 +203,9 @@ export default function MainVisual() {
                 ? `translateX(-${currentIndex * 100}%)`
                 : `calc(-${currentIndex * 100}% + ${dragOffset}px)`,
             transition:
-              isTransitioning && !isDragging ? "transform 0.5s ease-in-out" : "none",
+              isTransitioning && !isDragging
+                ? "transform 0.5s ease-in-out"
+                : "none",
           }}
         >
           {extendedBanners.map((banner, index) => (
@@ -225,7 +227,7 @@ export default function MainVisual() {
                     <Flex direction="column" gap="0.25rem">
                       <Text
                         typography="label4_m_12"
-                        color="primary-strong"
+                        color="primary-light"
                         as="p"
                       >
                         {banner.subTitle || ""}
@@ -241,7 +243,7 @@ export default function MainVisual() {
                     </Flex>
                   ) : (
                     <>
-                      <Text typography="sub2_m_18" color="primary-strong" as="p">
+                      <Text typography="sub2_m_18" color="primary-light" as="p">
                         {banner.subTitle || ""}
                       </Text>
                       <Text typography="head1_m_42" color="white" as="h2">

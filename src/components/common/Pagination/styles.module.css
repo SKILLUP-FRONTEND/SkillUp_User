@@ -1,31 +1,10 @@
 /* src/components/common/Pagination/styles.module.css */
 
+/* ===== 공통 ===== */
+
 .pagination {
   width: 100%;
   position: relative;
-}
-
-.centerPagination {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.paginationRight {
-  position: absolute;
-  right: 0;
-  transform: translateY(0);
-}
-
-.ellipsis {
-  margin: 0 2rem;
-}
-
-.paginationRightText {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 140%;
-  letter-spacing: -0.04rem;
 }
 
 .paginationPageButton {
@@ -36,6 +15,11 @@
   align-items: center;
   border-radius: 62.5rem;
   background: var(--Neutral-95);
+}
+
+.paginationPageButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .paginationButton {
@@ -66,7 +50,40 @@
   border-color: var(--Primary-normal);
 }
 
-/* 모바일 페이지네이션 */
+/* ===== 데스크톱 ===== */
+
+.centerPagination {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.paginationRight {
+  position: absolute;
+  right: 0;
+  transform: translateY(0);
+}
+
+.ellipsis {
+  margin: 0 2rem;
+}
+
+.paginationRightText {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.04rem;
+}
+
+/* ===== 태블릿 (768px ~ 1279px) ===== */
+
+.tabletPagination {
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== 모바일 (~767px) ===== */
+
 .mobilePagination {
   display: flex;
   justify-content: center;
@@ -75,4 +92,5 @@
 .mobileButton {
   width: 2.25rem;
   height: 2.25rem;
+  font-size: 0.875rem;
 }

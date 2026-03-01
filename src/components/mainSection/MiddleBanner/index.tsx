@@ -19,21 +19,30 @@ export default function MiddleBanner() {
     <Flex
       direction="column"
       justify="center"
-      gap="0.25rem"
+      gap="1.25rem"
       className={styles.inner}
     >
-      <Text typography="label4_m_12" color="neutral-90">
-        FIGMA UTILIZES AI DESIGN TO INCREASE 100% EFFICIENCY
-      </Text>
-      <Text
-        typography="head4_sb_20"
-        color="white"
-        className={styles.mobileTitle}
+      <Flex direction="column" gap="0.5rem">
+        <Text typography="head3_m_24" color="white">
+          IT 행사를 제보하여 <br />
+          스킬업과 함께 성장하세요!
+        </Text>
+        <Text typography="body2_r_14" color="white">
+          제보해주신 행사는 검토 후 스킬업에 업로드됩니다
+        </Text>
+      </Flex>
+      <Button
+        variant="secondary"
+        size="medium"
+        icon={<ChevronRightIcon width={16} height={16} />}
+        onClick={() => {
+          window.open("https://forms.gle/XuLEETJJjKVGku9A6", "_blank");
+        }}
       >
-        피그마, AI 디자인 활용해서
-        <br />
-        100%효율 높이기
-      </Text>
+        <Text typography="label3_m_14" color="white">
+          행사 제보하기
+        </Text>
+      </Button>
     </Flex>
   );
 
@@ -42,32 +51,28 @@ export default function MiddleBanner() {
     <Flex
       direction="column"
       justify="center"
-      gap="12px"
+      gap="2.5rem"
       className={styles.inner}
     >
-      <Text
-        typography="label1_r_18"
-        color="neutral-90"
-        className={styles.kicker}
-      >
-        FIGMA UTILIZES AI DESIGN TO INCREASE 100% EFFICIENCY
-      </Text>
-
-      <Flex direction="column" gap="0.5rem">
-        <Text typography="head1_m_42" color="white" className={styles.title}>
-          피그마, AI 디자인 활용해서
+      <Flex direction="column" gap="0.75rem">
+        <Text typography="head2_m_42" color="white">
+          IT 행사를 제보하여 <br />
+          스킬업과 함께 성장하세요!
         </Text>
-        <Text typography="head5_sb_42" color="white" className={styles.title}>
-          100%효율 높이기
+        <Text typography="label1_r_18" color="white">
+          제보해주신 행사는 검토 후 스킬업에 업로드됩니다
         </Text>
       </Flex>
       <Button
-        variant="primary"
+        variant="secondary"
         size={isTablet ? "large" : "extraLarge"}
         icon={<ChevronRightIcon width={16} height={16} />}
+        onClick={() => {
+          window.open("https://forms.gle/XuLEETJJjKVGku9A6", "_blank");
+        }}
       >
         <Text typography={isTablet ? "sub3_m_16" : "sub2_m_18"} color="white">
-          자세히 알아보기
+          행사 제보하기
         </Text>
       </Button>
     </Flex>
@@ -77,6 +82,7 @@ export default function MiddleBanner() {
     <section className={styles.middleBanner} aria-label="메인 배너">
       <Image src={Banner} alt="비주얼 배너" fill priority />
       <div className={styles.overlay} />
+      <div className={styles.purpleOverlay} />
       {isMobile ? renderMobileContent() : renderDesktopContent()}
     </section>
   );

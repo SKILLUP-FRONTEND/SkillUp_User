@@ -23,14 +23,15 @@ import {
   createEventSearchParamsAtom,
 } from "@/components/events/filters/atoms/pageFilterAtoms";
 import { PAGE_CONFIGS, PageId } from "./config";
-import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
+import { useIsMobile, useIsTablet, useIsSmallTablet } from "@/hooks/useMediaQuery";
 
 function EventPageSkeleton() {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const isSmallTablet = useIsSmallTablet();
 
   // 화면 크기에 따른 카드 개수
-  const cardCounts = isMobile ? 1 : isTablet ? 3 : 4;
+  const cardCounts = isSmallTablet ? 2 : isMobile ? 1 : isTablet ? 3 : 4;
   const rowCount = isMobile ? 5 : 3;
 
   return (

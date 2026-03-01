@@ -53,6 +53,14 @@ export function useIsMobile(): boolean {
 }
 
 /**
+ * 소형 태블릿 뷰포트 여부를 반환하는 훅
+ * @returns 소형 태블릿 뷰포트 여부 (480px ~ 767px)
+ */
+export function useIsSmallTablet(): boolean {
+  return useMediaQuery("(min-width: 480px) and (max-width: 767px)");
+}
+
+/**
  * 태블릿 뷰포트 여부를 반환하는 훅
  * @returns 태블릿 뷰포트 여부 (768px ~ 1279px)
  */

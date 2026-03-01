@@ -25,31 +25,35 @@ export default function Bootcamp() {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const [selectedCategory, setSelectedCategory] = useState<JobCategory>(
-    JOB_CATEGORY.ALL
+    JOB_CATEGORY.ALL,
   );
   // API 데이터 가져오기 (부트캠프 카테고리, 4개)
   const { data, isLoading, error } = useCategoryEvents(
     EVENT_CATEGORY.BOOTCAMP_CLUB,
     selectedCategory,
     4,
-    1
+    1,
   );
 
   // 모바일/태블릿 헤더
   const renderMobileHeader = () => (
     <Flex direction="column" gap="0.75rem" className={styles.sectionHeader}>
       <Flex direction="column" gap="0.25rem">
-        <Text typography="label4_m_12" color="primary-normal">
+        <Text typography="label4_m_12" color="primary-light">
           부트캠프
         </Text>
-        <Text typography="head3_m_24" color="white" className={styles.mobileTitle}>
+        <Text
+          typography="head3_m_24"
+          color="white"
+          className={styles.mobileTitle}
+        >
           지금 모집중인 부트캠프
         </Text>
       </Flex>
       <TabMenu
         tabs={JOB_CATEGORY_TABS}
         defaultIndex={JOB_CATEGORY_TABS.indexOf(
-          getJobCategoryLabel(selectedCategory)
+          getJobCategoryLabel(selectedCategory),
         )}
         onChange={(selected: string) => {
           const category = getJobCategoryByLabel(selected);
@@ -80,7 +84,7 @@ export default function Bootcamp() {
       <TabMenu
         tabs={JOB_CATEGORY_TABS}
         defaultIndex={JOB_CATEGORY_TABS.indexOf(
-          getJobCategoryLabel(selectedCategory)
+          getJobCategoryLabel(selectedCategory),
         )}
         onChange={(selected: string) => {
           const category = getJobCategoryByLabel(selected);
@@ -120,16 +124,36 @@ export default function Bootcamp() {
                 >
                   <Flex direction="column" gap="12px">
                     <Flex direction="column" gap="4px">
-                      <Skeleton width="103px" height="24px" borderRadius="100px" />
-                      <Skeleton width="100%" height="36px" borderRadius="100px" />
+                      <Skeleton
+                        width="103px"
+                        height="24px"
+                        borderRadius="100px"
+                      />
+                      <Skeleton
+                        width="100%"
+                        height="36px"
+                        borderRadius="100px"
+                      />
                     </Flex>
                     <Flex direction="column" gap="6px">
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
+                      <Skeleton
+                        width="224px"
+                        height="18px"
+                        borderRadius="100px"
+                      />
+                      <Skeleton
+                        width="224px"
+                        height="18px"
+                        borderRadius="100px"
+                      />
                     </Flex>
                   </Flex>
                   <Flex gap="8px" align="center">
-                    <Skeleton width="121px" height="28px" borderRadius="100px" />
+                    <Skeleton
+                      width="121px"
+                      height="28px"
+                      borderRadius="100px"
+                    />
                     <Skeleton width="28px" height="28px" borderRadius="100px" />
                   </Flex>
                 </Flex>

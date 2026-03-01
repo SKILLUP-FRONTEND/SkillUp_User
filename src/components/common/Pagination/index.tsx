@@ -12,6 +12,7 @@ import Button from "../Button";
 import Dropdown, { DropdownOption } from "../Dropdown";
 import Text from "../Text";
 import Flex from "../Flex";
+import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 interface PaginationProps {
   currentPage: number;
@@ -21,6 +22,7 @@ interface PaginationProps {
   selected?: DropdownOption;
   onSelect?: (option: DropdownOption) => void;
   goToPage?: boolean;
+  /** @deprecated useIsMobile() 훅이 내부에서 자동으로 처리됩니다 */
   isMobile?: boolean;
 }
 
@@ -32,8 +34,10 @@ const Pagination = ({
   selected: externalSelected,
   onSelect: externalOnSelect,
   goToPage = true,
-  isMobile = false,
 }: PaginationProps) => {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+
   // 전체 페이지를 기반으로 드롭다운 옵션 생성
   const [pageOptions, setPageOptions] = useState<DropdownOption[]>([]);
   const [selectedPageOption, setSelectedPageOption] =
@@ -77,26 +81,52 @@ const Pagination = ({
   const dropdownOptions = externalOptions || pageOptions;
   const dropdownSelected = externalSelected || selectedPageOption;
   const dropdownOnSelect = externalOnSelect || handlePageSelect;
+
+  /**
+   * 화면 크기별 표시할 페이지 목록 생성
+   * - 모바일: 현재 페이지 1개만
+   * - 태블릿: 최대 3개 (이전/다음 1개씩)
+   * - 데스크톱: 최대 5개 (기존 로직)
+   */
   const createPageList = () => {
     const pages: (number | "ellipsis")[] = [];
 
+    if (isMobile) {
+      pages.push(currentPage);
+      return pages;
+    }
+
+    if (isTablet) {
+      // 태블릿: 최대 3페이지 표시 (앞뒤 1개 + 현재)
+      if (totalPages <= 3) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+        return pages;
+      }
+      if (currentPage === 1) {
+        pages.push(1, 2, 3);
+      } else if (currentPage === totalPages) {
+        pages.push(totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(currentPage - 1, currentPage, currentPage + 1);
+      }
+      return pages;
+    }
+
+    // 데스크톱: 기존 로직 유지
     if (totalPages <= 4) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
       return pages;
     }
 
     if (currentPage <= 3) {
-      // Case: 1~3
       pages.push(1, 2, 3);
       pages.push("ellipsis");
       pages.push(totalPages);
     } else if (currentPage >= totalPages - 2) {
-      // Case: 8~10
       pages.push(1);
       pages.push("ellipsis");
       for (let i = totalPages - 2; i <= totalPages; i++) pages.push(i);
     } else {
-      // Case: 4~7
       pages.push("ellipsis");
       for (let i = currentPage; i < currentPage + 4 && i <= totalPages; i++) {
         pages.push(i);
@@ -130,11 +160,22 @@ const Pagination = ({
             <ChevronLeftIcon />
           </button>
 
-          <button
-            className={`${styles.paginationButton} ${styles.active} ${styles.mobileButton}`}
-          >
-            {currentPage}
-          </button>
+          <Flex gap="0.5rem" align="center">
+            {pageList.map((item, idx) => {
+              if (item === "ellipsis") return null;
+              return (
+                <button
+                  key={item}
+                  className={`${styles.paginationButton} ${styles.mobileButton} ${
+                    currentPage === item ? styles.active : ""
+                  }`}
+                  onClick={() => onPageChange(item)}
+                >
+                  {item}
+                </button>
+              );
+            })}
+          </Flex>
 
           <button
             className={`${styles.paginationPageButton} ${styles.mobileButton}`}
@@ -148,6 +189,55 @@ const Pagination = ({
     );
   }
 
+  // 태블릿 레이아웃
+  if (isTablet) {
+    return (
+      <div className={`${styles.pagination} ${styles.tabletPagination}`}>
+        <Flex gap="2rem" align="center" justify="center">
+          <button
+            className={styles.paginationPageButton}
+            onClick={handleLeftClick}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeftIcon />
+          </button>
+
+          <Flex gap="0.5rem" align="center">
+            {pageList.map((item, idx) => {
+              if (item === "ellipsis") {
+                return (
+                  <span key={`ellipsis-${idx}`} className={styles.ellipsis}>
+                    <Image src={EllipsisIcon} alt="..." />
+                  </span>
+                );
+              }
+              return (
+                <button
+                  key={item}
+                  className={`${styles.paginationButton} ${
+                    currentPage === item ? styles.active : ""
+                  }`}
+                  onClick={() => onPageChange(item)}
+                >
+                  {item}
+                </button>
+              );
+            })}
+          </Flex>
+
+          <button
+            className={styles.paginationPageButton}
+            onClick={handleRightClick}
+            disabled={currentPage === totalPages}
+          >
+            <ChevronRightIcon color="#000" />
+          </button>
+        </Flex>
+      </div>
+    );
+  }
+
+  // 데스크톱 레이아웃
   return (
     <div className={styles.pagination}>
       <Flex gap="8px" className={styles.centerPagination}>

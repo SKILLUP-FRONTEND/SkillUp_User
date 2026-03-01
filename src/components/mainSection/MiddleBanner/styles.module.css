@@ -10,6 +10,17 @@
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.2));
 }
 
+.purpleOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 74, 213, 0.4) 0%,
+    rgba(74, 105, 213, 0) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
 .inner {
   position: relative;
   height: 100%;
@@ -61,7 +72,7 @@
 /* 모바일 (~767px) */
 @media (max-width: 767px) {
   .middleBanner {
-    height: 8.4375rem; /* 135px - Figma 기준 */
+    height: 15rem;
   }
 
   .overlay {
@@ -70,14 +81,7 @@
 
   .inner {
     width: 100%;
-    padding: 0 1rem; /* 16px - Figma 기준 */
+    padding: 0 1rem;
     justify-content: center;
-  }
-
-  .mobileTitle {
-    font-size: 1.25rem; /* 20px */
-    font-weight: 600;
-    line-height: 1.4;
-    max-width: 12.5rem; /* 200px - Figma 기준 */
   }
 }
