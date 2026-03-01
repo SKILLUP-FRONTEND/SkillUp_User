@@ -70,7 +70,7 @@ export default function Header({ variant }: HeaderProps) {
   // 약관 동의 모달 상태
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [pendingSocialType, setPendingSocialType] = useState<SocialType | null>(
-    null
+    null,
   );
 
   const profileBtnRef = useRef<HTMLDivElement>(null);
@@ -146,7 +146,7 @@ export default function Header({ variant }: HeaderProps) {
               />
             )}
           </Link>
-          {variant === "sub" && <EventCategoryTabs />}
+          <EventCategoryTabs variant={variant} />
         </div>
 
         {/* 검색창, 로그인, 회원가입 메뉴바 */}
@@ -168,7 +168,10 @@ export default function Header({ variant }: HeaderProps) {
                   readOnly
                   onClick={toggleSearchModal}
                 />
-                <button className={styles.searchBtn} onClick={toggleSearchModal}>
+                <button
+                  className={styles.searchBtn}
+                  onClick={toggleSearchModal}
+                >
                   <Image src={SearchIcon} alt="search" width={20} height={20} />
                 </button>
               </div>

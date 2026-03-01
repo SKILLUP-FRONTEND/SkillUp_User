@@ -30,3 +30,19 @@
   color: var(--Common-black);
   border-bottom: 2px solid var(--Common-black);
 }
+
+/* main variant: 어두운 배경에서 밝은 텍스트 */
+.main .tabItem {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.main .tabItem:hover {
+  color: var(--Common-white);
+  border-bottom: 2px solid var(--Common-white);
+}
+
+.main .active {
+  color: var(--Common-white);
+  border-bottom: 2px solid var(--Common-white);
+}
+

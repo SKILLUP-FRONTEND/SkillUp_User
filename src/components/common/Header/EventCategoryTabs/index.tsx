@@ -13,11 +13,11 @@ const tabs = [
   { label: "아티클", href: "/article" },
 ];
 
-export default function EventCategoryTabs() {
+export default function EventCategoryTabs({ variant }: { variant: "main" | "sub" }) {
   const pathname = usePathname();
 
   return (
-    <nav className={styles.tabNav}>
+    <nav className={`${styles.tabNav} ${variant === "sub" ? styles.sub : ""} ${variant === "main" ? styles.main : ""}`}>
       {tabs.map((tab) => (
         <Link
           key={tab.href}

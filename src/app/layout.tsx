@@ -30,23 +30,21 @@ export const metadata: Metadata = {
     description:
       "컨퍼런스, 해커톤, 부트캠프, 연합 동아리까지 IT 행사 정보를 한눈에 확인하세요.",
     siteName: "스킬업",
-    // 추후 OG 이미지 추가 예정
-    // images: [
-    //   {
-    //     url: "/og-image.png",
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "스킬업 - IT 행사 정보 플랫폼",
-    //   },
-    // ],
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "스킬업 - IT 행사 정보 플랫폼",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "스킬업 - IT 행사 정보 플랫폼",
     description:
       "컨퍼런스, 해커톤, 부트캠프, 연합 동아리까지 IT 행사 정보를 한눈에 확인하세요.",
-    // 추후 OG 이미지 추가 예정
-    // images: ["/og-image.png"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
