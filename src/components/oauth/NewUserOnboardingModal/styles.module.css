@@ -1,21 +1,8 @@
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-.modal {
+.content {
   width: 600px;
   max-height: calc(100vh - 2rem);
   overflow-y: auto;
-  border-radius: 0.75rem;
   background: var(--Common-white);
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.16);
   padding: 2.5rem 2rem 2rem;
 }
 
@@ -112,6 +99,12 @@
   gap: 1rem;
 }
 
+.interestLabelGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .roleTabs {
   display: flex;
   align-items: center;
@@ -166,7 +159,7 @@
 }
 
 @media (max-width: 767px) {
-  .modal {
+  .content {
     width: 100%;
     padding: 1.5rem 1rem;
   }

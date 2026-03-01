@@ -9,6 +9,7 @@ import { AGE_OPTIONS, GENDER_OPTIONS } from "@/constants/profileFormOptions";
 import { useUpdateUserProfile } from "@/hooks/mutations/useUpdateUserProfile";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/useToast";
+import Modal from "@/components/common/Modal";
 import styles from "./styles.module.css";
 
 interface NewUserOnboardingModalProps {
@@ -129,11 +130,9 @@ export default function NewUserOnboardingModal({
     );
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className={styles.backdrop}>
-      <div className={styles.modal} role="dialog" aria-modal="true">
+    <Modal isOpen={isOpen} toggle={() => {}}>
+      <div className={styles.content}>
         <Text typography="head2_sb_30" color="black" as="h2" className={styles.title}>
           맞춤형 정보를 드릴 수 있도록,
           <br />
@@ -246,7 +245,7 @@ export default function NewUserOnboardingModal({
 
         <div className={styles.interestSection}>
           <div className={styles.interestHeader}>
-            <div>
+            <div className={styles.interestLabelGroup}>
               <Text typography="label3_m_14" color="black">
                 관심사
               </Text>
@@ -336,6 +335,6 @@ export default function NewUserOnboardingModal({
           </Text>
         </button>
       </div>
-    </div>
+    </Modal>
   );
 }

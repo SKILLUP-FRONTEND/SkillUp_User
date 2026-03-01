@@ -1,5 +1,6 @@
 "use client";
 
+import Modal from "@/components/common/Modal";
 import Text from "@/components/common/Text";
 import styles from "./styles.module.css";
 
@@ -14,11 +15,9 @@ export default function WithdrawPendingUserModal({
   onCancel,
   onRejoin,
 }: WithdrawPendingUserModalProps) {
-  if (!isOpen) return null;
-
   return (
-    <div className={styles.backdrop}>
-      <div className={styles.modal} role="dialog" aria-modal="true">
+    <Modal isOpen={isOpen} toggle={() => {}}>
+      <div className={styles.modalInner}>
         <div className={styles.content}>
           <div className={styles.icon}>!</div>
 
@@ -42,6 +41,6 @@ export default function WithdrawPendingUserModal({
           </button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

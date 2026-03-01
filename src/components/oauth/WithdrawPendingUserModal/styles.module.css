@@ -1,17 +1,5 @@
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1300;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-.modal {
+.modalInner {
   width: 26.5rem;
-  border-radius: 0.5rem;
   background: var(--Common-white);
   overflow: hidden;
 }
@@ -62,7 +50,7 @@
 }
 
 @media (max-width: 767px) {
-  .modal {
+  .modalInner {
     width: 100%;
   }
 

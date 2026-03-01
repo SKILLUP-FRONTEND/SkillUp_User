@@ -9,9 +9,8 @@ import { SocialLoginType } from "@/api/auth";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
 import OtherOAuthUserModal from "@/components/oauth/OtherOAuthUserModal";
-import WithdrawPendingUserModal from "@/components/oauth/WithdrawPendingUserModal";
 import { useAuth } from "@/hooks/useAuth";
-import { showOnboardingAtom } from "@/store/authAtoms";
+import { showOnboardingAtom, showWithdrawPendingAtom } from "@/store/authAtoms";
 
 interface OAuthCallbackProps {
   provider: SocialLoginType;
@@ -23,10 +22,9 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
   const { mutate: handleCallback, isPending } = useSocialLoginCallback();
   const { userEmail, logout } = useAuth();
   const setShowOnboarding = useSetAtom(showOnboardingAtom);
+  const setShowWithdrawPending = useSetAtom(showWithdrawPendingAtom);
   const [error, setError] = useState<string | null>(null);
   const [isOtherOAuthModalOpen, setIsOtherOAuthModalOpen] = useState(false);
-  const [isWithdrawPendingModalOpen, setIsWithdrawPendingModalOpen] =
-    useState(false);
   const [otherOAuthEmail, setOtherOAuthEmail] = useState<string | null>(null);
   const isCalledRef = useRef(false);
   const timerIdsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -52,7 +50,7 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
       timerIdsRef.current.push(
         setTimeout(() => {
           router.push("/");
-        }, 2000)
+        }, 2000),
       );
       return;
     }
@@ -63,7 +61,7 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
       timerIdsRef.current.push(
         setTimeout(() => {
           router.push("/");
-        }, 2000)
+        }, 2000),
       );
       return;
     }
@@ -90,7 +88,8 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
           }
           if (userLoginStatus === "WITHDRAW_PENDING_USER") {
             logout();
-            setIsWithdrawPendingModalOpen(true);
+            setShowWithdrawPending(true);
+            router.push("/");
             return;
           }
 
@@ -98,7 +97,7 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
           timerIdsRef.current.push(
             setTimeout(() => {
               router.push("/");
-            }, 100)
+            }, 100),
           );
         },
         onError: () => {
@@ -106,12 +105,12 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
           timerIdsRef.current.push(
             setTimeout(() => {
               router.push("/");
-            }, 2000)
+            }, 2000),
           );
         },
-      }
+      },
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, provider]);
 
   return (
@@ -147,14 +146,6 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
         onConfirm={() => router.push("/")}
       />
 
-      <WithdrawPendingUserModal
-        isOpen={isWithdrawPendingModalOpen}
-        onCancel={() => router.push("/")}
-        onRejoin={() => {
-          // TODO: 재가입하기 플로우 기획 확정 후 연결
-          console.info("TODO: rejoin flow for WITHDRAW_PENDING_USER");
-        }}
-      />
     </Flex>
   );
 }

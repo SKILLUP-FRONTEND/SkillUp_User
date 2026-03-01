@@ -82,3 +82,6 @@ export const loginModalAtom = atom<boolean>(false);
 
 // 신규 유저 온보딩 모달 상태 Atom (OAuth 콜백 후 홈에서 모달 표시용)
 export const showOnboardingAtom = atom<boolean>(false);
+
+// 탈퇴 대기 유저 모달 상태 Atom (OAuth 콜백 후 홈에서 모달 표시용)
+export const showWithdrawPendingAtom = atom<boolean>(false);
