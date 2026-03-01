@@ -161,7 +161,7 @@ export default function RecommendedContent() {
               />
 
               <Flex direction="column" gap="0.5rem">
-                <Flex align="center" justify="space-between">
+                <Flex align="flex-start" justify="space-between">
                   <Text
                     typography="head4_sb_20"
                     color="black"
