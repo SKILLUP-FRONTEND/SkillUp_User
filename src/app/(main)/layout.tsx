@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
+import OnboardingModalController from "@/components/common/OnboardingModalController";
 
 export default function MainLayout({
   children,
@@ -17,6 +18,7 @@ export default function MainLayout({
       <Header variant="main" />
       {children}
       <Footer />
+      <OnboardingModalController />
     </div>
   );
 }

@@ -79,3 +79,6 @@ export const isAuthenticatedAtom = atom((get) => {
 
 // 로그인 모달 상태 Atom (401 에러 시 전역에서 모달 열기 위해 사용)
 export const loginModalAtom = atom<boolean>(false);
+
+// 신규 유저 온보딩 모달 상태 Atom (OAuth 콜백 후 홈에서 모달 표시용)
+export const showOnboardingAtom = atom<boolean>(false);

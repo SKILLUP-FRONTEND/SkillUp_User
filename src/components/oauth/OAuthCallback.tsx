@@ -3,14 +3,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSetAtom } from "jotai";
 import { useSocialLoginCallback } from "@/hooks/mutations/useSocialLogin";
 import { SocialLoginType } from "@/api/auth";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
-import NewUserOnboardingModal from "@/components/oauth/NewUserOnboardingModal";
 import OtherOAuthUserModal from "@/components/oauth/OtherOAuthUserModal";
 import WithdrawPendingUserModal from "@/components/oauth/WithdrawPendingUserModal";
 import { useAuth } from "@/hooks/useAuth";
+import { showOnboardingAtom } from "@/store/authAtoms";
 
 interface OAuthCallbackProps {
   provider: SocialLoginType;
@@ -21,8 +22,8 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
   const searchParams = useSearchParams();
   const { mutate: handleCallback, isPending } = useSocialLoginCallback();
   const { userEmail, logout } = useAuth();
+  const setShowOnboarding = useSetAtom(showOnboardingAtom);
   const [error, setError] = useState<string | null>(null);
-  const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
   const [isOtherOAuthModalOpen, setIsOtherOAuthModalOpen] = useState(false);
   const [isWithdrawPendingModalOpen, setIsWithdrawPendingModalOpen] =
     useState(false);
@@ -77,7 +78,8 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
       {
         onSuccess: ({ userLoginStatus }) => {
           if (userLoginStatus === "NEW_USER") {
-            setIsNewUserModalOpen(true);
+            setShowOnboarding(true);
+            router.push("/");
             return;
           }
           if (userLoginStatus === "OTHER_OAUTH_USER") {
@@ -138,11 +140,6 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
           </Text>
         </>
       )}
-
-      <NewUserOnboardingModal
-        isOpen={isNewUserModalOpen}
-        onSaved={() => router.push("/profile/edit")}
-      />
 
       <OtherOAuthUserModal
         isOpen={isOtherOAuthModalOpen}
