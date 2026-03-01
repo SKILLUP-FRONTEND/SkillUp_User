@@ -5,7 +5,7 @@ import Image from "next/image";
 import Flex from "@/components/common/Flex";
 import styles from "./styles.module.css";
 import Button from "@/components/common/Button";
-import Banner from "@/assets/images/middle_banner.jpg";
+import Banner from "@/assets/images/middle_banner.png";
 import Text from "@/components/common/Text";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
@@ -25,7 +25,11 @@ export default function MiddleBanner() {
       <Text typography="label4_m_12" color="neutral-90">
         FIGMA UTILIZES AI DESIGN TO INCREASE 100% EFFICIENCY
       </Text>
-      <Text typography="head4_sb_20" color="white" className={styles.mobileTitle}>
+      <Text
+        typography="head4_sb_20"
+        color="white"
+        className={styles.mobileTitle}
+      >
         피그마, AI 디자인 활용해서
         <br />
         100%효율 높이기
@@ -41,7 +45,11 @@ export default function MiddleBanner() {
       gap="12px"
       className={styles.inner}
     >
-      <Text typography="label1_r_18" color="neutral-90" className={styles.kicker}>
+      <Text
+        typography="label1_r_18"
+        color="neutral-90"
+        className={styles.kicker}
+      >
         FIGMA UTILIZES AI DESIGN TO INCREASE 100% EFFICIENCY
       </Text>
 
