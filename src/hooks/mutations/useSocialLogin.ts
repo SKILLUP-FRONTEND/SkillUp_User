@@ -53,23 +53,26 @@ export const useSocialLoginCallback = () => {
       // 토큰 저장
       login(accessToken);
 
-      // 유저 정보 가져오기 (토큰 저장 후 바로 호출)
-      try {
-        const userData = await getUserEmailAndName();
-        if (userData?.name) {
-          setUserName(userData.name);
+      // NEW_USER는 백엔드가 401을 반환하므로 유저 정보 조회 및 캐시 무효화를 건너뜀
+      if (userLoginStatus !== "NEW_USER") {
+        // 유저 정보 가져오기 (토큰 저장 후 바로 호출)
+        try {
+          const userData = await getUserEmailAndName();
+          if (userData?.name) {
+            setUserName(userData.name);
+          }
+          if (userData?.email) {
+            setUserEmail(userData.email);
+          }
+          // 쿼리 캐시에도 저장
+          queryClient.setQueryData(queryKeys.user.emailAndName(), userData);
+        } catch (error) {
+          console.error("Failed to fetch user email and name:", error);
         }
-        if (userData?.email) {
-          setUserEmail(userData.email);
-        }
-        // 쿼리 캐시에도 저장
-        queryClient.setQueryData(queryKeys.user.emailAndName(), userData);
-      } catch (error) {
-        console.error("Failed to fetch user email and name:", error);
-      }
 
-      // 유저 데이터 쿼리 무효화
-      queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
+        // 유저 데이터 쿼리 무효화
+        queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
+      }
 
       // 모든 작업 완료 후 반환 (accessToken과 userLoginStatus 모두 반환)
       return { accessToken, userLoginStatus };

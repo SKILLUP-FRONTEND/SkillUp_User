@@ -34,6 +34,11 @@ export default function RecommendInterest() {
     return null;
   }
 
+  // 로딩 완료 후 행사가 없으면 섹션을 렌더링하지 않음
+  if (!isLoading && (!data || !data.events || data.events.length === 0)) {
+    return null;
+  }
+
   const handleBookmarkClick = (
     e: React.MouseEvent<HTMLButtonElement>,
     eventId: number,
