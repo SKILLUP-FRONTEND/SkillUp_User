@@ -41,3 +41,7 @@
 .item.open .icon {
   transform: rotate(180deg);
 }
+
+.answerContent {
+  white-space: pre-line;
+}

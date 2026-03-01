@@ -10,7 +10,7 @@ interface AccordionItemProps {
   id: string;
   question: string;
   answerTitle: string;
-  answerContent: string;
+  answerContent: React.ReactNode;
   isOpen?: boolean;
   onToggle?: (id: string) => void;
   extraButton?: React.ReactNode;
@@ -39,7 +39,7 @@ export function AccordionItem({
         className={styles.question}
         aria-label={question}
       >
-        <Flex align="flex-start" gap={isMobile ? "0" : "1rem"}>
+        <Flex align="center" gap={isMobile ? "0" : "1rem"}>
           <Text
             typography={isMobile ? "sub1_m_20" : "head3_m_24"}
             color="neutral-30"
@@ -70,7 +70,10 @@ export function AccordionItem({
         </svg>
       </Flex>
       {isOpen && (
-        <Flex gap={isMobile ? "0" : "1rem"} style={{ paddingRight: isMobile ? "2rem" : "0" }}>
+        <Flex
+          gap={isMobile ? "0" : "1rem"}
+          style={{ paddingRight: isMobile ? "2rem" : "0" }}
+        >
           <Text
             typography={isMobile ? "sub1_m_20" : "head3_m_24"}
             color="primary-strong"
@@ -85,10 +88,17 @@ export function AccordionItem({
             gap="0.75rem"
             style={{ flex: "1 0 0" }}
           >
-            <Text typography={isMobile ? "sub3_m_16" : "sub2_m_18"} color="black">
+            <Text
+              typography={isMobile ? "sub3_m_16" : "sub2_m_18"}
+              color="black"
+            >
               {answerTitle}
             </Text>
-            <Text typography="body2_r_14" color="neutral-30">
+            <Text
+              typography="body2_r_14"
+              color="neutral-30"
+              className={styles.answerContent}
+            >
               {answerContent}
             </Text>
             {extraButton && (
@@ -106,7 +116,7 @@ interface AccordionProps {
     id: string;
     question: string;
     answerTitle: string;
-    answerContent: string;
+    answerContent: React.ReactNode;
     extraButton?: React.ReactNode;
   }>;
   defaultOpenId?: string;
@@ -121,13 +131,13 @@ export default function Accordion({
   isMobile = false,
 }: AccordionProps) {
   const [openIds, setOpenIds] = useState<string[]>(
-    defaultOpenId ? [defaultOpenId] : []
+    defaultOpenId ? [defaultOpenId] : [],
   );
 
   const handleToggle = (id: string) => {
     if (allowMultiple) {
       setOpenIds((prev) =>
-        prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+        prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
       );
     } else {
       setOpenIds((prev) => (prev.includes(id) ? [] : [id]));
