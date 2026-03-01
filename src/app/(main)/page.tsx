@@ -8,11 +8,8 @@ import Club from "@/components/mainSection/Club";
 import RecommendContents from "@/components/mainSection/RecommendContents";
 import Bootcamp from "@/components/mainSection/Bootcamp";
 import IconMenu from "@/components/mainSection/MainVisual/IconMenu";
-// import NewsletterCTA from "@/components/mainSection/NewsletterCTA";
 
 export default function Home() {
-  // prefetch 제거: 페이지 즉시 렌더링, 각 섹션이 독립적으로 데이터 로드
-  // 장점: 빠른 초기 로딩, API 느려도 페이지 표시, 빌드 시 API 호출 없음
   return (
     <>
       <MainVisual />

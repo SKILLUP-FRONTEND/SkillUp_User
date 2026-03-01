@@ -3,6 +3,7 @@
 // 관심있어하실 행사
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Flex from "@/components/common/Flex";
 import Skeleton from "@/components/common/Skeleton";
 import styles from "./styles.module.css";
@@ -14,8 +15,10 @@ import { Event } from "@/types/event";
 import { useAuth } from "@/hooks/useAuth";
 import LoginImage from "@/assets/images/loginImg.png";
 import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
+import { getCategoryPath } from "@/utils/format";
 
 export default function RecommendInterest() {
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
@@ -48,6 +51,11 @@ export default function RecommendInterest() {
     });
   };
 
+  const handleCardClick = (event: Event) => {
+    const { path } = getCategoryPath(event.category);
+    router.push(`${path}/${event.id}`);
+  };
+
   // API에서 받아온 해시태그 사용
   const keywords = data?.hashTags || [];
 
@@ -68,12 +76,7 @@ export default function RecommendInterest() {
         {isLoading ? (
           <>
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <Skeleton
-                key={i}
-                width="60px"
-                height="28px"
-                borderRadius="4px"
-              />
+              <Skeleton key={i} width="60px" height="28px" borderRadius="4px" />
             ))}
           </>
         ) : (
@@ -113,12 +116,7 @@ export default function RecommendInterest() {
         {isLoading ? (
           <>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <Skeleton
-                key={i}
-                width="80px"
-                height="34px"
-                borderRadius="4px"
-              />
+              <Skeleton key={i} width="80px" height="34px" borderRadius="4px" />
             ))}
           </>
         ) : (
@@ -145,95 +143,105 @@ export default function RecommendInterest() {
 
         <div className={isMobile || isTablet ? styles.cardGridWrap : undefined}>
           <div className={styles.cardGrid}>
-          {isLoading ? (
-            <>
-              {[1, 2, 3, 4].map((i) => (
-                <Flex key={i} direction="column" gap="10px">
-                  <Skeleton
-                    height="200px"
-                    width="100%"
-                    borderRadius="4px"
-                    className={styles.skeletonImg}
-                  />
-                  <Flex direction="column" gap="8px">
-                    <Skeleton width="120px" height="28px" borderRadius="4px" />
-                    <Skeleton width="100%" height="24px" borderRadius="4px" />
-                  </Flex>
-                </Flex>
-              ))}
-            </>
-          ) : error ? (
-            <Flex
-              justify="center"
-              align="center"
-              style={{ gridColumn: "1 / -1", minHeight: "300px" }}
-            >
-              <Text typography="body1_r_16" color="neutral-95">
-                데이터를 불러오는데 실패했습니다.
-              </Text>
-            </Flex>
-          ) : !data || !data.events || data.events.length === 0 ? (
-            <Flex
-              justify="center"
-              align="center"
-              style={{ gridColumn: "1 / -1", minHeight: "300px" }}
-            >
-              <Text typography="body1_r_16" color="neutral-95">
-                표시할 행사가 없습니다.
-              </Text>
-            </Flex>
-          ) : (
-            data.events.slice(0, 4).map((event: Event) => {
-              const isBookmarked = bookmarkedCards.has(event.id);
-              return (
-                <Flex key={event.id} direction="column" gap="0.5rem">
-                  <div className={styles.imgBox}>
-                    <img
-                      src={event.thumbnailUrl ?? LoginImage.src.toString()}
-                      alt={event.title}
+            {isLoading ? (
+              <>
+                {[1, 2, 3, 4].map((i) => (
+                  <Flex key={i} direction="column" gap="10px">
+                    <Skeleton
+                      height="200px"
+                      width="100%"
+                      borderRadius="4px"
+                      className={styles.skeletonImg}
                     />
-                    <IconButton
-                      variant="opacity"
-                      size="large"
-                      icon={
-                        <BookmarkIcon
-                          fillColor={
-                            isBookmarked ? "var(--Common-white)" : "none"
-                          }
-                          strokeColor={
-                            isBookmarked ? "none" : "var(--Common-white)"
-                          }
-                        />
-                      }
-                      onClick={(e) => handleBookmarkClick(e, event.id)}
-                      className={styles.bookmarkBtn}
-                      ariaLabel="Bookmark Icon"
-                    />
-                  </div>
-                  <Flex direction="column" gap="0.25rem">
-                    <Text
-                      typography={
-                        isMobile || isTablet ? "head4_sb_20" : "head4_sb_20"
-                      }
-                      color="white"
-                      className={styles.metaText}
-                    >
-                      {event.title}
-                    </Text>
-                    <Text
-                      typography={
-                        isMobile || isTablet ? "body2_r_14" : "body1_r_16"
-                      }
-                      color="neutral-90"
-                      className={styles.metaText}
-                    >
-                      {event.scheduleText}
-                    </Text>
+                    <Flex direction="column" gap="8px">
+                      <Skeleton
+                        width="120px"
+                        height="28px"
+                        borderRadius="4px"
+                      />
+                      <Skeleton width="100%" height="24px" borderRadius="4px" />
+                    </Flex>
                   </Flex>
-                </Flex>
-              );
-            })
-          )}
+                ))}
+              </>
+            ) : error ? (
+              <Flex
+                justify="center"
+                align="center"
+                style={{ gridColumn: "1 / -1", minHeight: "300px" }}
+              >
+                <Text typography="body1_r_16" color="neutral-95">
+                  데이터를 불러오는데 실패했습니다.
+                </Text>
+              </Flex>
+            ) : !data || !data.events || data.events.length === 0 ? (
+              <Flex
+                justify="center"
+                align="center"
+                style={{ gridColumn: "1 / -1", minHeight: "300px" }}
+              >
+                <Text typography="body1_r_16" color="neutral-95">
+                  표시할 행사가 없습니다.
+                </Text>
+              </Flex>
+            ) : (
+              data.events.slice(0, 4).map((event: Event) => {
+                const isBookmarked = bookmarkedCards.has(event.id);
+                return (
+                  <Flex
+                    key={event.id}
+                    direction="column"
+                    gap="0.5rem"
+                    onClick={() => handleCardClick(event)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className={styles.imgBox}>
+                      <img
+                        src={event.thumbnailUrl ?? LoginImage.src.toString()}
+                        alt={event.title}
+                      />
+                      <IconButton
+                        variant="opacity"
+                        size="large"
+                        icon={
+                          <BookmarkIcon
+                            fillColor={
+                              isBookmarked ? "var(--Common-white)" : "none"
+                            }
+                            strokeColor={
+                              isBookmarked ? "none" : "var(--Common-white)"
+                            }
+                          />
+                        }
+                        onClick={(e) => handleBookmarkClick(e, event.id)}
+                        className={styles.bookmarkBtn}
+                        ariaLabel="Bookmark Icon"
+                      />
+                    </div>
+                    <Flex direction="column" gap="0.25rem">
+                      <Text
+                        typography={
+                          isMobile || isTablet ? "head4_sb_20" : "head4_sb_20"
+                        }
+                        color="white"
+                        className={styles.metaText}
+                      >
+                        {event.title}
+                      </Text>
+                      <Text
+                        typography={
+                          isMobile || isTablet ? "body2_r_14" : "body1_r_16"
+                        }
+                        color="neutral-90"
+                        className={styles.metaText}
+                      >
+                        {event.scheduleText}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                );
+              })
+            )}
           </div>
         </div>
       </Flex>
