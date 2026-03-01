@@ -97,21 +97,20 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
 
         <div className={styles.faqSection}>
           <Accordion
-            items={currentFAQs.map((faq, index) => ({
+            items={currentFAQs.map((faq) => ({
               id: faq.question,
               question: faq.question,
               answerTitle: faq.answerTitle,
               answerContent: faq.answerContent,
-              extraButton:
-                index === 0 ? (
-                  <Button
-                    variant="secondary"
-                    size={isMobileOrTablet ? "small" : "medium"}
-                    onClick={handleWithdrawalClick}
-                  >
-                    탈퇴하기
-                  </Button>
-                ) : undefined,
+              extraButton: faq.question.includes("탈퇴는 어떻게 하나요") ? (
+                <Button
+                  variant="secondary"
+                  size={isMobileOrTablet ? "small" : "medium"}
+                  onClick={handleWithdrawalClick}
+                >
+                  탈퇴하기
+                </Button>
+              ) : undefined,
             }))}
             allowMultiple={true}
             isMobile={isMobileOrTablet}
