@@ -5,16 +5,16 @@ import BootcampFilterView from "@/components/events/filters/views/BootcampFilter
 import HackathonFilterView from "@/components/events/filters/views/HackathonFilterView";
 import MentoringFilterView from "@/components/events/filters/views/MentoringFilterView";
 
-export type PageId = "conference" | "bootcamp" | "hackathon" | "mentoring";
+export type EventPageId = "conference" | "bootcamp" | "hackathon" | "mentoring";
 
 export interface PageConfig {
-  pageId: PageId;
+  pageId: EventPageId;
   title: string;
   FilterView: React.ComponentType;
   emptyUrl: string;
 }
 
-export const PAGE_CONFIGS: Record<PageId, PageConfig> = {
+export const PAGE_CONFIGS: Record<EventPageId, PageConfig> = {
   conference: {
     pageId: "conference",
     title: "컨퍼런스 · 세미나",

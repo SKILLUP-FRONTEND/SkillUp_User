@@ -2,7 +2,7 @@
 
 import { atom } from "jotai";
 import { EventSearchParams } from "@/types/event";
-import { EVENT_SORT_OPTIONS, EventSortOption } from "@/constants/event";
+import { DEFAULT_SORT_OPTION, EVENT_SORT_OPTIONS, EventSortOption } from "@/constants/event";
 import { JobCategory, JOB_CATEGORY } from "@/constants/category";
 
 // 기본 필터 상태 타입 정의
@@ -25,7 +25,7 @@ export const createPageFilterAtoms = () => {
     roleFilterAtom: atom<JobCategory[]>([JOB_CATEGORY.ALL]),
     onOfflineFilterAtom: atom<string>(""),
     freeFilterAtom: atom<boolean>(false),
-    sortOptionAtom: atom<EventSortOption>(EVENT_SORT_OPTIONS.POPULARITY),
+    sortOptionAtom: atom<EventSortOption>(DEFAULT_SORT_OPTION),
     startDateAtom: atom<Date | undefined>(undefined),
     endDateAtom: atom<Date | undefined>(undefined),
     tempOnOfflineFilterAtom: atom<string>(""),
@@ -54,11 +54,11 @@ export const pageFilterAtomsMap = {
 } as const;
 
 // 페이지 ID 타입
-export type PageId = keyof typeof pageFilterAtomsMap;
+export type FilterPageId = keyof typeof pageFilterAtomsMap;
 
 // 카테고리 매핑 (search는 카테고리가 없음)
 export const PAGE_CATEGORY_MAP: Partial<
-  Record<PageId, EventSearchParams["category"]>
+  Record<FilterPageId, EventSearchParams["category"]>
 > = {
   conference: "CONFERENCE_SEMINAR",
   bootcamp: "BOOTCAMP_CLUB",
@@ -77,7 +77,7 @@ const convertRoleToApi = (roles: JobCategory[]): string | undefined => {
 // Jotai 필터 상태를 API params로 변환하는 derived atom 생성
 // search는 별도로 처리하므로 제외
 export const createEventSearchParamsAtom = (
-  pageId: Exclude<PageId, "search">
+  pageId: Exclude<FilterPageId, "search">
 ) => {
   const atoms = pageFilterAtomsMap[pageId];
 
