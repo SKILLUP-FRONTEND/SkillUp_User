@@ -1,5 +1,5 @@
 import Header from "@/components/common/Header";
-import ErrorPage from "@/components/common/Error/ErrorPage";
+import ErrorPage from "@/components/common/Error";
 import Footer from "@/components/common/Footer";
 
 export default function NotFound() {

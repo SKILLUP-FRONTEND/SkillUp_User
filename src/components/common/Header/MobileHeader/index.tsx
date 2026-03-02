@@ -17,7 +17,7 @@ import LogoDefaultImg from "@/assets/images/logoDefaultImg.png";
 import Modal from "@/components/common/Modal";
 import LoginContent, { SocialType } from "@/components/login/LoginContent";
 import TermsAgreementContent from "@/components/login/TermsAgreementContent";
-import SearchModalContent from "@/components/main/SearchModalContent";
+import SearchModalContent from "@/components/common/Header/SearchModalContent";
 import Text from "@/components/common/Text";
 
 import { useAuth } from "@/hooks/useAuth";

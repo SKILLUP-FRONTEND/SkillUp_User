@@ -5,7 +5,7 @@ export interface TermsSection {
   content: (string | { type: "list"; items: string[] } | { type: "table"; headers: string[]; rows: string[][] })[];
 }
 
-export const PRIVACY_POLICY: TermsSection[] = [
+export const TERMS_PRIVACY_POLICY: TermsSection[] = [
   {
     title: "",
     content: [

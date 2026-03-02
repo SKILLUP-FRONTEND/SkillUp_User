@@ -5,29 +5,23 @@
 import { useMemo } from "react";
 import { useAtom } from "jotai";
 import EventCard from "@/components/common/EventCard";
-import EventEmpty from "@/components/events/EventEmpty";
+import EmptyState from "@/components/common/EmptyState";
 import EventHeader from "@/components/events/EventHeader";
-import SortDropdown from "@/components/events/sorting/SortDropdown";
+import Dropdown from "@/components/common/Dropdown";
 import FilterButton from "@/components/events/filters/FilterButton";
 import FilterBadges from "@/components/events/filters/FilterBadges";
 import Pagination from "@/components/common/Pagination";
-import Button from "@/components/common/Button";
 import Flex from "@/components/common/Flex";
-import Text from "@/components/common/Text";
 import Skeleton from "@/components/common/Skeleton";
-import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import SearchFilterView from "@/components/events/filters/views/SearchFilterView";
-import { Event, EventSearchRequest } from "@/types/event";
+import RecommendedEventsSection from "@/components/events/RecommendedEventsSection";
+import { EventSearchRequest } from "@/types/event";
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
 import { ITEMS_PER_PAGE, SORT_OPTIONS } from "@/constants/pagination";
 import { EventSortOption } from "@/constants/event";
-import { useRecommendedEvents } from "@/hooks/queries/useRecommendedEvents";
 import { pageFilterAtomsMap } from "@/components/events/filters/atoms/pageFilterAtoms";
 import { useSearchEvents } from "@/hooks/queries/useEventList";
 import styles from "@/components/events/EventPageLayout/styles.module.css";
-import RecommendedEventsEmpty from "@/components/events/RecommendedEventsEmpty";
-import { getCategoryPath } from "@/utils/format";
-import { useRouter } from "next/navigation";
 import { useIsMobile, useIsTablet, useIsSmallTablet } from "@/hooks/useMediaQuery";
 
 // 검색 페이지 스켈레톤 UI 컴포넌트
@@ -116,7 +110,6 @@ interface SearchPageLayoutProps {
 export default function SearchPageLayout({
   searchQuery,
 }: SearchPageLayoutProps) {
-  const router = useRouter();
   const isMobile = useIsMobile();
   const {
     onOfflineFilter,
@@ -172,11 +165,9 @@ export default function SearchPageLayout({
 
   const total = isFallback ? 0 : data?.total || 0;
 
-  // 추천 이벤트 조회 - 검색 결과가 없거나 fallback일 때만 호출
+  // 추천 이벤트 - 검색 결과가 없거나 fallback일 때만 렌더링
   const shouldFetchRecommended =
     !isLoading && (eventList.length === 0 || isFallback);
-  const { data: recommendedEvents, isLoading: isLoadingRecommended } =
-    useRecommendedEvents("CONFERENCE_SEMINAR", shouldFetchRecommended);
 
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
@@ -189,17 +180,6 @@ export default function SearchPageLayout({
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  // 추천 행사의 첫 번째 이벤트 카테고리에 따라 이동
-  const handleMoreClick = () => {
-    if (recommendedEvents && recommendedEvents.length > 0) {
-      const firstEventCategory = recommendedEvents[0].category;
-      const { path } = getCategoryPath(firstEventCategory);
-
-      // URL 파라미터에 reset 플래그 추가 (useUrlSync에서 처리)
-      router.push(`${path}?reset=true`);
-    }
   };
 
   // 로딩 중일 때 스켈레톤 UI 표시
@@ -243,12 +223,13 @@ export default function SearchPageLayout({
             <FilterButton onApply={handleApply} onReset={handleReset}>
               <SearchFilterView />
             </FilterButton>
-            <SortDropdown
+            <Dropdown
+              variant="sort"
               selected={
                 SORT_OPTIONS.find((option) => option.value === sortOption) ||
                 SORT_OPTIONS[0]
               }
-              setSelected={(option) =>
+              onSelect={(option) =>
                 setSortOption(option.value as EventSortOption)
               }
               options={SORT_OPTIONS}
@@ -261,92 +242,40 @@ export default function SearchPageLayout({
         {total > 0 && eventList.length === 0 ? (
           // total은 있는데 현재 페이지에 데이터가 없는 경우 (페이지 범위 초과)
           <>
-            <EventEmpty
-              description={
+            <EmptyState
+              message={
                 <div style={{ textAlign: "center" }}>
                   조건에 맞는 행사가 없어요. <br /> 조건을 다시 설정해보세요
                 </div>
               }
-              url="/support"
+              buttonHref="/support"
               buttonText="행사 등록하기"
             />
-            <Flex direction="column" gap={1}>
-              <Flex align="center" justify="space-between">
-                <Text typography="head3_m_24" color="black" as="h3">
-                  이런 행사는 어떠세요?
-                </Text>
-                <Button
-                  variant="textOnly"
-                  icon={<ChevronRightIcon />}
-                  size="medium"
-                  onClick={handleMoreClick}
-                >
-                  IT 행사 더보기
-                </Button>
-              </Flex>
-              {isLoadingRecommended ? (
-                <div className={styles.cardList}>
-                  <Text typography="body1_r_16" color="neutral-40">
-                    추천 행사를 불러오는 중...
-                  </Text>
-                </div>
-              ) : recommendedEvents && recommendedEvents.length > 0 ? (
-                <div className={styles.cardList}>
-                  {recommendedEvents.slice(0, 3).map((event: Event) => (
-                    <EventCard key={event.id} size="medium" event={event} />
-                  ))}
-                </div>
-              ) : (
-                <RecommendedEventsEmpty />
-              )}
-            </Flex>
+            <RecommendedEventsSection
+              category="CONFERENCE_SEMINAR"
+              shouldFetch={shouldFetchRecommended}
+              cardSize="medium"
+              showMoreButton={true}
+              cardContainerClassName={styles.cardList}
+            />
           </>
         ) : eventList.length === 0 ? (
           // total도 0이고 데이터도 없는 경우 (실제로 데이터가 없음)
           <>
-            <EventEmpty
-              description={
+            <EmptyState
+              message={
                 <div style={{ textAlign: "center" }}>
                   {`'${searchQuery}'`} <br /> 행사 검색 결과가 없습니다.
                 </div>
               }
             />
-            <Flex direction="column" gap={1}>
-              <Flex align="center" justify="space-between">
-                <Text typography="head3_m_24" color="black" as="h3">
-                  이런 행사는 어떠세요?
-                </Text>
-                <Button
-                  variant="textOnly"
-                  icon={
-                    <ChevronRightIcon
-                      color="var(--Neutral-60)"
-                      width={16}
-                      height={16}
-                    />
-                  }
-                  size="medium"
-                  onClick={handleMoreClick}
-                >
-                  IT 행사 더보기
-                </Button>
-              </Flex>
-              {isLoadingRecommended ? (
-                <div className={styles.cardList}>
-                  <Text typography="body1_r_16" color="neutral-40">
-                    추천 행사를 불러오는 중...
-                  </Text>
-                </div>
-              ) : recommendedEvents && recommendedEvents.length > 0 ? (
-                <div className={styles.cardList}>
-                  {recommendedEvents.slice(0, 3).map((event: Event) => (
-                    <EventCard key={event.id} size="medium" event={event} />
-                  ))}
-                </div>
-              ) : (
-                <RecommendedEventsEmpty />
-              )}
-            </Flex>
+            <RecommendedEventsSection
+              category="CONFERENCE_SEMINAR"
+              shouldFetch={shouldFetchRecommended}
+              cardSize="medium"
+              showMoreButton={true}
+              cardContainerClassName={styles.cardList}
+            />
           </>
         ) : (
           // 데이터가 있는 경우

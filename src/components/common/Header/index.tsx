@@ -27,7 +27,7 @@ import { useUserEmailAndName } from "@/hooks/queries/useUser";
 import Text from "../Text";
 import ChevronDownIcon from "@/assets/icons/ChevronDownIcon";
 import { useRouter } from "next/navigation";
-import SearchModalContent from "@/components/main/SearchModalContent";
+import SearchModalContent from "@/components/common/Header/SearchModalContent";
 import { useToast } from "@/hooks/useToast";
 import Skeleton from "@/components/common/Skeleton";
 import MobileHeader from "./MobileHeader";

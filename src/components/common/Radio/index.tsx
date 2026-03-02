@@ -55,10 +55,10 @@ export default function Radio({
               cx="12"
               cy="12"
               r="11.25"
-              stroke="#5A23FF"
+              stroke="var(--Primary-strong)"
               strokeWidth="1.5"
             />
-            <circle cx="12" cy="12" r="6" fill="#5A23FF" />
+            <circle cx="12" cy="12" r="6" fill="var(--Primary-strong)" />
           </svg>
         ) : (
           <svg
@@ -72,7 +72,7 @@ export default function Radio({
               cx="12"
               cy="12"
               r="11.25"
-              stroke="#C6C6C6"
+              stroke="var(--Neutral-90)"
               strokeWidth="1.5"
               fill="white"
             />

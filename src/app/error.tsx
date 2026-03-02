@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/common/Header";
-import ErrorPage from "@/components/common/Error/ErrorPage";
+import ErrorPage from "@/components/common/Error";
 
 export default function GlobalError() {
   return (

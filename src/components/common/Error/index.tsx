@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import SkillUpSymbolBlack from "@/assets/svg/skillUp_symbol_black.svg";
 
 interface ErrorPageProps {

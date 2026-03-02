@@ -1,13 +1,13 @@
 // src/utils/format.ts
 
 import { EventCategory } from "@/constants/event";
-import { PageId } from "@/components/events/filters/atoms/pageFilterAtoms";
+import { FilterPageId } from "@/components/events/filters/atoms/pageFilterAtoms";
 
-// 카테고리를 URL 경로와 PageId로 변환
+// 카테고리를 URL 경로와 FilterPageId로 변환
 export const getCategoryPath = (
   category: EventCategory
-): { path: string; pageId: PageId } => {
-  const categoryMap: Record<EventCategory, { path: string; pageId: PageId }> =
+): { path: string; pageId: FilterPageId } => {
+  const categoryMap: Record<EventCategory, { path: string; pageId: FilterPageId }> =
     {
       CONFERENCE_SEMINAR: { path: "/conference", pageId: "conference" },
       BOOTCAMP_CLUB: { path: "/bootcamp", pageId: "bootcamp" },

@@ -4,6 +4,12 @@
 
 import { useState, useEffect } from "react";
 
+const BREAKPOINTS = {
+  MOBILE: 768,
+  SMALL_TABLET: 480,
+  DESKTOP: 1280,
+} as const;
+
 /**
  * 미디어 쿼리 상태를 반환하는 훅
  * SSR에서 hydration mismatch를 방지하기 위해 초기값은 false
@@ -49,7 +55,7 @@ export function useMediaQuery(query: string): boolean {
  * @returns 모바일 뷰포트 여부 (767px 이하)
  */
 export function useIsMobile(): boolean {
-  return useMediaQuery("(max-width: 767px)");
+  return useMediaQuery(`(max-width: ${BREAKPOINTS.MOBILE - 1}px)`);
 }
 
 /**
@@ -57,7 +63,7 @@ export function useIsMobile(): boolean {
  * @returns 소형 태블릿 뷰포트 여부 (480px ~ 767px)
  */
 export function useIsSmallTablet(): boolean {
-  return useMediaQuery("(min-width: 480px) and (max-width: 767px)");
+  return useMediaQuery(`(min-width: ${BREAKPOINTS.SMALL_TABLET}px) and (max-width: ${BREAKPOINTS.MOBILE - 1}px)`);
 }
 
 /**
@@ -65,7 +71,7 @@ export function useIsSmallTablet(): boolean {
  * @returns 태블릿 뷰포트 여부 (768px ~ 1279px)
  */
 export function useIsTablet(): boolean {
-  return useMediaQuery("(min-width: 768px) and (max-width: 1279px)");
+  return useMediaQuery(`(min-width: ${BREAKPOINTS.MOBILE}px) and (max-width: ${BREAKPOINTS.DESKTOP - 1}px)`);
 }
 
 /**
@@ -73,5 +79,5 @@ export function useIsTablet(): boolean {
  * @returns 데스크톱 뷰포트 여부 (1280px 이상)
  */
 export function useIsDesktop(): boolean {
-  return useMediaQuery("(min-width: 1280px)");
+  return useMediaQuery(`(min-width: ${BREAKPOINTS.DESKTOP}px)`);
 }
