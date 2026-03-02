@@ -69,8 +69,12 @@ export default function EventCardMobile({
       <div className={styles.cardInner}>
         <div className={styles.imageContainer}>
           <img src={imageSrc} alt={title} className={styles.image} />
-          <Flex justify="space-between" className={styles.imageOverlay}>
-            <Badge label={d_dayLabel || ""} variant="opacity" />
+          <Flex justify="space-between" align="flex-start" className={styles.imageOverlay}>
+            {d_dayLabel ? (
+              <span className={styles.deadlineBadge}>{d_dayLabel}</span>
+            ) : (
+              <div />
+            )}
             <IconButton
               variant="opacity"
               size="medium"

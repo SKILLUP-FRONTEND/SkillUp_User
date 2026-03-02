@@ -89,8 +89,20 @@ export default function EventCard({
           {/* 추후 바뀔 수도 있음 */}
           <img src={imageSrc} alt="Event Card Image" />
 
-          <Flex justify="space-between" className={styles.eventCardImageOverlay}>
-            <Badge label={d_dayLabel || ""} variant="opacity" />
+          <Flex
+            justify="space-between"
+            align="flex-start"
+            className={styles.eventCardImageOverlay}
+          >
+            {d_dayLabel ? (
+              <div className={styles.deadlineBadgeContainer}>
+                <Text typography="label3_m_14" color="white" className={styles.deadlineBadgeText}>
+                  {d_dayLabel}
+                </Text>
+              </div>
+            ) : (
+              <div />
+            )}
             <Tooltip content="북마크">
               <IconButton
                 variant="opacity"
