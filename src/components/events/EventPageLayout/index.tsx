@@ -5,7 +5,7 @@
 import { useMemo } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import EventCard from "@/components/common/EventCard";
-import EventEmpty from "@/components/events/EventEmpty";
+import EmptyState from "@/components/common/EmptyState";
 import EventPageHeader from "@/components/events/EventPageHeader";
 import Pagination from "@/components/common/Pagination";
 import Flex from "@/components/common/Flex";
@@ -22,7 +22,7 @@ import {
   pageFilterAtomsMap,
   createEventSearchParamsAtom,
 } from "@/components/events/filters/atoms/pageFilterAtoms";
-import { PAGE_CONFIGS, PageId } from "./config";
+import { PAGE_CONFIGS, EventPageId } from "./config";
 import { useIsMobile, useIsTablet, useIsSmallTablet } from "@/hooks/useMediaQuery";
 
 function EventPageSkeleton() {
@@ -99,7 +99,7 @@ function EventPageSkeleton() {
 }
 
 interface EventPageLayoutProps {
-  pageId: PageId;
+  pageId: EventPageId;
   initialEventList: Event[];
   initialParams: EventSearchParams;
 }
@@ -206,13 +206,13 @@ export default function EventPageLayout({
         {total > 0 && eventList.length === 0 ? (
           // total은 있는데 현재 페이지에 데이터가 없는 경우 (페이지 범위 초과)
           <>
-            <EventEmpty
-              description={
+            <EmptyState
+              message={
                 <div style={{ textAlign: "center" }}>
                   조건에 맞는 행사가 없어요. <br /> 조건을 다시 설정해보세요
                 </div>
               }
-              url={emptyUrl}
+              buttonHref={emptyUrl}
               buttonText="행사 등록하기"
             />
             <RecommendedEventsSection
@@ -226,9 +226,9 @@ export default function EventPageLayout({
         ) : eventList.length === 0 ? (
           // total도 0이고 데이터도 없는 경우 (실제로 데이터가 없음)
           <>
-            <EventEmpty
-              description={<>{title}에 등록된 행사가 없어요</>}
-              url={emptyUrl}
+            <EmptyState
+              message={<>{title}에 등록된 행사가 없어요</>}
+              buttonHref={emptyUrl}
               buttonText="행사 등록하기"
             />
             <RecommendedEventsSection

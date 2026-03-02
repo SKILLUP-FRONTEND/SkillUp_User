@@ -10,7 +10,7 @@ import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import { useRecommendedEvents } from "@/hooks/queries/useRecommendedEvents";
 import { EventCategory } from "@/constants/event";
 import { Event } from "@/types/event";
-import RecommendedEventsEmpty from "../RecommendedEventsEmpty";
+import EmptyState from "@/components/common/EmptyState";
 import { getCategoryPath } from "@/utils/format";
 import { useRouter } from "next/navigation";
 
@@ -88,7 +88,7 @@ export default function RecommendedEventsSection({
       return <div className={cardContainerClassName}>{cards}</div>;
     }
 
-    return <RecommendedEventsEmpty />;
+    return <EmptyState message="추천할 행사가 없습니다." variant="card" />;
   };
 
   return (

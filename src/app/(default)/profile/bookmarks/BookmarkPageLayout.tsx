@@ -3,29 +3,28 @@
 "use client";
 
 import EventCard from "@/components/common/EventCard";
-import EventCardMobile from "@/components/common/EventCardMobile";
 import styles from "./styles.module.css";
 import ProfileCard from "@/components/myPage/bookmarks/ProfileCard";
 import Pagination from "@/components/common/Pagination";
 import Dropdown from "@/components/common/Dropdown";
-import TabBar from "@/components/common/TabBar";
+import Tab from "@/components/common/Tab";
 import Flex from "@/components/common/Flex";
 import Skeleton from "@/components/common/Skeleton";
-import BookmarkEmpty from "@/components/myPage/bookmarks/BookmarkEmpty";
+import EmptyState from "@/components/common/EmptyState";
 import { useBookmarkPage } from "@/hooks/useBookmarkPage";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 
-// BookmarkEmpty 컴포넌트를 반환하는 헬퍼 함수
+// EmptyState 컴포넌트를 반환하는 헬퍼 함수
 const renderEmptyState = () => (
-  <BookmarkEmpty
+  <EmptyState
     title="저장한 행사가 없습니다"
-    description={
+    message={
       <div style={{ textAlign: "center" }}>
         관심 있는 행사를 북마크하여 <br />
         나만의 행사 목록을 만들어보세요
       </div>
     }
-    url="/conference"
+    buttonHref="/conference"
     buttonText="행사 둘러보기"
   />
 );
@@ -229,7 +228,7 @@ export default function BookmarkPageLayout() {
       <div className={styles.cardListContainer}>
         <div className={styles.cardListInner}>
           <Flex align="center" justify="space-between">
-            <TabBar
+            <Tab
               tabs={[
                 {
                   label: "진행 중",
@@ -253,7 +252,7 @@ export default function BookmarkPageLayout() {
             <div className={styles.cardList}>
               {eventList.map((event) =>
                 isMobile ? (
-                  <EventCardMobile key={event.id} event={event} />
+                  <EventCard key={event.id} size="compact" event={event} />
                 ) : (
                   <EventCard key={event.id} size="medium" event={event} />
                 ),
