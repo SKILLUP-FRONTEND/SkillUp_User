@@ -14,6 +14,13 @@
   letter-spacing: -0.105rem;
 }
 
+.head1_sb_42 {
+  font-size: 2.625rem;
+  font-weight: 700;
+  line-height: 130%;
+  letter-spacing: -0.105rem;
+}
+
 .head2_sb_30 {
   font-size: 1.875rem;
   font-weight: 600;
@@ -47,6 +54,13 @@
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -0.05rem;
+}
+
+.head4_sb_24 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: -0.06rem;
 }
 
 .head5_sb_42 {

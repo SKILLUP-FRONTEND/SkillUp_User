@@ -14,11 +14,17 @@ interface TabBarProps {
   tabs: TabItem[];
   activeIndex: number;
   onChange: (index: number) => void;
+  justify?: "center" | "flex-start";
 }
 
-export default function TabBar({ tabs, activeIndex, onChange }: TabBarProps) {
+export default function TabBar({
+  tabs,
+  activeIndex,
+  onChange,
+  justify = "center",
+}: TabBarProps) {
   return (
-    <Flex justify="center">
+    <Flex justify={justify}>
       {tabs.map((tab, index) => {
         const isActive = index === activeIndex;
         return (

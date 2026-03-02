@@ -2,153 +2,120 @@
 
 "use client";
 
+import { useRef, useState } from "react";
 import styles from "./styles.module.css";
 import StickyApplySection from "@/components/events/detail/StickyApplySection";
-import EventInfoCard from "@/components/events/detail/EventInfoCard";
 import Badge from "@/components/common/Badge";
 import GlobeIcon from "@/assets/svg/globeIcon.svg";
 import CursorIcon from "@/assets/svg/cursorIcon.svg";
+import CalendarIcon from "@/assets/svg/calendarIcon.svg";
 import Image from "next/image";
 import Text from "@/components/common/Text";
 import Flex from "@/components/common/Flex";
 import Skeleton from "@/components/common/Skeleton";
 import RecommendedEventsSection from "@/components/events/RecommendedEventsSection";
+import TabBar from "@/components/common/TabBar";
 import { useEventDetail } from "@/hooks/queries/useEventDetail";
 import { formatDate, formatPriceWithUnit, getDdayLabel } from "@/utils/format";
 import { EventCategory } from "@/constants/event";
 import NaverMap from "@/components/common/NaverMap";
 import parse from "html-react-parser";
+import LoginImage from "@/assets/images/loginImg.png";
 
 // 스켈레톤 UI 컴포넌트
 function EventDetailSkeleton() {
   return (
-    <Flex gap="1rem" className={styles.container}>
-      {/* 왼쪽 사이드바 스켈레톤 */}
-      <div className={styles.skeletonSidebar}>
-        <Flex direction="column" gap="1.5rem">
-          {/* 헤더: 카테고리 + 제목 + 이미지 */}
-          <Flex direction="column" gap="0.75rem">
-            <Flex direction="column" gap="0.25rem">
-              <Skeleton width="121px" height="20px" borderRadius="100px" />
-              <Skeleton width="194px" height="36px" borderRadius="100px" />
-            </Flex>
-            <Skeleton width="284px" height="160px" borderRadius="4px" />
-          </Flex>
+    <Flex gap="1.5rem" className={styles.container}>
+      {/* 왼쪽 콘텐츠 스켈레톤 */}
+      <Flex direction="column" gap="2.5rem" style={{ flex: 1, minWidth: 0 }}>
+        {/* 히어로 이미지 */}
+        <Skeleton width="100%" height="31.6875rem" borderRadius="0.75rem" />
 
-          {/* 정보 섹션 */}
-          <Flex direction="column" gap="1rem" style={{ width: "100%" }}>
-            {/* 정보 행 3개 */}
-            {[1, 2, 3].map((i) => (
-              <Flex key={i} gap="0.375rem" align="flex-start" style={{ width: "100%" }}>
-                <Skeleton width="20px" height="20px" borderRadius="100px" />
-                <Flex direction="column" gap="0.375rem" style={{ flex: 1 }}>
-                  <Skeleton width="121px" height="20px" borderRadius="100px" />
-                  <Skeleton width="121px" height="24px" borderRadius="100px" />
-                </Flex>
-              </Flex>
-            ))}
-
-            {/* 구분선 + 태그 */}
-            <div className={styles.skeletonDivider} />
-            <Flex gap="0.25rem">
-              <Skeleton width="60px" height="24px" borderRadius="100px" />
-              <Skeleton width="60px" height="24px" borderRadius="100px" />
-            </Flex>
-          </Flex>
+        {/* 제목 + 탭바 */}
+        <Flex direction="column" gap="2.5rem">
+          <Skeleton width="60%" height="48px" borderRadius="100px" />
+          <div className={styles.skeletonDivider} />
         </Flex>
 
-        {/* 버튼들 */}
-        <Flex direction="column" gap="0.25rem" style={{ width: "100%" }}>
-          <Skeleton width="100%" height="46px" borderRadius="8px" />
-          <Skeleton width="100%" height="46px" borderRadius="8px" />
-        </Flex>
-
-        {/* 문의 섹션 */}
-        <Skeleton width="100%" height="46px" borderRadius="8px" />
-      </div>
-
-      {/* 오른쪽 메인 콘텐츠 스켈레톤 */}
-      <Flex direction="column" gap="6.25rem" style={{ width: "56.25rem" }}>
-        <Flex direction="column" gap="0.75rem">
-          {/* 행사 설명 카드 */}
-          <div className={styles.skeletonCard}>
-            <Skeleton width="120px" height="36px" borderRadius="8px" />
-            <Flex direction="column" gap="1.25rem" style={{ width: "100%" }}>
-              <Flex direction="column" gap="0.5rem" style={{ width: "100%" }}>
-                <Skeleton width="100%" height="18px" borderRadius="100px" />
-                <Skeleton width="100%" height="18px" borderRadius="100px" />
-                <Skeleton width="740px" height="18px" borderRadius="100px" />
-                <Skeleton width="580px" height="18px" borderRadius="100px" />
-                <Skeleton width="580px" height="18px" borderRadius="100px" />
-                <Skeleton width="100%" height="18px" borderRadius="100px" />
-              </Flex>
-              <Skeleton width="100%" height="160px" borderRadius="4px" />
-              <Flex direction="column" gap="0.5rem" style={{ width: "100%" }}>
-                <Skeleton width="100%" height="18px" borderRadius="100px" />
-                <Skeleton width="580px" height="18px" borderRadius="100px" />
-                <Skeleton width="740px" height="18px" borderRadius="100px" />
-              </Flex>
+        {/* 섹션들 */}
+        <Flex direction="column" gap="3.75rem">
+          {/* 행사 설명 */}
+          <div className={styles.skeletonSection}>
+            <Skeleton width="120px" height="28px" borderRadius="100px" />
+            <Flex direction="column" gap="0.5rem" style={{ width: "100%" }}>
+              <Skeleton width="100%" height="18px" borderRadius="100px" />
+              <Skeleton width="100%" height="18px" borderRadius="100px" />
+              <Skeleton width="75%" height="18px" borderRadius="100px" />
+              <Skeleton width="60%" height="18px" borderRadius="100px" />
             </Flex>
           </div>
 
-          {/* 모집 기간 카드 */}
-          <div className={styles.skeletonCard}>
-            <Skeleton width="120px" height="36px" borderRadius="8px" />
+          {/* 모집 기간 */}
+          <div className={styles.skeletonSection}>
+            <Skeleton width="100px" height="28px" borderRadius="100px" />
             <Flex gap="0.5rem" align="center">
-              <Skeleton width="121px" height="24px" borderRadius="100px" />
-              <Skeleton width="121px" height="24px" borderRadius="100px" />
-              <Skeleton width="121px" height="24px" borderRadius="100px" />
+              <Skeleton width="160px" height="24px" borderRadius="100px" />
+              <Skeleton width="80px" height="24px" borderRadius="100px" />
             </Flex>
           </div>
 
-          {/* 참가비 카드 */}
-          <div className={styles.skeletonCard}>
-            <Skeleton width="120px" height="36px" borderRadius="8px" />
+          {/* 참가비 */}
+          <div className={styles.skeletonSection}>
+            <Skeleton width="80px" height="28px" borderRadius="100px" />
             <Flex gap="0.5rem" align="center">
-              <Skeleton width="121px" height="24px" borderRadius="100px" />
-              <Skeleton width="121px" height="24px" borderRadius="100px" />
+              <Skeleton width="80px" height="24px" borderRadius="100px" />
+              <Skeleton width="56px" height="24px" borderRadius="100px" />
             </Flex>
           </div>
 
-          {/* 장소 카드 */}
-          <div className={styles.skeletonCard}>
-            <Skeleton width="120px" height="36px" borderRadius="8px" />
+          {/* 장소 */}
+          <div className={styles.skeletonSection}>
+            <Skeleton width="60px" height="28px" borderRadius="100px" />
             <Flex direction="column" gap="0.5rem">
-              <Skeleton width="240px" height="20px" borderRadius="100px" />
+              <Skeleton width="200px" height="20px" borderRadius="100px" />
               <Skeleton width="240px" height="20px" borderRadius="100px" />
             </Flex>
-            <Skeleton width="100%" height="320px" borderRadius="4px" />
+            <Skeleton width="100%" height="22.125rem" borderRadius="0.75rem" />
           </div>
-        </Flex>
-
-        {/* 추천 이벤트 섹션 */}
-        <Flex direction="column" gap="1rem" style={{ width: "100%" }}>
-          <Skeleton width="120px" height="36px" borderRadius="8px" />
-          <Flex gap="0.5rem">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className={styles.skeletonEventCard}>
-                <Skeleton width="100%" height="212px" borderRadius="0" />
-                <Flex direction="column" gap="1.75rem" style={{ padding: "1rem" }}>
-                  <Flex direction="column" gap="0.75rem" style={{ width: "100%" }}>
-                    <Flex direction="column" gap="0.25rem" style={{ width: "100%" }}>
-                      <Skeleton width="103px" height="24px" borderRadius="100px" />
-                      <Skeleton width="100%" height="36px" borderRadius="100px" />
-                    </Flex>
-                    <Flex direction="column" gap="0.375rem" style={{ width: "100%" }}>
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
-                    </Flex>
-                  </Flex>
-                  <Flex gap="0.5rem" align="center">
-                    <Skeleton width="121px" height="28px" borderRadius="100px" />
-                    <Skeleton width="28px" height="28px" borderRadius="100px" />
-                  </Flex>
-                </Flex>
-              </div>
-            ))}
-          </Flex>
         </Flex>
       </Flex>
+
+      {/* 오른쪽 사이드바 스켈레톤 */}
+      <div className={styles.skeletonSidebar}>
+        <Flex direction="column" gap="0.5rem">
+          <Skeleton width="121px" height="20px" borderRadius="100px" />
+          <Skeleton width="194px" height="28px" borderRadius="100px" />
+        </Flex>
+
+        <Flex direction="column" gap="1rem" style={{ width: "100%" }}>
+          {[1, 2, 3].map((i) => (
+            <Flex
+              key={i}
+              gap="0.375rem"
+              align="flex-start"
+              style={{ width: "100%" }}
+            >
+              <Skeleton width="24px" height="24px" borderRadius="100px" />
+              <Flex direction="column" gap="0.25rem" style={{ flex: 1 }}>
+                <Skeleton width="80px" height="18px" borderRadius="100px" />
+                <Skeleton width="130px" height="22px" borderRadius="100px" />
+              </Flex>
+            </Flex>
+          ))}
+          <div className={styles.skeletonDivider} />
+          <Flex gap="0.25rem" wrap="wrap">
+            <Skeleton width="60px" height="24px" borderRadius="100px" />
+            <Skeleton width="60px" height="24px" borderRadius="100px" />
+          </Flex>
+        </Flex>
+
+        <Flex direction="column" gap="0.25rem" style={{ width: "100%" }}>
+          <Skeleton width="100%" height="52px" borderRadius="8px" />
+          <Skeleton width="100%" height="52px" borderRadius="8px" />
+        </Flex>
+
+        <Skeleton width="100%" height="46px" borderRadius="4px" />
+      </div>
     </Flex>
   );
 }
@@ -165,93 +132,206 @@ export default function EventDetailLayout({
   className,
 }: EventDetailLayoutProps) {
   const { data: eventDetail, isLoading } = useEventDetail(eventId);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+  const descriptionRef = useRef<HTMLDivElement>(null);
+  const recruitRef = useRef<HTMLDivElement>(null);
+  const priceRef = useRef<HTMLDivElement>(null);
+  const locationRef = useRef<HTMLDivElement>(null);
 
   if (isLoading) {
     return <EventDetailSkeleton />;
   }
 
   if (!eventDetail) return null;
+
   const hasRecruitPeriod =
-    eventDetail.recruitStart != null && eventDetail.recruitEnd != null;
+    !!eventDetail.recruitStart && !!eventDetail.recruitEnd;
+
+  // 탭 목록 구성 (모집 기간은 데이터 있을 때만 포함)
+  const tabs = [
+    { label: "행사 설명" },
+    ...(hasRecruitPeriod ? [{ label: "모집 기간" }] : []),
+    { label: "참가비" },
+    { label: "장소" },
+  ];
+
+  // 탭 인덱스 → ref 매핑
+  const tabRefs = [
+    descriptionRef,
+    ...(hasRecruitPeriod ? [recruitRef] : []),
+    priceRef,
+    locationRef,
+  ];
+
+  const handleTabChange = (index: number) => {
+    setActiveTabIndex(index);
+    tabRefs[index]?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   return (
-    <Flex gap="1rem" className={className || styles.container}>
-      <StickyApplySection
-        eventId={eventId}
-        category={eventDetail.category}
-        title={eventDetail.title}
-        eventStart={formatDate(eventDetail.eventStart)}
-        eventEnd={formatDate(eventDetail.eventEnd)}
-        place={eventDetail.locationText}
-        price={eventDetail.isFree ? 0 : eventDetail.price}
-        phoneNumber={eventDetail.contact}
-        image={eventDetail.thumbnailUrl}
-        hashTags={eventDetail.hashTags}
-        bookmarked={eventDetail.bookmarked}
-        applyLink={eventDetail.applyLink ?? undefined}
-      />
-      <Flex
-        direction="column"
-        gap="6.25rem"
-        style={{ marginBottom: "11.25rem" }}
-      >
-        <Flex direction="column" gap="0.75rem">
-          <EventInfoCard title="행사 설명">
-            <div className={styles.markdown}>
-              {parse(eventDetail.description)}
-            </div>
-          </EventInfoCard>
-          {hasRecruitPeriod && (
-            <EventInfoCard title="모집 기간" isDate>
-              <Flex align="center" gap="1rem">
-                <Text typography="body1_r_16" color="neutral-20">
-                  {formatDate(eventDetail.recruitStart)} ~{" "}
-                  {formatDate(eventDetail.recruitEnd)}
-                </Text>
-                <Badge label={getDdayLabel(eventDetail.recruitEnd)} />
-              </Flex>
-            </EventInfoCard>
-          )}
-          <EventInfoCard title="참가비">
-            <Flex align="center" gap="1rem">
-              <Text typography="body1_r_16" color="neutral-20">
-                {formatPriceWithUnit(eventDetail.price)}
-              </Text>
-              {eventDetail.isFree && <Badge label="무료" />}
-            </Flex>
-          </EventInfoCard>
-          <EventInfoCard title="장소">
-            <Flex direction="column" gap="0.75rem">
-              <Flex align="center" gap="0.375rem">
-                <Image src={GlobeIcon} alt="globe icon" />
-                <Text typography="body1_r_16" color="neutral-20">
-                  {eventDetail.isOnline ? "온라인" : "오프라인"}
-                </Text>
-              </Flex>
-              <Flex align="center" gap="0.375rem">
-                <Image src={CursorIcon} alt="cursor icon" />
-                <Text typography="body1_r_16" color="neutral-20">
-                  {eventDetail.locationText || "온라인"}
-                </Text>
-              </Flex>
-              {!eventDetail.isOnline && (
-                <NaverMap
-                  latitude={eventDetail.latitude}
-                  longitude={eventDetail.longitude}
-                  height="400px"
+    <Flex
+      direction="column"
+      gap="6.25rem"
+      className={className || styles.container}
+    >
+      <Flex gap="1.5rem" align="flex-start" className={styles.contentContainer}>
+        {/* 왼쪽 콘텐츠 */}
+        <Flex direction="column" gap="2.5rem" className={styles.contentWrapper}>
+          <Flex direction="column" gap="1.25rem">
+            {/* 히어로 이미지 */}
+            <div className={styles.heroImageWrapper}>
+              {eventDetail.thumbnailUrl ? (
+                <Image
+                  src={eventDetail.thumbnailUrl}
+                  alt={eventDetail.title}
+                  width={900}
+                  height={507}
+                  className={styles.heroImage}
+                  priority
                 />
+              ) : (
+                <Image src={LoginImage} alt="login" width={900} height={507} />
               )}
+            </div>
+
+            {/* 제목 + 탭바 */}
+            <Flex direction="column" gap="2.5rem">
+              <Text typography="head1_sb_42" color="black" as="h1">
+                {eventDetail.title}
+              </Text>
+              <div className={styles.tabBarWrapper}>
+                <TabBar
+                  tabs={tabs}
+                  activeIndex={activeTabIndex}
+                  onChange={handleTabChange}
+                  justify="flex-start"
+                />
+              </div>
             </Flex>
-          </EventInfoCard>
+          </Flex>
+
+          {/* 섹션들 */}
+          <Flex direction="column" gap="3.75rem">
+            {/* 행사 설명 */}
+            <div ref={descriptionRef} className={styles.section}>
+              <Flex direction="column" gap="1.25rem">
+                <Text typography="head4_sb_24" color="black" as="h2">
+                  행사 설명
+                </Text>
+                <div className={styles.markdown}>
+                  {parse(eventDetail.description)}
+                </div>
+              </Flex>
+            </div>
+
+            {/* 모집 기간 */}
+            {hasRecruitPeriod && (
+              <div ref={recruitRef} className={styles.section}>
+                <Flex direction="column" gap="1rem">
+                  <div className={styles.sectionTitle}>
+                    <Text typography="head4_sb_24" color="black" as="h2">
+                      모집 기간
+                    </Text>
+                    <Image
+                      src={CalendarIcon}
+                      alt="calendar"
+                      width={28}
+                      height={28}
+                    />
+                  </div>
+                  <Flex align="center" gap="1rem">
+                    <Text typography="body1_r_16" color="neutral-20">
+                      {formatDate(eventDetail.recruitStart)} ~{" "}
+                      {formatDate(eventDetail.recruitEnd)}
+                    </Text>
+                    <Badge label={getDdayLabel(eventDetail.recruitEnd)} />
+                  </Flex>
+                </Flex>
+              </div>
+            )}
+
+            {/* 참가비 */}
+            <div ref={priceRef} className={styles.section}>
+              <Flex direction="column" gap="1rem">
+                <Text typography="head4_sb_24" color="black" as="h2">
+                  참가비
+                </Text>
+                <Flex align="center" gap="1rem">
+                  <Text typography="body1_r_16" color="neutral-20">
+                    {formatPriceWithUnit(eventDetail.price)}
+                  </Text>
+                  {eventDetail.isFree && <Badge label="무료" />}
+                </Flex>
+              </Flex>
+            </div>
+
+            {/* 장소 */}
+            <div ref={locationRef} className={styles.section}>
+              <Flex direction="column" gap="1rem">
+                <Text typography="head4_sb_24" color="black" as="h2">
+                  장소
+                </Text>
+                <Flex direction="column" gap="0.75rem">
+                  <div className={styles.placeRow}>
+                    <Image src={GlobeIcon} alt="globe" width={18} height={18} />
+                    <Text typography="body1_r_16" color="neutral-20">
+                      {eventDetail.isOnline ? "온라인" : "오프라인"}
+                    </Text>
+                  </div>
+                  <div className={styles.placeRow}>
+                    <Image
+                      src={CursorIcon}
+                      alt="cursor"
+                      width={18}
+                      height={18}
+                    />
+                    <Text typography="body1_r_16" color="neutral-20">
+                      {eventDetail.locationText || "온라인"}
+                    </Text>
+                  </div>
+                  {!eventDetail.isOnline && (
+                    <NaverMap
+                      latitude={eventDetail.latitude}
+                      longitude={eventDetail.longitude}
+                      height="22.125rem"
+                    />
+                  )}
+                </Flex>
+              </Flex>
+            </div>
+          </Flex>
         </Flex>
-        <RecommendedEventsSection
-          category={category}
-          cardSize="small"
-          blockCard={true}
-          containerType="flex"
-          flexGap="0.5rem"
+
+        {/* 오른쪽 사이드바 */}
+        <StickyApplySection
+          eventId={eventId}
+          category={eventDetail.category}
+          title={eventDetail.title}
+          eventStart={formatDate(eventDetail.eventStart)}
+          eventEnd={formatDate(eventDetail.eventEnd)}
+          place={eventDetail.locationText}
+          price={eventDetail.price}
+          isFree={eventDetail.isFree}
+          phoneNumber={eventDetail.contact}
+          hashTags={eventDetail.hashTags}
+          bookmarked={eventDetail.bookmarked}
+          applyLink={eventDetail.applyLink ?? undefined}
         />
       </Flex>
+      {/* 추천 행사 */}
+      <RecommendedEventsSection
+        category={category}
+        cardSize="small"
+        blockCard={true}
+        containerType="flex"
+        flexGap="0.75rem"
+        maxCards={4}
+        showMoreButton
+      />
     </Flex>
   );
 }

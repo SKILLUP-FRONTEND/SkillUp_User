@@ -23,6 +23,7 @@ interface RecommendedEventsSectionProps {
   blockCard?: boolean;
   containerType?: "div" | "flex";
   flexGap?: string | number;
+  maxCards?: number;
 }
 
 export default function RecommendedEventsSection({
@@ -34,6 +35,7 @@ export default function RecommendedEventsSection({
   blockCard = false,
   containerType = "div",
   flexGap = "0.5rem",
+  maxCards = 3,
 }: RecommendedEventsSectionProps) {
   const router = useRouter();
   const { data: recommendedEvents, isLoading: isLoadingRecommended } =
@@ -70,7 +72,7 @@ export default function RecommendedEventsSection({
 
     if (recommendedEvents && recommendedEvents.length > 0) {
       const cards = recommendedEvents
-        .slice(0, 3)
+        .slice(0, maxCards)
         .map((event: Event) => (
           <EventCard
             key={event.id}
