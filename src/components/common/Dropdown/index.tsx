@@ -19,6 +19,7 @@ interface DropdownProps {
   className?: string;
   block?: boolean;
   spaceBetween?: boolean;
+  variant?: "default" | "sort";
 }
 
 export default function Dropdown({
@@ -29,6 +30,7 @@ export default function Dropdown({
   className,
   block,
   spaceBetween,
+  variant = "default",
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -51,38 +53,59 @@ export default function Dropdown({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const isSort = variant === "sort";
+
   return (
     <div
-      className={`${styles.dropdown} ${className || ""} ${
+      className={`${styles.dropdown} ${isSort ? styles.sortVariant : ""} ${className || ""} ${
         block ? styles.block : ""
-      } `}
+      }`}
       ref={dropdownRef}
     >
       <button
-        className={`${styles.dropdownButton} ${
+        type="button"
+        className={`${styles.dropdownButton} ${isSort ? styles.sortButton : ""} ${
           spaceBetween ? styles.spaceBetween : ""
         }`}
         onClick={toggleOpen}
       >
-        <Text typography="body1_r_16" color="neutral-20">
+        <Text
+          typography={isSort ? "label2_m_16" : "body1_r_16"}
+          color="neutral-20"
+        >
           {buttonLabel || selected.label}
         </Text>
-        <ChevronDownIcon />
+        <ChevronDownIcon color={isSort ? "var(--Neutral-40)" : undefined} />
       </button>
       {isOpen && (
-        <ul className={styles.dropdownList}>
-          {options.map((opt) => (
-            <li
-              key={opt.value}
-              className={`${styles.dropdownItem} ${
-                opt.value === selected.value ? styles.active : ""
-              }`}
-              onClick={() => handleSelect(opt)}
-            >
-              {opt.label}
-            </li>
-          ))}
-        </ul>
+        <div className={`${styles.dropdownList} ${isSort ? styles.sortList : ""}`}>
+          {options.map((opt) => {
+            const isActive = opt.value === selected.value;
+            return isSort ? (
+              <button
+                key={opt.value}
+                type="button"
+                className={`${styles.sortItem} ${isActive ? styles.sortItemActive : ""}`}
+                onClick={() => handleSelect(opt)}
+              >
+                <Text
+                  typography="label2_m_16"
+                  color={isActive ? "white" : "neutral-20"}
+                >
+                  {opt.label}
+                </Text>
+              </button>
+            ) : (
+              <li
+                key={opt.value}
+                className={`${styles.dropdownItem} ${isActive ? styles.active : ""}`}
+                onClick={() => handleSelect(opt)}
+              >
+                {opt.label}
+              </li>
+            );
+          })}
+        </div>
       )}
     </div>
   );

@@ -1,13 +1,13 @@
 // src/components/events/filters/hooks/usePageFilters.ts
 
 import { useAtom } from "jotai";
-import { pageFilterAtomsMap, PageId } from "../atoms/pageFilterAtoms";
+import { pageFilterAtomsMap, FilterPageId } from "../atoms/pageFilterAtoms";
 import { EVENT_SORT_OPTIONS } from "@/constants/event";
 import { useUrlSync } from "./useUrlSync";
 import { JOB_CATEGORY } from "@/constants/category";
 
 interface UsePageFiltersProps {
-  pageId: PageId;
+  pageId: FilterPageId;
 }
 
 export const usePageFilters = ({ pageId }: UsePageFiltersProps) => {
