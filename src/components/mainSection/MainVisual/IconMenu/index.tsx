@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 // 아이콘 import
 import SeminarIcon from "@/assets/icons/SeminarIcon";

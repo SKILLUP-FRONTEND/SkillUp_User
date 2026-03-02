@@ -4,7 +4,7 @@
 
 import { useEffect, useRef } from "react";
 import FocusLock from "react-focus-lock";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 interface ModalProps {
   isOpen: boolean;
