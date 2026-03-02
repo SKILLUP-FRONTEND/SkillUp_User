@@ -8,7 +8,6 @@ import Badge from "@/components/common/Badge";
 import CalendarIcon from "@/assets/svg/calendarIcon.svg";
 import LocationIcon from "@/assets/svg/locationIcon.svg";
 import { BookmarkIcon } from "@/assets/icons/BookmarkIcon";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Text from "@/components/common/Text";
 import IconButton from "@/components/common/IconButton";
@@ -17,11 +16,10 @@ import Flex from "@/components/common/Flex";
 import Tooltip from "@/components/common/Tooltip";
 import { Event } from "@/types/event";
 import { EVENT_CATEGORY_LABEL } from "@/constants/event";
-import { useToggleEventBookmark } from "@/hooks/mutations/useToggleEventBookmark";
-import LoginImage from "@/assets/images/loginImg.png";
+import { useEventCard } from "@/hooks/useEventCard";
 
 interface EventCardProps {
-  size: "small" | "medium" | "large" | "block";
+  size: "small" | "medium" | "large" | "block" | "compact";
   event: Event;
   block?: boolean;
   className?: string;
@@ -33,42 +31,82 @@ export default function EventCard({
   block,
   className,
 }: EventCardProps) {
-  const {
-    id,
-    title,
-    scheduleText,
-    locationText,
-    priceText,
-    category,
-    thumbnailUrl,
-    d_dayLabel,
-    bookmarked,
-  } = event;
-  const [isBookmarked, setIsBookmarked] = useState(bookmarked);
+  const { title, scheduleText, locationText, priceText, category, d_dayLabel } = event;
+  const { isBookmarked, eventUrl, imageSrc, handleBookmarkClick } = useEventCard(event);
   const router = useRouter();
-  const { mutate: toggleBookmark } = useToggleEventBookmark();
-
-  const handleBookmarkClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    // 낙관적 업데이트 (즉시 UI 변경)
-    setIsBookmarked(!isBookmarked);
-
-    // API 호출
-    toggleBookmark(id, {
-      onError: () => {
-        // 에러 발생 시 원래 상태로 되돌림
-        setIsBookmarked(isBookmarked);
-      },
-    });
-  };
-
-  // 이미지 URL이 없으면 placeholder 사용
-  const imageSrc = thumbnailUrl || LoginImage.src.toString();
-  const eventUrl = `/conference/${id}`;
 
   const categoryBadgeLabel = EVENT_CATEGORY_LABEL[category] || "";
+
+  if (size === "compact") {
+    return (
+      <Flex
+        direction="column"
+        gap="0"
+        onClick={() => router.push(eventUrl)}
+        className={clsx(styles.eventCard, styles.compact, className)}
+      >
+        <div className={styles.eventCardInner}>
+          <div className={styles.eventCardImage}>
+            <img src={imageSrc} alt={title} />
+            <Flex justify="space-between" align="flex-start" className={styles.eventCardImageOverlay}>
+              {d_dayLabel ? (
+                <span className={styles.compactDeadlineBadge}>{d_dayLabel}</span>
+              ) : (
+                <div />
+              )}
+              <IconButton
+                variant="opacity"
+                size="medium"
+                icon={
+                  <BookmarkIcon
+                    width={20}
+                    height={20}
+                    fillColor={isBookmarked ? "var(--Common-white)" : "none"}
+                    strokeColor={isBookmarked ? "none" : "var(--Common-white)"}
+                  />
+                }
+                onClick={handleBookmarkClick}
+                ariaLabel="북마크"
+              />
+            </Flex>
+          </div>
+
+          <Flex direction="column" gap="0.75rem" className={styles.eventCardContentContainer}>
+            <Flex direction="column" gap="0.5rem">
+              <Flex direction="column" gap="0.25rem">
+                <Badge label={categoryBadgeLabel} />
+                <Text
+                  typography="sub3_m_16"
+                  color="black"
+                  as="h3"
+                  className={styles.compactTitle}
+                >
+                  {title}
+                </Text>
+              </Flex>
+              <Flex direction="column" gap="0.125rem">
+                <Flex align="center" gap="0.25rem">
+                  <Image src={CalendarIcon} alt="Calendar" width={16} height={16} />
+                  <Text typography="label4_m_12" color="neutral-40" className={styles.compactMetaText}>
+                    {scheduleText}
+                  </Text>
+                </Flex>
+                <Flex align="center" gap="0.25rem">
+                  <Image src={LocationIcon} alt="Location" width={16} height={16} />
+                  <Text typography="label4_m_12" color="neutral-40" className={styles.compactMetaText}>
+                    {locationText || "온라인"}
+                  </Text>
+                </Flex>
+              </Flex>
+            </Flex>
+            <Text typography="sub3_m_16" color="black">
+              {priceText}
+            </Text>
+          </Flex>
+        </div>
+      </Flex>
+    );
+  }
 
   return (
     <Flex
@@ -87,7 +125,7 @@ export default function EventCard({
       <div className={styles.eventCardInner}>
         <div className={styles.eventCardImage}>
           {/* 추후 바뀔 수도 있음 */}
-          <img src={imageSrc} alt="Event Card Image" />
+          <img src={imageSrc} alt={title} />
 
           <Flex
             justify="space-between"
@@ -114,7 +152,7 @@ export default function EventCard({
                   />
                 }
                 onClick={handleBookmarkClick}
-                ariaLabel="Bookmark Icon"
+                ariaLabel="북마크"
               />
             </Tooltip>
           </Flex>

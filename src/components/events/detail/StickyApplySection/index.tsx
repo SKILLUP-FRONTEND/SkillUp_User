@@ -50,10 +50,10 @@ export default function StickyApplySection({
   const { mutate: toggleBookmark, isPending } = useToggleEventBookmark();
 
   const handleBookmarkClick = () => {
-    setIsBookmarked(!isBookmarked);
+    setIsBookmarked(prev => !prev);
     toggleBookmark(eventId, {
       onError: () => {
-        setIsBookmarked(isBookmarked);
+        setIsBookmarked(prev => !prev);
       },
     });
   };
@@ -139,11 +139,11 @@ export default function StickyApplySection({
         {/* 해시태그 */}
         {hashTags.length > 0 && (
           <div className={styles.hashTags}>
-            {hashTags.map((tag, index) => {
+            {hashTags.map((tag) => {
               const cleanTag = tag.startsWith("#") ? tag.slice(1) : tag;
               return (
                 <Link
-                  key={index}
+                  key={tag}
                   href={`/search?q=${encodeURIComponent(cleanTag)}`}
                   className={styles.hashTagLink}
                 >

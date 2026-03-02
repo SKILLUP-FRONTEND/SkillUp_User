@@ -5,7 +5,7 @@ import EventCard from "@/components/common/EventCard";
 import Flex from "@/components/common/Flex";
 import Skeleton from "@/components/common/Skeleton";
 import styles from "./styles.module.css";
-import TabMenu from "@/components/common/Tab";
+import Tab from "@/components/common/Tab";
 import Text from "@/components/common/Text";
 import { useCategoryEvents } from "@/hooks/queries/useHome";
 import { EVENT_CATEGORY } from "@/constants/event";
@@ -50,13 +50,13 @@ export default function Bootcamp() {
           지금 모집중인 부트캠프
         </Text>
       </Flex>
-      <TabMenu
+      <Tab
         tabs={JOB_CATEGORY_TABS}
         defaultIndex={JOB_CATEGORY_TABS.indexOf(
           getJobCategoryLabel(selectedCategory),
         )}
-        onChange={(selected: string) => {
-          const category = getJobCategoryByLabel(selected);
+        onChange={(_index, label) => {
+          const category = getJobCategoryByLabel(label);
           setSelectedCategory(category);
         }}
         theme="dark"
@@ -81,13 +81,13 @@ export default function Bootcamp() {
         </Flex>
       </Flex>
 
-      <TabMenu
+      <Tab
         tabs={JOB_CATEGORY_TABS}
         defaultIndex={JOB_CATEGORY_TABS.indexOf(
           getJobCategoryLabel(selectedCategory),
         )}
-        onChange={(selected: string) => {
-          const category = getJobCategoryByLabel(selected);
+        onChange={(_index, label) => {
+          const category = getJobCategoryByLabel(label);
           setSelectedCategory(category);
         }}
         theme="dark"

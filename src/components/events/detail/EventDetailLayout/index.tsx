@@ -14,7 +14,7 @@ import Text from "@/components/common/Text";
 import Flex from "@/components/common/Flex";
 import Skeleton from "@/components/common/Skeleton";
 import RecommendedEventsSection from "@/components/events/RecommendedEventsSection";
-import TabBar from "@/components/common/TabBar";
+import Tab from "@/components/common/Tab";
 import { useEventDetail } from "@/hooks/queries/useEventDetail";
 import { formatDate, formatPriceWithUnit, getDdayLabel } from "@/utils/format";
 import { EventCategory } from "@/constants/event";
@@ -204,7 +204,7 @@ export default function EventDetailLayout({
                 {eventDetail.title}
               </Text>
               <div className={styles.tabBarWrapper}>
-                <TabBar
+                <Tab
                   tabs={tabs}
                   activeIndex={activeTabIndex}
                   onChange={handleTabChange}

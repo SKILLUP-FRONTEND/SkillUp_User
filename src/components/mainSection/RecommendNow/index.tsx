@@ -9,7 +9,7 @@ import Flex from "@/components/common/Flex";
 import EventCard from "@/components/common/EventCard";
 import Skeleton from "@/components/common/Skeleton";
 import styles from "./styles.module.css";
-import TabMenu from "@/components/common/Tab";
+import Tab from "@/components/common/Tab";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import Text from "@/components/common/Text";
@@ -69,11 +69,11 @@ export default function RecommendNow() {
           </button>
         </div>
       </Flex>
-      <TabMenu
+      <Tab
         tabs={JOB_CATEGORY_TABS}
         defaultIndex={0}
-        onChange={(selected: string) => {
-          const category = getJobCategoryByLabel(selected);
+        onChange={(_index, label) => {
+          const category = getJobCategoryByLabel(label);
           setSelectedCategory(category);
         }}
         theme="light"
@@ -96,11 +96,11 @@ export default function RecommendNow() {
           </Text>
         </Flex>
       </Flex>
-      <TabMenu
+      <Tab
         tabs={JOB_CATEGORY_TABS}
         defaultIndex={0}
-        onChange={(selected: string) => {
-          const category = getJobCategoryByLabel(selected);
+        onChange={(_index, label) => {
+          const category = getJobCategoryByLabel(label);
           setSelectedCategory(category);
         }}
         theme="light"
