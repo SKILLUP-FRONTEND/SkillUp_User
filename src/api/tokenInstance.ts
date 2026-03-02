@@ -2,7 +2,11 @@
 
 import axios from "axios";
 import { getDefaultStore } from "jotai";
-import { tokenAtom, loginModalAtom } from "@/store/authAtoms";
+import {
+  tokenAtom,
+  loginModalAtom,
+  showWithdrawPendingAtom,
+} from "@/store/authAtoms";
 
 const tokenInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -36,12 +40,14 @@ tokenInstance.interceptors.response.use(
   },
   async (error) => {
     if (error.response?.status === 401) {
-      // 토큰이 만료되거나 유효하지 않은 경우
       const store = getDefaultStore();
       store.set(tokenAtom, null);
 
-      // 로그인 모달 열기 (현재 페이지에 머물면서 로그인 유도)
-      store.set(loginModalAtom, true);
+      // 탈퇴 대기 모달이 열려있을 때는 로그인 모달을 띄우지 않음
+      const isWithdrawPending = store.get(showWithdrawPendingAtom);
+      if (!isWithdrawPending) {
+        store.set(loginModalAtom, true);
+      }
     }
 
     return Promise.reject(error);

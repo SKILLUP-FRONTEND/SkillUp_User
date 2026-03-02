@@ -5,6 +5,9 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
   min-height: 10.125rem;
   padding: 1.75rem 1.75rem 0.75rem;
 }
@@ -23,30 +26,12 @@
   line-height: 1;
 }
 
-.title {
-  margin-top: 0.75rem;
-}
-
 .footer {
-  height: 5rem;
   display: flex;
   gap: 0.25rem;
   justify-content: flex-end;
   align-items: center;
   padding: 0.75rem 1.75rem 1.75rem;
-}
-
-.cancelButton {
-  border-radius: 0.25rem;
-  border: 1px solid var(--Primary-strong);
-  background: var(--Common-white);
-  padding: 0.625rem 1.625rem 0.6875rem;
-}
-
-.rejoinButton {
-  border-radius: 0.25rem;
-  background: var(--Primary-strong);
-  padding: 0.625rem 1.625rem 0.6875rem;
 }
 
 @media (max-width: 767px) {
