@@ -1,11 +1,11 @@
 // src/components/login/TermsAgreementContent/index.tsx
 "use client";
 
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import Button from "@/components/common/Button";
 import Text from "@/components/common/Text";
 import Flex from "@/components/common/Flex";
-import { PRIVACY_POLICY } from "@/constants/terms";
+import { TERMS_PRIVACY_POLICY } from "@/constants/terms";
 
 interface TermsAgreementContentProps {
   onConfirm: () => void;
@@ -88,7 +88,7 @@ export default function TermsAgreementContent({
 
       <Flex className={styles.termsContentContent}>
         <div className={styles.termsContentItem}>
-          {PRIVACY_POLICY.map((section, idx) => (
+          {TERMS_PRIVACY_POLICY.map((section, idx) => (
             <div key={idx} className={styles.termsSection}>
               {section.title && (
                 <div className={styles.termsSectionTitle}>

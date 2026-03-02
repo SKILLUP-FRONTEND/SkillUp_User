@@ -1,10 +1,12 @@
-/* 공통 스타일 */
+/* ===================================================
+   underline variant + theme (기존 TabMenu 스타일)
+   =================================================== */
+
 .tabWrap {
   width: 460px;
   border-bottom: 1px solid var(--Line-normal);
 }
 
-/* 배경색에 따른 테마 */
 .light {
   --tab-text-color: #474747;
   --tab-active-color: #000;
@@ -17,14 +19,12 @@
   --tab-border-color: #fff;
 }
 
-/* 탭 메뉴 컨테이너 */
 .tabMenu {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
 
-/* 개별 탭 버튼 */
 .tabItem {
   width: 92px;
   height: 46px;
@@ -47,12 +47,64 @@
   color: var(--tab-active-color);
 }
 
-/* 활성 탭 */
 .active {
   color: var(--tab-active-color);
   font-weight: 600;
   border-bottom: 3px solid var(--tab-border-color);
 }
+
+/* ===================================================
+   underline variant (기존 TabBar 스타일)
+   =================================================== */
+
+.underlineTab {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.underlineTabActive {
+  border-bottom: 2px solid var(--Primary-strong);
+}
+
+/* ===================================================
+   pill variant (기존 InterestTabBar 스타일)
+   =================================================== */
+
+.pillTabBar {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.pillTab {
+  display: flex;
+  width: 5.875rem;
+  padding: 0.5rem 0;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: transparent;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.pillTab:hover {
+  background-color: var(--Neutral-99);
+  color: var(--Primary-heavy);
+}
+
+.pillTabActive {
+  background-color: var(--Neutral-99);
+}
+
+/* ===================================================
+   반응형
+   =================================================== */
 
 /* 태블릿 (768px ~ 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -65,6 +117,11 @@
     width: 80px;
     height: 40px;
     font-size: 14px;
+  }
+
+  .pillTab {
+    width: 3rem;
+    padding: 0.375rem 0;
   }
 }
 
@@ -88,15 +145,20 @@
   }
 
   .tabItem {
-    width: 4rem; /* 64px - Figma 기준 */
+    width: 4rem;
     height: auto;
-    padding: 0.5rem 0; /* 8px - Figma 기준 */
-    font-size: 0.875rem; /* 14px */
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
     font-weight: 500;
     flex-shrink: 0;
   }
 
   .active {
     font-weight: 500;
+  }
+
+  .pillTab {
+    width: 3rem;
+    padding: 0.375rem 0;
   }
 }

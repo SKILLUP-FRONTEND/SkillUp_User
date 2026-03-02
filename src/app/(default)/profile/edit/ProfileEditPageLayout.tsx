@@ -13,7 +13,8 @@ import RadioGroup from "@/components/common/RadioGroup";
 import { MultiSelectButtonGroup } from "@/components/common/MultiSelectButtonGroup";
 import Button from "@/components/common/Button";
 import MegaPhoneIcon from "@/assets/icons/MegaPhoneIcon";
-import InterestTabBar from "@/components/login/InterestTabBar";
+import Tab from "@/components/common/Tab";
+import { ROLE_DISPLAY_OPTIONS } from "@/constants/role";
 import Checkbox from "@/components/common/Checkbox";
 import Skeleton from "@/components/common/Skeleton";
 import { UserProfile } from "@/types/user";
@@ -148,9 +149,18 @@ export default function ProfileEditPageLayout({
                   주요 관심사를 선택해주세요
                 </Text>
               </Flex>
-              <InterestTabBar
-                activeTab={activeTab}
-                onTabChange={handleTabChange}
+              <Tab
+                tabs={ROLE_DISPLAY_OPTIONS.map((opt) => ({
+                  label: opt.label,
+                  value: opt.value,
+                }))}
+                variant="pill"
+                activeIndex={ROLE_DISPLAY_OPTIONS.findIndex(
+                  (opt) => opt.value === activeTab
+                )}
+                onChange={(_index, _label, value) => {
+                  if (value) handleTabChange(value);
+                }}
               />
             </Flex>
             {isLoadingInterests ? (

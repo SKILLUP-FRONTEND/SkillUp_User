@@ -3,7 +3,7 @@
 "use client";
 
 import EventHeader from "@/components/events/EventHeader";
-import SortDropdown from "@/components/events/sorting/SortDropdown";
+import Dropdown from "@/components/common/Dropdown";
 import FilterButton from "@/components/events/filters/FilterButton";
 import RoleSelector from "@/components/events/filters/RoleSelector";
 import FilterBadges from "@/components/events/filters/FilterBadges";
@@ -62,12 +62,13 @@ export default function EventPageHeader({
             <FilterButton onApply={onApply} onReset={onReset}>
               <FilterView />
             </FilterButton>
-            <SortDropdown
+            <Dropdown
+              variant="sort"
               selected={
                 SORT_OPTIONS.find((option) => option.value === sortOption) ||
                 SORT_OPTIONS[0]
               }
-              setSelected={(option) => onSortChange(option.value)}
+              onSelect={(option) => onSortChange(option.value)}
               options={SORT_OPTIONS}
             />
           </Flex>
@@ -86,12 +87,13 @@ export default function EventPageHeader({
             <FilterButton onApply={onApply} onReset={onReset}>
               <FilterView />
             </FilterButton>
-            <SortDropdown
+            <Dropdown
+              variant="sort"
               selected={
                 SORT_OPTIONS.find((option) => option.value === sortOption) ||
                 SORT_OPTIONS[0]
               }
-              setSelected={(option) => onSortChange(option.value)}
+              onSelect={(option) => onSortChange(option.value)}
               options={SORT_OPTIONS}
             />
           </Flex>
