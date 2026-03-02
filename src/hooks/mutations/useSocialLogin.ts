@@ -44,11 +44,12 @@ export const useSocialLoginCallback = () => {
       state?: string;
     }): Promise<OAuthCallbackResponse> => {
       // 토큰 및 로그인 상태 받기
-      const { accessToken, userLoginStatus } = await sendAuthorizationCode(
-        socialType,
-        code,
-        state
-      );
+      const {
+        accessToken,
+        userLoginStatus,
+        otherOauthUserInfo,
+        withdrawPendingUserInfo,
+      } = await sendAuthorizationCode(socialType, code, state);
 
       // 토큰 저장
       login(accessToken);
@@ -74,8 +75,13 @@ export const useSocialLoginCallback = () => {
         queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
       }
 
-      // 모든 작업 완료 후 반환 (accessToken과 userLoginStatus 모두 반환)
-      return { accessToken, userLoginStatus };
+      // 모든 작업 완료 후 반환
+      return {
+        accessToken,
+        userLoginStatus,
+        otherOauthUserInfo,
+        withdrawPendingUserInfo,
+      };
     },
   });
 };

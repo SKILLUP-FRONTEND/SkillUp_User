@@ -7,6 +7,7 @@ import styles from "./styles.module.css";
 interface OtherOAuthUserModalProps {
   isOpen: boolean;
   identifier?: string | null;
+  socialLoginType?: string | null;
   onConfirm: () => void;
 }
 
@@ -22,11 +23,21 @@ const maskIdentifier = (identifier?: string | null) => {
   return `${visible}*****${domain}`;
 };
 
+const SOCIAL_LOGIN_LABELS: Record<string, string> = {
+  google: "Google",
+  kakao: "Kakao",
+  naver: "Naver",
+};
+
 export default function OtherOAuthUserModal({
   isOpen,
   identifier,
+  socialLoginType,
   onConfirm,
 }: OtherOAuthUserModalProps) {
+  const providerLabel = socialLoginType
+    ? SOCIAL_LOGIN_LABELS[socialLoginType] ?? socialLoginType
+    : "SNS";
   return (
     <Modal isOpen={isOpen} toggle={onConfirm}>
       <div className={styles.modalInner}>
@@ -38,7 +49,7 @@ export default function OtherOAuthUserModal({
           </Text>
 
           <div className={styles.identifierBox}>
-            <div className={styles.providerBadge}>SNS</div>
+            <div className={styles.providerBadge}>{providerLabel}</div>
             <Text typography="body1_r_16" color="neutral-20">
               {maskIdentifier(identifier)}
             </Text>

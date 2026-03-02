@@ -10,10 +10,25 @@ export type UserLoginStatus =
   | "OTHER_OAUTH_USER" // 동일 이메일로 다른 OAuth로 가입된 유저
   | "WITHDRAW_PENDING_USER"; // 탈퇴 대기 상태 유저
 
+// OAuth 콜백 - 다른 소셜 로그인으로 가입된 유저 정보
+export interface OtherOauthUserInfo {
+  socialLoginType: string;
+  email: string;
+  socialId: string;
+}
+
+// OAuth 콜백 - 탈퇴 대기 유저 정보
+export interface WithdrawPendingUserInfo {
+  socialLoginType: string;
+  socialId: string;
+}
+
 // OAuth 콜백 응답
 export interface OAuthCallbackResponse {
   accessToken: string;
   userLoginStatus: UserLoginStatus;
+  otherOauthUserInfo?: OtherOauthUserInfo;
+  withdrawPendingUserInfo?: WithdrawPendingUserInfo;
 }
 
 export interface UserProfile {

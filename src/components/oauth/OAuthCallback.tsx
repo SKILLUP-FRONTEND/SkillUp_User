@@ -10,7 +10,11 @@ import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
 import OtherOAuthUserModal from "@/components/oauth/OtherOAuthUserModal";
 import { useAuth } from "@/hooks/useAuth";
-import { showOnboardingAtom, showWithdrawPendingAtom } from "@/store/authAtoms";
+import {
+  showOnboardingAtom,
+  showWithdrawPendingAtom,
+  withdrawPendingUserInfoAtom,
+} from "@/store/authAtoms";
 
 interface OAuthCallbackProps {
   provider: SocialLoginType;
@@ -23,9 +27,11 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
   const { userEmail, logout } = useAuth();
   const setShowOnboarding = useSetAtom(showOnboardingAtom);
   const setShowWithdrawPending = useSetAtom(showWithdrawPendingAtom);
+  const setWithdrawPendingUserInfo = useSetAtom(withdrawPendingUserInfoAtom);
   const [error, setError] = useState<string | null>(null);
   const [isOtherOAuthModalOpen, setIsOtherOAuthModalOpen] = useState(false);
   const [otherOAuthEmail, setOtherOAuthEmail] = useState<string | null>(null);
+  const [otherOAuthSocialType, setOtherOAuthSocialType] = useState<string | null>(null);
   const isCalledRef = useRef(false);
   const timerIdsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -74,20 +80,28 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
         state: state || undefined,
       },
       {
-        onSuccess: ({ userLoginStatus }) => {
+        onSuccess: ({
+          userLoginStatus,
+          otherOauthUserInfo,
+          withdrawPendingUserInfo,
+        }) => {
           if (userLoginStatus === "NEW_USER") {
             setShowOnboarding(true);
             router.push("/");
             return;
           }
           if (userLoginStatus === "OTHER_OAUTH_USER") {
-            setOtherOAuthEmail(userEmail);
+            setOtherOAuthEmail(otherOauthUserInfo?.email ?? userEmail);
+            setOtherOAuthSocialType(otherOauthUserInfo?.socialLoginType ?? null);
             logout();
             setIsOtherOAuthModalOpen(true);
             return;
           }
           if (userLoginStatus === "WITHDRAW_PENDING_USER") {
             logout();
+            if (withdrawPendingUserInfo) {
+              setWithdrawPendingUserInfo(withdrawPendingUserInfo);
+            }
             setShowWithdrawPending(true);
             router.push("/");
             return;
@@ -143,6 +157,7 @@ export default function OAuthCallback({ provider }: OAuthCallbackProps) {
       <OtherOAuthUserModal
         isOpen={isOtherOAuthModalOpen}
         identifier={otherOAuthEmail}
+        socialLoginType={otherOAuthSocialType}
         onConfirm={() => router.push("/")}
       />
 

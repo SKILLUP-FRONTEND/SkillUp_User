@@ -2,6 +2,7 @@
 
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
+import { WithdrawPendingUserInfo } from "@/types/user";
 
 // SSR 환경에서 안전한 localStorage wrapper
 const createSafeStorage = <T,>() => ({
@@ -85,3 +86,6 @@ export const showOnboardingAtom = atom<boolean>(false);
 
 // 탈퇴 대기 유저 모달 상태 Atom (OAuth 콜백 후 홈에서 모달 표시용)
 export const showWithdrawPendingAtom = atom<boolean>(false);
+
+// 탈퇴 대기 유저 정보 Atom (재가입 API 호출에 필요한 socialLoginType + socialId)
+export const withdrawPendingUserInfoAtom = atom<WithdrawPendingUserInfo | null>(null);

@@ -8,12 +8,14 @@ interface WithdrawPendingUserModalProps {
   isOpen: boolean;
   onCancel: () => void;
   onRejoin: () => void;
+  isLoading?: boolean;
 }
 
 export default function WithdrawPendingUserModal({
   isOpen,
   onCancel,
   onRejoin,
+  isLoading = false,
 }: WithdrawPendingUserModalProps) {
   return (
     <Modal isOpen={isOpen} toggle={() => {}}>
@@ -29,14 +31,24 @@ export default function WithdrawPendingUserModal({
         </div>
 
         <div className={styles.footer}>
-          <button type="button" className={styles.cancelButton} onClick={onCancel}>
+          <button
+            type="button"
+            className={styles.cancelButton}
+            onClick={onCancel}
+            disabled={isLoading}
+          >
             <Text typography="sub2_m_18" color="primary-strong">
               취소
             </Text>
           </button>
-          <button type="button" className={styles.rejoinButton} onClick={onRejoin}>
+          <button
+            type="button"
+            className={styles.rejoinButton}
+            onClick={onRejoin}
+            disabled={isLoading}
+          >
             <Text typography="sub2_m_18" color="white">
-              재가입하기
+              {isLoading ? "처리 중..." : "재가입하기"}
             </Text>
           </button>
         </div>

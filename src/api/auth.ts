@@ -1,7 +1,7 @@
 // src/api/auth.ts
 
 import instance from "./instance";
-import { OAuthCallbackResponse } from "@/types/user";
+import { OAuthCallbackResponse, WithdrawPendingUserInfo } from "@/types/user";
 
 export type SocialLoginType = "google" | "kakao" | "naver";
 
@@ -41,10 +41,28 @@ export const sendAuthorizationCode = async (
     params,
   });
 
-  // 백엔드에서 액세스 토큰 및 로그인 상태 반환
-  const { accessToken, userLoginStatus } = response.data.data;
+  // 백엔드에서 액세스 토큰, 로그인 상태, 추가 정보 반환
+  const {
+    accessToken,
+    userLoginStatus,
+    otherOauthUserInfo,
+    withdrawPendingUserInfo,
+  } = response.data.data;
   return {
     accessToken,
     userLoginStatus,
+    otherOauthUserInfo,
+    withdrawPendingUserInfo,
   };
+};
+
+// 탈퇴 대기 유저 재가입 (continue-login)
+export const continueLogin = async (
+  info: WithdrawPendingUserInfo
+): Promise<{ accessToken: string }> => {
+  const response = await instance.post("/user/continue-login", {
+    socialLoginType: info.socialLoginType,
+    socialId: info.socialId,
+  });
+  return response.data.data;
 };
