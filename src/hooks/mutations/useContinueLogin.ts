@@ -28,8 +28,6 @@ export const useContinueLogin = () => {
         console.error("Failed to fetch user info after continue-login:", error);
       }
 
-      queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
-
       return { accessToken };
     },
   });

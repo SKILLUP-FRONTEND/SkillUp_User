@@ -54,8 +54,13 @@ export const useSocialLoginCallback = () => {
       // 토큰 저장
       login(accessToken);
 
-      // NEW_USER는 백엔드가 401을 반환하므로 유저 정보 조회 및 캐시 무효화를 건너뜀
-      if (userLoginStatus !== "NEW_USER") {
+      // NEW_USER / WITHDRAW_PENDING_USER는 유저 정보 조회를 건너뜀
+      // - NEW_USER: 백엔드가 401을 반환
+      // - WITHDRAW_PENDING_USER: 어차피 바로 logout() 처리되므로 불필요하며, 401 발생 시 로그인 모달이 먼저 뜨는 문제 방지
+      if (
+        userLoginStatus !== "NEW_USER" &&
+        userLoginStatus !== "WITHDRAW_PENDING_USER"
+      ) {
         // 유저 정보 가져오기 (토큰 저장 후 바로 호출)
         try {
           const userData = await getUserEmailAndName();
