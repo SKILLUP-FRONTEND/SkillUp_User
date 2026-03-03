@@ -1,13 +1,14 @@
 // src/hooks/mutations/useSocialLogin.ts
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getDefaultStore } from "jotai";
 import {
   getSocialLoginUrl,
   sendAuthorizationCode,
   SocialLoginType,
 } from "@/api/auth";
 import { getUserEmailAndName } from "@/api/user";
-import { useAuth } from "../useAuth";
+import { tokenAtom, userNameAtom, userEmailAtom } from "@/store/authAtoms";
 import { queryKeys } from "../queryKeys";
 import { OAuthCallbackResponse } from "@/types/user";
 
@@ -30,7 +31,6 @@ export const useSocialLogin = () => {
 
 // 소셜 로그인 콜백 처리 (인가 코드 전송 후 로그인)
 export const useSocialLoginCallback = () => {
-  const { login, setUserName, setUserEmail } = useAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -51,8 +51,9 @@ export const useSocialLoginCallback = () => {
         withdrawPendingUserInfo,
       } = await sendAuthorizationCode(socialType, code, state);
 
-      // 토큰 저장
-      login(accessToken);
+      // Jotai store에 직접 토큰 저장 (React 렌더 사이클을 거치지 않고 즉시 반영)
+      const store = getDefaultStore();
+      store.set(tokenAtom, accessToken);
 
       // NEW_USER / WITHDRAW_PENDING_USER는 유저 정보 조회를 건너뜀
       // - NEW_USER: 백엔드가 401을 반환
@@ -61,15 +62,17 @@ export const useSocialLoginCallback = () => {
         userLoginStatus !== "NEW_USER" &&
         userLoginStatus !== "WITHDRAW_PENDING_USER"
       ) {
-        // 유저 정보 가져오기 (토큰 저장 후 바로 호출)
+        // 유저 정보 가져오기 (토큰을 직접 전달하여 interceptor 의존 없이 확실히 인증)
         try {
-          // 로그인 직후 호출이므로 401 시 interceptor의 토큰 삭제/로그인 모달을 건너뜀
-          const userData = await getUserEmailAndName({ skipAuthErrorHandling: true });
+          const userData = await getUserEmailAndName({
+            accessToken,
+            skipAuthErrorHandling: true,
+          });
           if (userData?.name) {
-            setUserName(userData.name);
+            store.set(userNameAtom, userData.name);
           }
           if (userData?.email) {
-            setUserEmail(userData.email);
+            store.set(userEmailAtom, userData.email);
           }
           // 쿼리 캐시에도 저장
           queryClient.setQueryData(queryKeys.user.emailAndName(), userData);
