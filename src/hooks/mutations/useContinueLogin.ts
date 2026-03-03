@@ -18,9 +18,9 @@ export const useContinueLogin = () => {
       // 토큰 저장
       login(accessToken);
 
-      // 유저 정보 가져오기
+      // 유저 정보 가져오기 (재가입 직후이므로 401 시 interceptor 처리 건너뜀)
       try {
-        const userData = await getUserEmailAndName();
+        const userData = await getUserEmailAndName({ skipAuthErrorHandling: true });
         if (userData?.name) setUserName(userData.name);
         if (userData?.email) setUserEmail(userData.email);
         queryClient.setQueryData(queryKeys.user.emailAndName(), userData);

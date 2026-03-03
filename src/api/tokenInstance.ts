@@ -40,6 +40,12 @@ tokenInstance.interceptors.response.use(
   },
   async (error) => {
     if (error.response?.status === 401) {
+      // skipAuthErrorHandling 플래그가 설정된 요청은 401 처리를 건너뜀
+      // (로그인 직후 유저 정보 조회 등, 호출부에서 직접 에러를 처리하는 경우)
+      if (error.config?._skipAuthErrorHandling) {
+        return Promise.reject(error);
+      }
+
       const store = getDefaultStore();
       store.set(tokenAtom, null);
 

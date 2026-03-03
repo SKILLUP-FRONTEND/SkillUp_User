@@ -63,7 +63,8 @@ export const useSocialLoginCallback = () => {
       ) {
         // 유저 정보 가져오기 (토큰 저장 후 바로 호출)
         try {
-          const userData = await getUserEmailAndName();
+          // 로그인 직후 호출이므로 401 시 interceptor의 토큰 삭제/로그인 모달을 건너뜀
+          const userData = await getUserEmailAndName({ skipAuthErrorHandling: true });
           if (userData?.name) {
             setUserName(userData.name);
           }
