@@ -17,10 +17,7 @@ export const useLogin = () => {
 
       // 유저 이메일 및 이름 바로 조회하여 전역 상태에 저장
       try {
-        const userData = await getUserEmailAndName({
-          accessToken: token,
-          skipAuthErrorHandling: true,
-        });
+        const userData = await getUserEmailAndName();
         if (userData?.name) {
           setUserName(userData.name);
         }

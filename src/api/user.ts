@@ -81,15 +81,8 @@ export const getUserInterests = async (roleName: RoleName) => {
 };
 
 // 유저 이메일 및 이름
-export const getUserEmailAndName = async (
-  options?: { skipAuthErrorHandling?: boolean; accessToken?: string },
-): Promise<UserEmailAndName> => {
-  const response = await tokenInstance.get("/user/my-page/home", {
-    ...(options?.skipAuthErrorHandling && { _skipAuthErrorHandling: true }),
-    ...(options?.accessToken && {
-      headers: { Authorization: `Bearer ${options.accessToken}` },
-    }),
-  });
+export const getUserEmailAndName = async (): Promise<UserEmailAndName> => {
+  const response = await tokenInstance.get("/user/my-page/home");
   return response.data.data;
 };
 

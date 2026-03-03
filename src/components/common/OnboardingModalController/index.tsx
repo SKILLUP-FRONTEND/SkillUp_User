@@ -2,7 +2,6 @@
 
 import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import {
   showOnboardingAtom,
   showWithdrawPendingAtom,
@@ -12,12 +11,10 @@ import NewUserOnboardingModal from "@/components/oauth/NewUserOnboardingModal";
 import WithdrawPendingUserModal from "@/components/oauth/WithdrawPendingUserModal";
 import { useContinueLogin } from "@/hooks/mutations/useContinueLogin";
 import { useToast } from "@/hooks/useToast";
-import { queryKeys } from "@/hooks/queryKeys";
 
 export default function OnboardingModalController() {
   const router = useRouter();
   const { showToast } = useToast();
-  const queryClient = useQueryClient();
   const [showOnboarding, setShowOnboarding] = useAtom(showOnboardingAtom);
   const [showWithdrawPending, setShowWithdrawPending] = useAtom(showWithdrawPendingAtom);
   const [withdrawPendingUserInfo, setWithdrawPendingUserInfo] = useAtom(
@@ -43,10 +40,7 @@ export default function OnboardingModalController() {
     }
 
     continueLogin(withdrawPendingUserInfo, {
-      onSuccess: async () => {
-        // showWithdrawPending이 true인 상태에서 invalidate & refetch를 완료해야
-        // 혹시 refetch 중 401이 발생해도 interceptor가 로그인 모달을 띄우지 않음
-        await queryClient.invalidateQueries({ queryKey: queryKeys.user.profile() });
+      onSuccess: () => {
         setShowWithdrawPending(false);
         setWithdrawPendingUserInfo(null);
         showToast({
