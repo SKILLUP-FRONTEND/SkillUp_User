@@ -4,6 +4,7 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 
   border-radius: 0.25rem;
 
@@ -12,6 +13,7 @@
   line-height: 140%;
   width: fit-content;
   gap: 0.12rem;
+  white-space: nowrap;
 }
 
 .block {
