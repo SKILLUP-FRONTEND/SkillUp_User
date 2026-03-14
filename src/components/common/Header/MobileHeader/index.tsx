@@ -71,7 +71,7 @@ export default function MobileHeader({ variant }: MobileHeaderProps) {
   // 약관 동의 모달 상태
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [pendingSocialType, setPendingSocialType] = useState<SocialType | null>(
-    null
+    null,
   );
 
   // 인증 관련
@@ -151,15 +151,7 @@ export default function MobileHeader({ variant }: MobileHeaderProps) {
               onClick={toggleSearchModal}
               aria-label="검색"
             >
-              <Image
-                src={SearchIcon}
-                alt="검색"
-                width={24}
-                height={24}
-                style={{
-                  filter: variant === "main" ? "invert(1)" : "none",
-                }}
-              />
+              <Image src={SearchIcon} alt="검색" width={24} height={24} />
             </button>
             <button
               className={styles.hamburgerBtn}
