@@ -159,6 +159,11 @@ export default function EventPageLayout({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleRolesChange = (roles: typeof selectedRoles) => {
+    setSelectedRoles(roles);
+    setCurrentPage(1);
+  };
+
   // 로딩 중일 때 스켈레톤 UI 표시
   if (isLoadingEventList) {
     return (
@@ -184,7 +189,7 @@ export default function EventPageLayout({
         title={title}
         count={total}
         selectedRoles={selectedRoles}
-        onRolesChange={setSelectedRoles}
+        onRolesChange={handleRolesChange}
         onOfflineFilter={onOfflineFilter}
         freeFilter={freeFilter}
         onClearOnOfflineFilter={() => {

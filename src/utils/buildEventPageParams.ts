@@ -2,6 +2,7 @@
 
 import { getEventList } from "@/api/events";
 import { DEFAULT_SORT_OPTION, EventCategory, EventSortOption, EVENT_SORT_OPTIONS } from "@/constants/event";
+import { getJobCategoryByLabel, JOB_CATEGORY } from "@/constants/category";
 import { Event, EventSearchParams } from "@/types/event";
 
 type RawSearchParams = { [key: string]: string | string[] | undefined };
@@ -18,6 +19,9 @@ export async function buildEventPageParams(
   category: EventCategory,
   params: RawSearchParams
 ): Promise<EventPageData> {
+  const rawPage = params.page ? parseInt(params.page as string, 10) : 1;
+  const currentPage = Number.isNaN(rawPage) || rawPage < 1 ? 1 : rawPage;
+
   // 정렬 옵션 검증
   const sortParam = params.sort as string;
   const validSortOptions = Object.values(EVENT_SORT_OPTIONS);
@@ -31,13 +35,13 @@ export async function buildEventPageParams(
   const apiParams: EventSearchParams = {
     category,
     sort,
-    page: params.page ? parseInt(params.page as string, 10) - 1 : 0, // UI 1-based -> API 0-based
+    page: currentPage - 1, // UI 1-based -> API 0-based
   };
 
   // 역할 필터 (단일 선택)
   if (params.roles && typeof params.roles === "string") {
-    const role = params.roles;
-    if (role !== "전체" && role !== "ALL") {
+    const role = getJobCategoryByLabel(params.roles) || (params.roles as typeof JOB_CATEGORY[keyof typeof JOB_CATEGORY]);
+    if (role !== JOB_CATEGORY.ALL) {
       apiParams.targetRole = role;
     }
   }
