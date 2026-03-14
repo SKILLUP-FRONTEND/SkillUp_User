@@ -181,38 +181,35 @@ export default function EventDetailLayout({
       <Flex gap="1.5rem" align="flex-start" className={styles.contentContainer}>
         {/* 왼쪽 콘텐츠 */}
         <Flex direction="column" gap="2.5rem" className={styles.contentWrapper}>
-          <Flex direction="column" gap="1.25rem">
-            {/* 히어로 이미지 */}
-            <div className={styles.heroImageWrapper}>
-              {eventDetail.thumbnailUrl ? (
-                <Image
-                  src={eventDetail.thumbnailUrl}
-                  alt={eventDetail.title}
-                  width={900}
-                  height={507}
-                  className={styles.heroImage}
-                  priority
-                />
-              ) : (
-                <Image src={LoginImage} alt="login" width={900} height={507} />
-              )}
-            </div>
+          {/* 히어로 이미지 */}
+          <div className={styles.heroImageWrapper}>
+            {eventDetail.thumbnailUrl ? (
+              <Image
+                src={eventDetail.thumbnailUrl}
+                alt={eventDetail.title}
+                width={900}
+                height={507}
+                unoptimized
+                className={styles.heroImage}
+                priority
+              />
+            ) : (
+              <Image src={LoginImage} alt="login" width={900} height={507} />
+            )}
+          </div>
 
-            {/* 제목 + 탭바 */}
-            <Flex direction="column" gap="2.5rem">
-              <Text typography="head1_sb_42" color="black" as="h1">
-                {eventDetail.title}
-              </Text>
-              <div className={styles.tabBarWrapper}>
-                <Tab
-                  tabs={tabs}
-                  activeIndex={activeTabIndex}
-                  onChange={handleTabChange}
-                  justify="flex-start"
-                />
-              </div>
-            </Flex>
-          </Flex>
+          <Text typography="head1_sb_42" color="black" as="h1">
+            {eventDetail.title}
+          </Text>
+
+          <div className={styles.tabBarWrapper}>
+            <Tab
+              tabs={tabs}
+              activeIndex={activeTabIndex}
+              onChange={handleTabChange}
+              justify="flex-start"
+            />
+          </div>
 
           {/* 섹션들 */}
           <Flex direction="column" gap="3.75rem">
