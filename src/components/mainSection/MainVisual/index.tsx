@@ -9,7 +9,7 @@ import Banner from "@/assets/images/main_banner.png";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import Text from "@/components/common/Text";
-import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
+import { useIsMobile, useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function MainVisual() {
   const normalizeMultilineText = (text?: string | null) =>
@@ -25,7 +25,7 @@ export default function MainVisual() {
   const hasDraggedRef = useRef(false); // 드래그 여부 추적
   const { data, isLoading, error } = useBanners();
   const isMobile = useIsMobile();
-  const isTablet = useIsTablet();
+  const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
 
   // displayOrder로 정렬
   const sortedBanners =
@@ -227,7 +227,7 @@ export default function MainVisual() {
               </div>
               <div className={styles.slideInner}>
                 <div className={styles.slideContent}>
-                  {isMobile || isTablet ? (
+                  {isMobile ? (
                     <Flex direction="column" gap="0.25rem">
                       <Text
                         typography="label4_m_12"
@@ -239,7 +239,7 @@ export default function MainVisual() {
                       </Text>
                       <Flex direction="column" gap="1rem">
                         <Text
-                          typography="head4_sb_20"
+                          typography="head3_m_24"
                           color="white"
                           as="h2"
                           className={styles.multilineText}
@@ -247,7 +247,7 @@ export default function MainVisual() {
                           {normalizeMultilineText(banner.mainTitle)}
                         </Text>
                         <Text
-                          typography="body1_r_16"
+                          typography="label3_m_14"
                           color="neutral-70"
                           as="p"
                           className={styles.multilineText}
@@ -256,6 +256,33 @@ export default function MainVisual() {
                         </Text>
                       </Flex>
                     </Flex>
+                  ) : isTablet ? (
+                    <>
+                      <Text
+                        typography="label2_m_16"
+                        color="primary-light"
+                        as="p"
+                        className={styles.multilineText}
+                      >
+                        {normalizeMultilineText(banner.subTitle)}
+                      </Text>
+                      <Text
+                        typography="head3_m_24"
+                        color="white"
+                        as="h2"
+                        className={styles.multilineText}
+                      >
+                        {normalizeMultilineText(banner.mainTitle)}
+                      </Text>
+                      <Text
+                        typography="sub3_m_16"
+                        color="neutral-80"
+                        as="p"
+                        className={styles.multilineText}
+                      >
+                        {normalizeMultilineText(banner.description)}
+                      </Text>
+                    </>
                   ) : (
                     <>
                       <Text
