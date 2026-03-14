@@ -88,6 +88,10 @@
   gap: 1rem;
 }
 
+.multilineText {
+  white-space: pre-line;
+}
+
 /* 태블릿 (768px ~ 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .mainVisual {
@@ -104,7 +108,7 @@
     top: auto;
     bottom: 5rem;
     transform: none;
-    padding: 0;
+    padding: 0 1rem;
   }
 
   .paging {
@@ -193,7 +197,6 @@
   color: #fff;
   box-sizing: border-box;
 }
-
 
 .pagingButton {
   display: flex;

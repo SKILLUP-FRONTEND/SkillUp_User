@@ -12,6 +12,8 @@ import Text from "@/components/common/Text";
 import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
 
 export default function MainVisual() {
+  const normalizeMultilineText = (text?: string | null) =>
+    text ? text.replace(/\\n/g, "\n") : "";
   const [currentIndex, setCurrentIndex] = useState(1); // 무한 슬라이드: 초기값 1
   const [isTransitioning, setIsTransitioning] = useState(false); // 초기 마운트 시 transition 비활성화
   const [isAnimating, setIsAnimating] = useState(false); // 애니메이션 중 클릭 방지
@@ -231,28 +233,54 @@ export default function MainVisual() {
                         typography="label4_m_12"
                         color="primary-light"
                         as="p"
+                        className={styles.multilineText}
                       >
-                        {banner.subTitle || ""}
+                        {normalizeMultilineText(banner.subTitle)}
                       </Text>
                       <Flex direction="column" gap="1rem">
-                        <Text typography="head4_sb_20" color="white" as="h2">
-                          {banner.mainTitle}
+                        <Text
+                          typography="head4_sb_20"
+                          color="white"
+                          as="h2"
+                          className={styles.multilineText}
+                        >
+                          {normalizeMultilineText(banner.mainTitle)}
                         </Text>
-                        <Text typography="body1_r_16" color="neutral-70" as="p">
-                          {banner.description || ""}
+                        <Text
+                          typography="body1_r_16"
+                          color="neutral-70"
+                          as="p"
+                          className={styles.multilineText}
+                        >
+                          {normalizeMultilineText(banner.description)}
                         </Text>
                       </Flex>
                     </Flex>
                   ) : (
                     <>
-                      <Text typography="sub2_m_18" color="primary-light" as="p">
-                        {banner.subTitle || ""}
+                      <Text
+                        typography="sub2_m_18"
+                        color="primary-light"
+                        as="p"
+                        className={styles.multilineText}
+                      >
+                        {normalizeMultilineText(banner.subTitle)}
                       </Text>
-                      <Text typography="head1_m_42" color="white" as="h2">
-                        {banner.mainTitle}
+                      <Text
+                        typography="head1_m_42"
+                        color="white"
+                        as="h2"
+                        className={styles.multilineText}
+                      >
+                        {normalizeMultilineText(banner.mainTitle)}
                       </Text>
-                      <Text typography="body1_r_16" color="neutral-70" as="p">
-                        {banner.description || ""}
+                      <Text
+                        typography="sub2_m_18"
+                        color="neutral-80"
+                        as="p"
+                        className={styles.multilineText}
+                      >
+                        {normalizeMultilineText(banner.description)}
                       </Text>
                     </>
                   )}
