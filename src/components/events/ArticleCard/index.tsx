@@ -4,18 +4,23 @@ import styles from "./styles.module.css";
 import Flex from "@/components/common/Flex";
 import type { Article } from "@/types/article";
 import Text from "@/components/common/Text";
+import { useArticleClick } from "@/hooks/useArticleClick";
 
 interface ArticleCardProps {
   article: Article;
 }
 
 export default function ArticleCard({ article }: ArticleCardProps) {
+  const { handleArticleClick } = useArticleClick();
+
   return (
     <Flex
       direction="column"
       gap={0.75}
       className={styles.container}
-      onClick={() => window.open(article.originalUrl, "_blank")}
+      onClick={() => {
+        void handleArticleClick(article, { newTab: true });
+      }}
     >
       <div className={styles.articleCardImage}>
         <img src={article.thumbnailUrl} alt={article.title} />

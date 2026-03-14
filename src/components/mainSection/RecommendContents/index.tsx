@@ -17,11 +17,13 @@ import {
 } from "@/constants/category";
 import { useRouter } from "next/navigation";
 import { useIsMobile, useIsTablet } from "@/hooks/useMediaQuery";
+import { useArticleClick } from "@/hooks/useArticleClick";
 
 export default function RecommendedContent() {
   const router = useRouter();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const { handleArticleClick } = useArticleClick();
   const [selectedCategory, setSelectedCategory] = useState<JobCategory>(
     JOB_CATEGORY.ALL
   );
@@ -147,7 +149,9 @@ export default function RecommendedContent() {
               className={`${styles.card} ${idx === 0 ? styles.heroCard : ""}`}
               as="article"
               gap="0.75rem"
-              onClick={() => router.push(article.originalUrl)}
+              onClick={() => {
+                void handleArticleClick(article);
+              }}
             >
               <div
                 className={`${styles.thumb} ${

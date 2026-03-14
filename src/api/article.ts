@@ -17,7 +17,7 @@ export const getArticleList = async (tab?: JobCategory) => {
 export const searchArticles = async (
   keyword?: string,
   page?: number,
-  tab?: JobCategory
+  tab?: JobCategory,
 ) => {
   const response = await instance.get("/articles/search", {
     params: {
@@ -26,5 +26,11 @@ export const searchArticles = async (
       ...(tab && { tab }),
     },
   });
+  return response.data.data;
+};
+
+// 아티클 조회수 증가 API
+export const increaseArticleViewCount = async (articleId: number) => {
+  const response = await instance.post(`/articles/read/${articleId}`);
   return response.data.data;
 };
