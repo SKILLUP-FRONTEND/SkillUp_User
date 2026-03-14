@@ -50,10 +50,10 @@ export default function StickyApplySection({
   const { mutate: toggleBookmark, isPending } = useToggleEventBookmark();
 
   const handleBookmarkClick = () => {
-    setIsBookmarked(prev => !prev);
+    setIsBookmarked((prev) => !prev);
     toggleBookmark(eventId, {
       onError: () => {
-        setIsBookmarked(prev => !prev);
+        setIsBookmarked((prev) => !prev);
       },
     });
   };
@@ -63,8 +63,6 @@ export default function StickyApplySection({
       window.open(applyLink, "_blank");
     }
   };
-
-  const priceText = isFree ? "무료" : `${formatPrice(price)}원`;
 
   return (
     <div className={styles.stickyApplySection}>
@@ -126,9 +124,9 @@ export default function StickyApplySection({
             </Text>
             <Flex align="center" gap="0.5rem">
               <Text typography="sub2_m_18" color="black">
-                {priceText}
+                {formatPrice(price)}원
               </Text>
-              {isFree && <Badge label="무료" variant="primary" />}
+              {isFree && <Badge label="무료" variant="secondary" />}
             </Flex>
           </div>
         </div>
@@ -190,7 +188,11 @@ export default function StickyApplySection({
               문의
             </Text>
           </div>
-          <Text typography="body2_r_14" color="neutral-20">
+          <Text
+            typography="body2_r_14"
+            color="neutral-20"
+            className={styles.phoneNumber}
+          >
             {phoneNumber}
           </Text>
         </div>
