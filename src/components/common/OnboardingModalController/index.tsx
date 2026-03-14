@@ -24,7 +24,6 @@ export default function OnboardingModalController() {
 
   const handleSaved = () => {
     setShowOnboarding(false);
-    router.push("/profile/edit");
   };
 
   const handleRejoin = () => {
