@@ -36,7 +36,6 @@ const CATEGORY_MENU = [
   { label: "컨퍼런스 · 세미나", href: "/conference" },
   { label: "부트캠프", href: "/bootcamp" },
   { label: "동아리 · 해커톤 · 공모전", href: "/hackathon" },
-  { label: "네트워킹 · 멘토링", href: "/mentoring" },
   { label: "아티클", href: "/article" },
 ];
 

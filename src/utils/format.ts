@@ -5,16 +5,17 @@ import { FilterPageId } from "@/components/events/filters/atoms/pageFilterAtoms"
 
 // 카테고리를 URL 경로와 FilterPageId로 변환
 export const getCategoryPath = (
-  category: EventCategory
+  category: EventCategory,
 ): { path: string; pageId: FilterPageId } => {
-  const categoryMap: Record<EventCategory, { path: string; pageId: FilterPageId }> =
-    {
-      CONFERENCE_SEMINAR: { path: "/conference", pageId: "conference" },
-      BOOTCAMP_CLUB: { path: "/bootcamp", pageId: "bootcamp" },
-      COMPETITION_HACKATHON: { path: "/hackathon", pageId: "hackathon" },
-      NETWORKING_MENTORING: { path: "/mentoring", pageId: "mentoring" },
-      ARTICLE: { path: "/article", pageId: "article" },
-    };
+  const categoryMap: Record<
+    EventCategory,
+    { path: string; pageId: FilterPageId }
+  > = {
+    CONFERENCE_SEMINAR: { path: "/conference", pageId: "conference" },
+    BOOTCAMP_CLUB: { path: "/bootcamp", pageId: "bootcamp" },
+    COMPETITION_HACKATHON: { path: "/hackathon", pageId: "hackathon" },
+    ARTICLE: { path: "/article", pageId: "article" },
+  };
 
   return categoryMap[category] || { path: "/conference", pageId: "conference" };
 };

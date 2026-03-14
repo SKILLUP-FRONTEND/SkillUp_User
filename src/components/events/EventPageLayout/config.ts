@@ -3,9 +3,8 @@
 import ConferenceFilterView from "@/components/events/filters/views/ConferenceFilterView";
 import BootcampFilterView from "@/components/events/filters/views/BootcampFilterView";
 import HackathonFilterView from "@/components/events/filters/views/HackathonFilterView";
-import MentoringFilterView from "@/components/events/filters/views/MentoringFilterView";
 
-export type EventPageId = "conference" | "bootcamp" | "hackathon" | "mentoring";
+export type EventPageId = "conference" | "bootcamp" | "hackathon";
 
 export interface PageConfig {
   pageId: EventPageId;
@@ -32,11 +31,5 @@ export const PAGE_CONFIGS: Record<EventPageId, PageConfig> = {
     title: "동아리 · 해커톤 · 공모전",
     FilterView: HackathonFilterView,
     emptyUrl: "/hackathon/create",
-  },
-  mentoring: {
-    pageId: "mentoring",
-    title: "네트워킹 · 멘토링",
-    FilterView: MentoringFilterView,
-    emptyUrl: "/mentoring/create",
   },
 } as const;

@@ -9,14 +9,12 @@ import styles from "./styles.module.css";
 import SeminarIcon from "@/assets/icons/SeminarIcon";
 import BootcampIcon from "@/assets/icons/BootcampIcon";
 import HackathonIcon from "@/assets/icons/HackathonIcon";
-import NetworkIcon from "@/assets/icons/NetworkIcon";
 import ArticleIcon from "@/assets/icons/ArticleIcon";
 
 const menuItems = [
   { icon: SeminarIcon, label: "컨퍼런스·세미나", path: "/conference" },
   { icon: BootcampIcon, label: "부트캠프", path: "/bootcamp" },
   { icon: HackathonIcon, label: "동아리·해커톤·공모전", path: "/hackathon" },
-  { icon: NetworkIcon, label: "네트워킹·멘토링", path: "/mentoring" },
   { icon: ArticleIcon, label: "아티클", path: "/article" },
 ];
 

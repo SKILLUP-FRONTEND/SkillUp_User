@@ -9,15 +9,20 @@ const tabs = [
   { label: "컨퍼런스 · 세미나", href: "/conference" },
   { label: "부트캠프", href: "/bootcamp" },
   { label: "동아리 · 해커톤 · 공모전", href: "/hackathon" },
-  { label: "네트워킹 · 멘토링", href: "/mentoring" },
   { label: "아티클", href: "/article" },
 ];
 
-export default function EventCategoryTabs({ variant }: { variant: "main" | "sub" }) {
+export default function EventCategoryTabs({
+  variant,
+}: {
+  variant: "main" | "sub";
+}) {
   const pathname = usePathname();
 
   return (
-    <nav className={`${styles.tabNav} ${variant === "sub" ? styles.sub : ""} ${variant === "main" ? styles.main : ""}`}>
+    <nav
+      className={`${styles.tabNav} ${variant === "sub" ? styles.sub : ""} ${variant === "main" ? styles.main : ""}`}
+    >
       {tabs.map((tab) => (
         <Link
           key={tab.href}

@@ -40,7 +40,6 @@ export const createPageFilterAtoms = () => {
 export const conferenceFilterAtoms = createPageFilterAtoms();
 export const bootcampFilterAtoms = createPageFilterAtoms();
 export const hackathonFilterAtoms = createPageFilterAtoms();
-export const mentoringFilterAtoms = createPageFilterAtoms();
 export const articleFilterAtoms = createPageFilterAtoms();
 export const searchFilterAtoms = createPageFilterAtoms();
 // 페이지별 atom 매핑 객체
@@ -48,7 +47,6 @@ export const pageFilterAtomsMap = {
   conference: conferenceFilterAtoms,
   bootcamp: bootcampFilterAtoms,
   hackathon: hackathonFilterAtoms,
-  mentoring: mentoringFilterAtoms,
   article: articleFilterAtoms,
   search: searchFilterAtoms,
 } as const;
@@ -63,7 +61,6 @@ export const PAGE_CATEGORY_MAP: Partial<
   conference: "CONFERENCE_SEMINAR",
   bootcamp: "BOOTCAMP_CLUB",
   hackathon: "COMPETITION_HACKATHON",
-  mentoring: "NETWORKING_MENTORING",
   article: "ARTICLE",
 };
 
