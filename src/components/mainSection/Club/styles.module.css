@@ -166,6 +166,7 @@
     gap: 0.5rem; /* 8px */
     padding: 0;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 2rem;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -236,6 +237,7 @@
     gap: 0.5rem; /* 8px - Figma 기준 */
     padding: 0;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 1rem;
     -webkit-overflow-scrolling: touch;
   }
 

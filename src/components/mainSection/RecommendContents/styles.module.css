@@ -86,6 +86,7 @@
     overflow-x: auto;
     gap: 0.5rem;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 2rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     margin: 0 -2rem;
@@ -95,7 +96,7 @@
   .cardList::before,
   .cardList::after {
     content: '';
-    min-width: 2rem;
+    width: 2rem;
     flex-shrink: 0;
   }
 
@@ -137,6 +138,7 @@
     overflow-x: auto;
     gap: 0.5rem; /* 8px - Figma 기준 */
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 1rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     margin: 0 -1rem;
@@ -146,7 +148,7 @@
   .cardList::before,
   .cardList::after {
     content: '';
-    min-width: 1rem;
+    width: 1rem;
     flex-shrink: 0;
   }
 
