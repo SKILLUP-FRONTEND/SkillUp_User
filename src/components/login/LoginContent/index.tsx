@@ -15,6 +15,7 @@ import Flex from "@/components/common/Flex";
 import Button from "@/components/common/Button";
 import { useLogin } from "@/hooks/mutations/useLogin";
 import CloseIcon from "@/assets/icons/CloseIcon";
+import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
 
 type SocialType = "google" | "kakao" | "naver";
 
@@ -42,9 +43,14 @@ export default function LoginContent({
   return (
     <Flex className={styles.loginModal}>
       {onClose && (
-        <button className={styles.closeButton} onClick={onClose}>
-          <CloseIcon width={28} height={28} />
-        </button>
+        <>
+          <button className={styles.closeButton} onClick={onClose}>
+            <CloseIcon width={28} height={28} />
+          </button>
+          <button className={styles.backButton} onClick={onClose}>
+            <ChevronLeftIcon width={24} height={24} />
+          </button>
+        </>
       )}
       <div className={styles.loginModalLeft}>
         <div className={styles.imageWrapper}>
@@ -71,8 +77,8 @@ export default function LoginContent({
         gap={3.5}
         className={styles.loginModalRight}
       >
-        <Flex direction="column" gap={2.5} align="center">
-          <Flex direction="column" gap={1.25} align="center">
+        <Flex direction="column" gap={2.5} align="center" block>
+          <Flex direction="column" gap={1.25} align="center" block>
             <Image
               src={SkillUpSymbolBlack}
               alt="Skill Up Symbol Black"
@@ -89,7 +95,7 @@ export default function LoginContent({
             </Flex>
           </Flex>
           <Flex direction="column" gap={2.5} align="center">
-            <Flex direction="column" gap={0.5} align="center">
+            <Flex direction="column" gap={0.5} align="center" block>
               <SocialLoginButton
                 src={Google}
                 social="Google"

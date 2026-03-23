@@ -10,9 +10,10 @@ interface ModalProps {
   isOpen: boolean;
   toggle: () => void;
   children: React.ReactNode;
+  fullScreen?: boolean;
 }
 
-export default function Modal({ isOpen, toggle, children }: ModalProps) {
+export default function Modal({ isOpen, toggle, children, fullScreen }: ModalProps) {
   // 포커스 복원을 위해 모달 열기 전 포커스 요소 저장
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
@@ -51,12 +52,15 @@ export default function Modal({ isOpen, toggle, children }: ModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.backdrop} onClick={toggle}>
+    <div
+      className={`${styles.backdrop} ${fullScreen ? styles.backdropFullScreen : ""}`}
+      onClick={toggle}
+    >
       <FocusLock returnFocus={false}>
         <div
           role="dialog"
           aria-modal="true"
-          className={styles.modal}
+          className={`${styles.modal} ${fullScreen ? styles.modalFullScreen : ""}`}
           onClick={(e) => e.stopPropagation()}
         >
           {children}

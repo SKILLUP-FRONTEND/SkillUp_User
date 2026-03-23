@@ -290,7 +290,7 @@ export default function MobileHeader({ variant }: MobileHeaderProps) {
       </nav>
 
       {/* 로그인 모달 */}
-      <Modal isOpen={isModalOpen} toggle={toggleModal}>
+      <Modal isOpen={isModalOpen} toggle={toggleModal} fullScreen>
         <LoginContent
           onSocialLoginClick={handleSocialLoginClick}
           onLoginSuccess={toggleModal}

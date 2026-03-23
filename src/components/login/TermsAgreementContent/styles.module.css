@@ -83,3 +83,23 @@
 .termsTable tr:nth-child(even) {
   background: var(--Neutral-99);
 }
+
+@media (max-width: 767px) {
+  .termsContent {
+    width: 21.4375rem; /* 343px */
+    border-radius: 0.75rem; /* 12px */
+  }
+
+  .termsContentHeader {
+    padding: 2rem 1rem 0.75rem 1rem;
+  }
+
+  .termsContentContent {
+    height: 26.375rem; /* 422px */
+    padding: 0 1rem;
+  }
+
+  .termsContentBottom {
+    padding: 1.5rem 1rem 1.75rem 1rem;
+  }
+}
