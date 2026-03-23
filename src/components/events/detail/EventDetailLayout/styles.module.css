@@ -29,6 +29,7 @@
   height: 100%;
   border-radius: 0.75rem;
   object-fit: cover;
+  object-position: top center;
 }
 
 /* TabBar container with bottom border */
@@ -70,6 +71,9 @@
   color: var(--neutral-20);
   font-size: 1rem;
   line-height: 1.6;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .markdown h1,
@@ -107,6 +111,11 @@
 
 .markdown li {
   margin-bottom: 0.5rem;
+}
+
+.markdown img {
+  max-width: 100%;
+  height: auto;
 }
 
 .markdown a {
