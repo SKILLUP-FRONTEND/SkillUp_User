@@ -4,14 +4,13 @@
   max-width: 77.5rem;
   margin: 0 auto;
   padding-bottom: 12.5rem;
-  width: 100%;
+  box-sizing: border-box;
 }
 
 .articleGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 3.75rem 0.75rem;
-  width: 100%;
 }
 
 .skeletonCard {
@@ -20,4 +19,40 @@
   border-radius: 8px;
   box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+}
+
+/* 태블릿 (768px ~ 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding: 0 2rem 8rem 2rem;
+  }
+
+  .articleGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 0.5rem;
+  }
+}
+
+/* 소형 태블릿 (480px ~ 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .container {
+    padding: 0 1rem 5rem 1rem;
+  }
+
+  .articleGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 0.5rem;
+  }
+}
+
+/* 모바일 (~ 479px) */
+@media (max-width: 479px) {
+  .container {
+    padding: 0 1rem 5rem 1rem;
+  }
+
+  .articleGrid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
 }

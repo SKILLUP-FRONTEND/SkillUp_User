@@ -120,7 +120,7 @@
 /* 모바일 (~767px) */
 @media (max-width: 767px) {
   .mainVisual {
-    height: 32.5rem;
+    height: 50dvh;
   }
 
   .slideInner {
