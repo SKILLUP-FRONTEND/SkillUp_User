@@ -70,3 +70,11 @@
 .slideOut {
   animation: slideOut 0.3s ease-out forwards;
 }
+
+/* 모바일 (~767px) */
+@media (max-width: 767px) {
+  .toast {
+    width: calc(100% - 3rem);
+    top: 1.5rem;
+  }
+}

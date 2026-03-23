@@ -60,7 +60,7 @@ export default function SupportPage() {
 
   if (isLoading) {
     return (
-      <div style={{ paddingTop: "6.25rem", paddingBottom: "10rem" }}>
+      <div className={styles.container} style={{ paddingTop: "6.25rem" }}>
         <SupportPageSkeleton />
       </div>
     );
@@ -68,14 +68,14 @@ export default function SupportPage() {
 
   if (error) {
     return (
-      <div style={{ paddingTop: "6.25rem", paddingBottom: "10rem" }}>
+      <div className={styles.container} style={{ paddingTop: "6.25rem" }}>
         <p>FAQ 데이터를 불러올 수 없습니다.</p>
       </div>
     );
   }
 
   return (
-    <div style={{ paddingTop: "6.25rem", paddingBottom: "10rem" }}>
+    <div className={styles.container} style={{ paddingTop: "6.25rem" }}>
       <SupportPageLayout faqData={faqData || []} />
     </div>
   );

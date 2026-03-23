@@ -1,5 +1,11 @@
 /* src/app/bookmarks/styles.module.css */
 
+.pageWrapper {
+  padding-top: 6.25rem;
+  min-height: calc(100vh - 6.25rem - 11.625rem); /* 헤더 + 푸터 */
+  overflow-x: hidden;
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -116,6 +122,14 @@
 
   .skeletonCard {
     width: 100%;
+  }
+}
+
+/* 모바일 (~767px) */
+@media (max-width: 767px) {
+  .pageWrapper {
+    padding-top: 3.375rem;
+    min-height: calc(100dvh - 3.375rem - 12rem); /* 모바일 헤더 + 모바일 푸터 */
   }
 }
 

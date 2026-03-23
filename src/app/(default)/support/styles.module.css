@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  min-height: calc(100vh - 6rem);
+  min-height: calc(100vh - 6.25rem - 11.625rem); /* 헤더 + 푸터 */
   background: var(--Common-white);
 }
 
@@ -30,6 +30,10 @@
 
 /* 모바일 (~767px) */
 @media (max-width: 767px) {
+  .container {
+    min-height: calc(100dvh - 3.375rem - 12rem); /* 모바일 헤더 + 모바일 푸터 */
+  }
+
   .content {
     max-width: 100%;
   }

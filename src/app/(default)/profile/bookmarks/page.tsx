@@ -3,10 +3,11 @@
 "use client";
 
 import BookmarkPageLayout from "./BookmarkPageLayout";
+import styles from "./styles.module.css";
 
 export default function BookmarksPage() {
   return (
-    <div style={{ paddingTop: "6.25rem", minHeight: "calc(100vh - 12rem)" }}>
+    <div className={styles.pageWrapper}>
       <BookmarkPageLayout />
     </div>
   );
