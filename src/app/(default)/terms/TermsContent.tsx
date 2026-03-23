@@ -108,6 +108,7 @@ export default function TermsContent() {
                   ))}
                 </div>
                 {section.table && (
+                  <div className={styles.tableWrapper}>
                   <table className={styles.table}>
                     <thead>
                       <tr>
@@ -126,6 +127,7 @@ export default function TermsContent() {
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 )}
               </div>
             ))}
