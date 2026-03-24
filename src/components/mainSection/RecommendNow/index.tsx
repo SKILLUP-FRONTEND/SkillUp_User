@@ -63,9 +63,14 @@ export default function RecommendNow() {
             type="button"
             className={styles.moreBtn}
             onClick={handleMoreClick}
+            aria-label="더보기"
           >
-            더보기
-            <ChevronRightIcon width={16} height={16} color="var(--Neutral-40)" />
+            <span className={styles.moreBtnLabel}>더보기</span>
+            <ChevronRightIcon
+              width={16}
+              height={16}
+              color="var(--Neutral-40)"
+            />
           </button>
         </div>
       </Flex>
@@ -130,20 +135,44 @@ export default function RecommendNow() {
                     style={{ padding: "16px", flex: 1 }}
                   >
                     <Flex direction="column" gap="4px">
-                      <Skeleton width="103px" height="24px" borderRadius="100px" />
-                      <Skeleton width="100%" height="36px" borderRadius="100px" />
+                      <Skeleton
+                        width="103px"
+                        height="24px"
+                        borderRadius="100px"
+                      />
+                      <Skeleton
+                        width="100%"
+                        height="36px"
+                        borderRadius="100px"
+                      />
                     </Flex>
                     <Flex direction="column" gap="6px">
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
-                      <Skeleton width="224px" height="18px" borderRadius="100px" />
+                      <Skeleton
+                        width="224px"
+                        height="18px"
+                        borderRadius="100px"
+                      />
+                      <Skeleton
+                        width="224px"
+                        height="18px"
+                        borderRadius="100px"
+                      />
                     </Flex>
                     <Flex
                       justify="space-between"
                       align="center"
                       style={{ marginTop: "auto" }}
                     >
-                      <Skeleton width="121px" height="28px" borderRadius="100px" />
-                      <Skeleton width="102px" height="36px" borderRadius="4px" />
+                      <Skeleton
+                        width="121px"
+                        height="28px"
+                        borderRadius="100px"
+                      />
+                      <Skeleton
+                        width="102px"
+                        height="36px"
+                        borderRadius="4px"
+                      />
                     </Flex>
                   </Flex>
                 </div>
@@ -211,7 +240,8 @@ export default function RecommendNow() {
           </Flex>
 
           <Flex justify="center">
-            {isDesktop && ( <button
+            {isDesktop && (
+              <button
                 type="button"
                 className={styles.moreBtn}
                 onClick={handleMoreClick}

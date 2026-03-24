@@ -45,7 +45,7 @@ export const tokenAtom = atomWithStorage<string | null>(
   "accessToken",
   null,
   createSafeStorage<string | null>(),
-  { getOnInit: true }
+  { getOnInit: false }
 );
 
 // 유저 이름 Atom - localStorage에 자동 저장 (SSR 안전)
@@ -53,7 +53,7 @@ export const userNameAtom = atomWithStorage<string | null>(
   "userName",
   null,
   createSafeStorage<string | null>(),
-  { getOnInit: true }
+  { getOnInit: false }
 );
 
 // 유저 이메일 Atom - localStorage에 자동 저장 (SSR 안전)
@@ -61,7 +61,7 @@ export const userEmailAtom = atomWithStorage<string | null>(
   "userEmail",
   null,
   createSafeStorage<string | null>(),
-  { getOnInit: true }
+  { getOnInit: false }
 );
 
 // 유저 프로필 이미지 Atom - localStorage에 자동 저장 (SSR 안전)
@@ -69,7 +69,7 @@ export const userProfileImageAtom = atomWithStorage<string | null>(
   "userProfileImage",
   null,
   createSafeStorage<string | null>(),
-  { getOnInit: true }
+  { getOnInit: false }
 );
 
 // 로그인 상태 확인 Atom (파생 상태)

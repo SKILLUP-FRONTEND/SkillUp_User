@@ -57,10 +57,20 @@
   }
 }
 
+.cardItem {
+  width: 21.875rem;
+  min-width: 0;
+}
+
 .bookmarkBtn {
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+
+.textContent {
+  width: 100%;
+  min-width: 0;
 }
 
 .textBox {
@@ -68,12 +78,12 @@
 }
 
 .metaText {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  align-self: stretch;
+  display: block;
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* 키워드 가로 스크롤 영역 */
@@ -136,6 +146,10 @@
     border-radius: 0.5rem;
   }
 
+  .cardItem {
+    width: 16.25rem;
+  }
+
   .imgBox img {
     border-radius: 0.5rem;
   }
@@ -193,6 +207,10 @@
     width: 16.25rem;
     height: 10rem;
     border-radius: 0.5rem;
+  }
+
+  .cardItem {
+    width: 16.25rem;
   }
 
   .imgBox img {

@@ -197,6 +197,7 @@ export default function RecommendInterest() {
                     key={event.id}
                     direction="column"
                     gap="0.5rem"
+                    className={styles.cardItem}
                     onClick={() => handleCardClick(event)}
                     style={{ cursor: "pointer" }}
                   >
@@ -223,7 +224,11 @@ export default function RecommendInterest() {
                         ariaLabel="Bookmark Icon"
                       />
                     </div>
-                    <Flex direction="column" gap="0.25rem">
+                    <Flex
+                      direction="column"
+                      gap="0.25rem"
+                      className={styles.textContent}
+                    >
                       <Text
                         typography={
                           isMobile || isTablet ? "head4_sb_20" : "head4_sb_20"
