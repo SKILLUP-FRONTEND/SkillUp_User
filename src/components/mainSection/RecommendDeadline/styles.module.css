@@ -102,7 +102,6 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     gap: 0.5rem; /* 8px - Figma 기준 */
-    padding: 0 1rem;
   }
 
   .carouselItem {
